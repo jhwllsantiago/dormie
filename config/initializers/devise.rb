@@ -308,4 +308,7 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  # You need to add this for Devise 4.8.1 to work with Rails 7; otherwise, you’d get an undefined method user_url error.
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 end
