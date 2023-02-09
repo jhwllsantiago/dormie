@@ -3,6 +3,11 @@
 class DeviseCreateOwners < ActiveRecord::Migration[7.0]
   def change
     create_table :owners do |t|
+      # Additional fields
+      t.string :name, null: false, default: ""
+      t.string :contact, null: false, default: ""
+      t.integer :status, null: false, default: 0
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

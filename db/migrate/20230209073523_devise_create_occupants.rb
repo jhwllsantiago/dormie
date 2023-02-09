@@ -3,6 +3,9 @@
 class DeviseCreateOccupants < ActiveRecord::Migration[7.0]
   def change
     create_table :occupants do |t|
+      # Additional fields
+      t.string :name, null: false, default: ""
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
