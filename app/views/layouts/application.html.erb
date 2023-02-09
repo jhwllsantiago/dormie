@@ -13,6 +13,16 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav><%= render "layouts/nav" %></nav>
+      <% if notice %>
+        <p><%= notice %></p>
+      <% elsif alert %>
+        <p><%= alert %></p>
+      <% end %>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>
