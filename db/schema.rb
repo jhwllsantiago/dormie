@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_09_073523) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_10_091236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "address", default: "", null: false
+    t.string "barangay", default: "", null: false
+    t.string "city", default: "", null: false
+    t.decimal "long", precision: 10, scale: 6
+    t.decimal "lat", precision: 10, scale: 6
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city"], name: "index_locations_on_city"
+    t.index ["name"], name: "index_locations_on_name"
+  end
 
   create_table "occupants", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -52,4 +65,53 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_073523) do
     t.index ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating", default: 5, null: false
+    t.string "title", default: "", null: false
+    t.text "comment", default: "", null: false
+    t.bigint "room_id", null: false
+    t.bigint "occupant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["occupant_id"], name: "index_reviews_on_occupant_id"
+    t.index ["room_id"], name: "index_reviews_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.text "description", default: "", null: false
+    t.float "rent", default: 0.0, null: false
+    t.integer "capacity", default: 0, null: false
+    t.integer "vacancies", default: 0, null: false
+    t.string "tags", array: true
+    t.bigint "owner_id", null: false
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_rooms_on_location_id"
+    t.index ["name"], name: "index_rooms_on_name"
+    t.index ["owner_id"], name: "index_rooms_on_owner_id"
+    t.index ["rent"], name: "index_rooms_on_rent"
+    t.index ["tags"], name: "index_rooms_on_tags"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.boolean "mon", array: true
+    t.boolean "tue", array: true
+    t.boolean "wed", array: true
+    t.boolean "thu", array: true
+    t.boolean "fri", array: true
+    t.boolean "sat", array: true
+    t.boolean "sun", array: true
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_schedules_on_owner_id"
+  end
+
+  add_foreign_key "reviews", "occupants"
+  add_foreign_key "reviews", "rooms"
+  add_foreign_key "rooms", "locations"
+  add_foreign_key "rooms", "owners"
+  add_foreign_key "schedules", "owners"
 end
