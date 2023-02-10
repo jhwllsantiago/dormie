@@ -19,7 +19,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_091236) do
     t.string "address", default: "", null: false
     t.string "barangay", default: "", null: false
     t.string "city", default: "", null: false
-    t.string "province", default: "", null: false
     t.decimal "long", precision: 10, scale: 6
     t.decimal "lat", precision: 10, scale: 6
     t.datetime "created_at", null: false

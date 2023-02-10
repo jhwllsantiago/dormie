@@ -5,7 +5,6 @@ class CreateLocations < ActiveRecord::Migration[7.0]
       t.string :address, null: false, default: ""
       t.string :barangay, null: false, default: ""
       t.string :city, null: false, default: ""
-      t.string :province, null: false, default: ""
       t.decimal :long, :precision => 10, :scale => 6
       t.decimal :lat, :precision => 10, :scale => 6
 

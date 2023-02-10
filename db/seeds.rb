@@ -18,11 +18,10 @@ occupant = Occupant.create(
 )
 
 location = Location.create(
-  name: "location name",
-  address: "address",
-  barangay: "barangay",
-  city: "city",
-  province: "province"
+  name: "AAA Building",
+  address: "123 AAA Building, XYZ Street, Addition Hills, City of Mandaluyong",
+  barangay: "Addition Hills",
+  city: "City of Mandaluyong"
 )
 
 room = Room.create(
