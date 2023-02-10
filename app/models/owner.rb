@@ -7,4 +7,5 @@ class Owner < ApplicationRecord
   validates :name, presence: true
   has_many :rooms
   has_one :schedule
+  enum :status, { unverified: 0, verified: 1, partner: 2, inactive: 3 }
 end
