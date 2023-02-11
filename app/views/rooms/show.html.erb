@@ -1,0 +1,17 @@
+show
+
+<%= @room.name %>
+
+<p>Tags</p>
+
+<% @tags.each do |tag| %>
+  <span><%= tag.name %></span>
+<% end %>
+
+<p>Reviews</p>
+<% @room.reviews.each do |review| %>
+  <p><%= review.occupant.name %></p>
+  <p>Rated: <%= review.rating %></p>
+  <p><%= review.title %></p>
+  <p><%= review.comment %></p>
+<% end %>

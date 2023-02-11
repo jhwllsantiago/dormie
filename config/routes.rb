@@ -8,4 +8,6 @@ Rails.application.routes.draw do
     sessions: "owners/sessions"
   }
   root "pages#home"
+
+  resources :rooms
 end
