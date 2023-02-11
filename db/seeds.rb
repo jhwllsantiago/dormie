@@ -30,7 +30,7 @@ room = Room.create(
   rent: 10000.0,
   capacity: 10,
   vacancies: 5,
-  tags: ["room tag 1", "room tag 2"],
+  tags: ["1", "2", "3", "7"],
   owner: owner,
   location: location
 )
@@ -53,3 +53,13 @@ Review.create(
   room: room,
   occupant: occupant
 )
+
+Tag.create([
+  {name: "Reception"},
+  {name: "Parking"},
+  {name: "Food Hall"},
+  {name: "Elevator"},
+  {name: "Laundromat"},
+  {name: "Wifi"},
+  {name: "Roof Deck"}
+])
