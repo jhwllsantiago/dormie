@@ -51,6 +51,12 @@ gem "bootsnap", require: false
 # Use devise for users
 gem "devise"
 
+# Use Faraday for HTTP client
+gem "faraday"
+
+# 
+gem "requestjs-rails"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
