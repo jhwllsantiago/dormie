@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :rooms
+  get "locations/new", to: "locations#new"
+  post "locations", to: "locations#create"
 end

@@ -1,0 +1,25 @@
+<%= form_with(model: location) do |f| %>
+  <div>
+  <%= f.label :name, style: "display: block" %>
+  <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div>
+  <%= f.label :address, style: "display: block" %>
+  <%= f.text_field :address %>
+  </div>
+  
+  <div>
+  <%= f.label :city, style: "display: block" %>
+  <%= f.text_field :city %>
+  </div>
+  
+  <div>
+  <%= f.label :barangay, style: "display: block" %>
+  <%= f.text_field :barangay %>
+  </div>
+  
+  <div>
+  <%= f.submit "Save" %>
+  </div>
+<% end %>
