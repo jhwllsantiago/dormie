@@ -1,0 +1,9 @@
+<div class="card m-3" style="width: 300px;">
+  <img src="https://picsum.photos/seed/room<%= room.id %>/300/200" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%= room.name %></h5>
+    <p class="card-text"><%= room.description %></p>
+    <p class="card-text"><%= room.location.name %></p>
+    <%= link_to "More Details", room_path(room) %>
+  </div>
+</div>

@@ -7,7 +7,6 @@ class CreateRooms < ActiveRecord::Migration[7.0]
       t.integer :capacity, null: false, default: 0
       t.integer :vacancies, null: false, default: 0
       t.string :tags, array: true
-      t.belongs_to :owner, null: false, foreign_key: true
       t.belongs_to :location, null: false, foreign_key: true
 
       t.timestamps

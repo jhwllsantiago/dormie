@@ -1,0 +1,27 @@
+<%= form_with(model: location) do |f| %>
+  <div>
+    <%= f.label :name, style: "display: block" %>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div>
+    <%= f.label :unit, style: "display: block" %>
+    <%= f.text_field :unit %>
+  </div>
+
+  <div>
+    <%= f.label :street, style: "display: block" %>
+    <%= f.text_field :street %>
+  </div>
+  
+  <div data-controller="select" data-select-url-value="<%= select_barangay_path %>" data-select-identifier-value="city">
+    <%= f.select :city, options_from_collection_for_select(@cities, :last, :first, @city),
+      { prompt: "Select a city" },
+      { class: "form-select", data: { action: "change->select#change" } } %>
+    <%= f.select :barangay, [], { prompt: "Select a barangay" }, { class: "form-select", data: { select_target: "select" } } %>
+  </div>
+
+  <div>
+    <%= f.submit "Save" %>
+  </div>
+<% end %>

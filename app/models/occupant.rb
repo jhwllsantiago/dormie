@@ -5,5 +5,5 @@ class Occupant < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
   validates :name, presence: true
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 end

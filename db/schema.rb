@@ -10,21 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_10_091236) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_10_172140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "locations", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "address", default: "", null: false
+    t.string "unit", default: "", null: false
+    t.string "street", default: "", null: false
     t.string "barangay", default: "", null: false
     t.string "city", default: "", null: false
-    t.decimal "long", precision: 10, scale: 6
-    t.decimal "lat", precision: 10, scale: 6
+    t.string "query", default: "", null: false
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["city"], name: "index_locations_on_city"
-    t.index ["name"], name: "index_locations_on_name"
+    t.index ["address"], name: "index_locations_on_address"
+    t.index ["latitude"], name: "index_locations_on_latitude"
+    t.index ["longitude"], name: "index_locations_on_longitude"
+    t.index ["owner_id"], name: "index_locations_on_owner_id"
   end
 
   create_table "occupants", force: :cascade do |t|
@@ -84,13 +90,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_091236) do
     t.integer "capacity", default: 0, null: false
     t.integer "vacancies", default: 0, null: false
     t.string "tags", array: true
-    t.bigint "owner_id", null: false
     t.bigint "location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_rooms_on_location_id"
     t.index ["name"], name: "index_rooms_on_name"
-    t.index ["owner_id"], name: "index_rooms_on_owner_id"
     t.index ["rent"], name: "index_rooms_on_rent"
     t.index ["tags"], name: "index_rooms_on_tags"
   end
@@ -109,9 +113,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_091236) do
     t.index ["owner_id"], name: "index_schedules_on_owner_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "locations", "owners"
   add_foreign_key "reviews", "occupants"
   add_foreign_key "reviews", "rooms"
   add_foreign_key "rooms", "locations"
-  add_foreign_key "rooms", "owners"
   add_foreign_key "schedules", "owners"
 end
