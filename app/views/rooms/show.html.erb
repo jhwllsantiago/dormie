@@ -1,12 +1,28 @@
-show
+<% if owner_signed_in? and current_owner&.rooms.include?(@room) %>
+  <%= link_to "Edit Room", edit_room_path(@room), class: "btn btn-dark ms-1 fs-7 w-f-90" %>
+  <%= button_to "Delete Room", @room, method: :delete, class: "btn btn-dark ms-1 fs-7 w-f-90" %>
+<% end %>
 
-<%= @room.name %>
+<%= @room.name.upcase %>
+<%= @room.description %>
 
 <p>Tags</p>
 
 <% @tags.each do |tag| %>
   <span><%= tag.name %></span>
 <% end %>
+
+<p>Location</p>
+<p><%= @room.location.address %></p>
+
+<div style="width: 600px; height: 400px;">
+  <iframe
+    src="https://www.google.com/maps/place?q=<%= @room.location.query %>&output=embed"
+    frameborder="0"
+    width="100%"
+    height="100%">
+  </iframe>
+</div>
 
 <p>Reviews</p>
 <% @room.reviews.each do |review| %>
