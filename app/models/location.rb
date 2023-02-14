@@ -1,5 +1,7 @@
 class Location < ApplicationRecord
-  validates :name, :address, :barangay, :city, presence: true
+  validates :name, presence: true
+  geocoded_by :address
+  after_validation :geocode
+  belongs_to :owner
   has_many :rooms, dependent: :destroy
-  has_many :owners, -> { distinct }, through: :rooms
 end

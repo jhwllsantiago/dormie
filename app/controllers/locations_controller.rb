@@ -11,6 +11,8 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     @location.barangay = @location.barangay.split("--")[1]
     @location.city = @location.city.split("--")[1]
+    @location.query = query_string(@location)
+    @location.owner = current_owner
 
     if @location.save
       redirect_to new_room_path, notice: "Location was successfully added."
@@ -30,7 +32,7 @@ class LocationsController < ApplicationController
 
   private
   def location_params
-    params.require(:location).permit(:name, :address, :barangay, :city, :long, :lat)
+    params.require(:location).permit(:name, :unit, :street, :barangay, :city, :latitude, :longitude)
   end
 
   def get_cities

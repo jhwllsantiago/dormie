@@ -13,4 +13,12 @@ module LocationsHelper
   def name_and_code response
     response.collect { |item| [item["name"], item["code"]]}
   end
+
+  def query_string location
+    name = location.name
+    street = location.street
+    barangay = location.barangay
+    city = location.city
+    (name + street + barangay + city).gsub(" ", "+")
+  end
 end
