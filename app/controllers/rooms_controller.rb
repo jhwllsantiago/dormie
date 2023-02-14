@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
   before_action :set_locations, only: %i[ new edit ]
 
   def index
-    @rooms = Room.all
+    @rooms = Room.all.includes(:location)
   end
 
   def show
