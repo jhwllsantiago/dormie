@@ -11,6 +11,7 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     @location.barangay = @location.barangay.split("--")[1]
     @location.city = @location.city.split("--")[1]
+    @location.address = address_string(@location)
     @location.query = query_string(@location)
     @location.owner = current_owner
 

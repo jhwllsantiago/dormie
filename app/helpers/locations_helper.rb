@@ -21,4 +21,12 @@ module LocationsHelper
     city = location.city
     (name + street + barangay + city).gsub(" ", "+")
   end
+
+  def address_string location
+    unit = location.unit
+    street = location.street
+    barangay = location.barangay
+    city = location.city
+    "#{unit}, #{street}, #{barangay}, #{city}"
+  end
 end
