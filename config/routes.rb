@@ -8,4 +8,5 @@ Rails.application.routes.draw do
     sessions: "owners/sessions"
   }
   root "pages#home"
+  get "/sign_in", to: "pages#options"
 end
