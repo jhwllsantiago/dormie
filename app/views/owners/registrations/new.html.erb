@@ -1,39 +1,41 @@
-<h2>Sign up</h2>
+<div class="container-fluid bg-p-options h-custom mb-custom d-flex align-items-center justify-content-center">
+  <div class="form shadow-lg p-5">
+    <h3 class="text-center monsterrat heading-color semiBold">Join the Dormie family.</h3>
+    <h6 class="text-center quicksand grey" style="margin-bottom: 50px;">Find tenants and make consistent income when you advertise your property with us!</span></h6>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "owners/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "owners/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :name, class: "form-control", placeholder: "Name", autofocus: true %>
+        <%= f.label :name %>
+      </div>
+
+      <div class="form-floating mb-3">
+        <%= f.email_field :email, class: "form-control", placeholder: "Email", autocomplete: "email" %>
+        <%= f.label :email %>
+      </div>
+
+      <div class="form-floating mb-3">
+        <%= f.number_field :contact, class: "form-control", placeholder: "Contact" %>
+        <%= f.label :contact %>
+      </div>
+
+      <div class="form-floating mb-3">
+        <%= f.password_field :password, class: "form-control", placeholder: "Password", autocomplete: "new-password" %>
+        <%= f.label :password %>
+      </div>
+
+      <div class="form-floating mb-3">
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Password Confirmation", autocomplete: "new-password" %>
+        <%= f.label :password_confirmation %>
+      </div>
+
+      <div class="actions d-flex align-items-content justify-content-center mb-3">
+        <%= f.submit "Sign up" %>
+      </div>
+    <% end %>
+
+    <div class="links text-center quicksand grey"><%= render "owners/shared/links", style: "text-decoration: none;" %></div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :contact %><br />
-    <%= f.number_field :contact %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "owners/shared/links" %>
+</div>

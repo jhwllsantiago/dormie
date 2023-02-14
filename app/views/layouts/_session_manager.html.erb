@@ -5,5 +5,5 @@
   <p><%= current_occupant.name %></p>
   <%= button_to "Logout", destroy_occupant_session_path, method: :delete %>
 <% else %>
-  <%= button_to "Login", root_path, method: :get %>
+  <%= button_to "login", sign_in_path, method: :get, class: "nav-button" %>
 <% end %>
