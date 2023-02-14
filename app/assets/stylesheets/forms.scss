@@ -1,0 +1,151 @@
+$main-font: "Montserrat", sans-serif;
+$sec-font: "Quicksand", sans-serif;
+
+$heading-color: #3c529c;
+$grey: #59657c;
+$light-grey: #727e95;
+$light-violet: #d8e4fb;
+$placeholder-color: #8e8e8e;
+
+.heading-color {
+  color: $heading-color;
+}
+
+.grey {
+  color: $grey;
+}
+
+.light-violet {
+  color: $light-violet;
+}
+
+.placeholder-color {
+  color: $placeholder-color;
+}
+
+.monsterrat {
+  font-family: $main-font;
+}
+
+.quicksand {
+  font-family: $sec-font;
+}
+
+.reg {
+  font-weight: 400;
+}
+
+.semiBold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.bg-p-options {
+  background-image: url("forms/options-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.links {
+  text-decoration: none;
+
+  .options {
+    width: 350px;
+    height: 350px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  }
+
+  .options:hover {
+    background-color: $light-violet;
+    border-radius: 5px;
+  }
+
+  a {
+    text-decoration: none;
+    color: $grey;
+    padding-bottom: 2px !important;
+    box-sizing: border-box;
+  }
+
+  a:hover {
+    color: $heading-color;
+    font-weight: 600;
+  }
+}
+
+.form {
+  width: 700px;
+  border-radius: 5px;
+  font-family: $sec-font;
+  // text-transform: lowercase;
+  color: $grey;
+  background-color: white;
+
+  .form-control:focus {
+    border-color: $heading-color;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
+  }
+
+  .actions {
+    input {
+      border: none;
+      outline: 0;
+      width: 100%;
+      height: 35px;
+      border-radius: 5px;
+      background-color: $heading-color;
+      color: white;
+      font-family: $sec-font;
+      font-weight: 600;
+      transition: 300ms;
+      // text-transform: lowercase;
+    }
+    input:hover {
+      background-color: $light-violet;
+      color: $heading-color;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .form {
+    margin-top: 130px;
+  }
+}
+
+@media (max-width: 540px) {
+  .form {
+    margin-top: 130px;
+  }
+
+  .options {
+    height: 90px !important;
+    width: 90px !important;
+
+    img {
+      width: 50px;
+      aspect-ratio: auto 50 / 50;
+      height: 50px;
+    }
+
+    h3 {
+      margin-top: 0px !important;
+      font-size: 1rem !important;
+    }
+  }
+}
+
+@media (max-width: 280px) {
+  .mb-custom {
+    margin-top: 45px;
+    margin-bottom: 225px !important;
+  }
+}
