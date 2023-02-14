@@ -1,0 +1,20 @@
+<div class="container-fluid bg-p-options h-custom mb-custom">
+  <div class="container-lg h-100 d-flex flex-column align-items-center justify-content-center">
+    <h1 class="text-center monsterrat heading-color semiBold">Welcome back!</h1>
+    <h5 class="text-center quicksand grey" style="margin-bottom: 50px;">Are you a...</span></h5>
+    <div class="d-flex flex-row align-items-center justify-content-center">
+      <%= link_to new_occupant_session_path, class: 'links' do %>
+        <div class="options mx-3 d-flex flex-column align-items-center justify-content-center">
+          <%= image_tag("forms/roomie.png", size: "200x200") %>
+          <h3 class="text-center monsterrat heading-color semiBold" style="margin-top: 10px;">roomie?</span></h3>
+        </div>
+      <% end %>
+      <%= link_to new_owner_session_path, class: 'links' do %>
+        <div class="options mx-3 d-flex flex-column align-items-center justify-content-center">
+          <%= image_tag("forms/partners.png", size: "200x200") %>
+          <h3 class="text-center monsterrat heading-color semiBold" style="margin-top: 10px;">partner?</span></h3>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
