@@ -1,16 +1,19 @@
-<h2>Resend confirmation instructions</h2>
+<div class="container-fluid bg-p-options h-custom mb-custom d-flex align-items-center justify-content-center">
+  <div class="form shadow-lg p-5 mb-3">
+    <h3 class="text-center monsterrat heading-color semiBold">Resend confirmation instructions</h3>
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "owners/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "owners/shared/error_messages", resource: resource %>
+      <div class="form-floating mb-3"> 
+        <%= f.email_field :email, class: "form-control", placeholder: "Email", autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+        <%= f.label :email %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+      <div class="actions d-flex align-items-content justify-content-center mb-3">
+        <%= f.submit "Send me new instructions for confirmation" %>
+      </div>
+    <% end %>
+
+  <div class="links text-center quicksand grey"><%= render "owners/shared/links", style: "text-decoration: none;" %></div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "owners/shared/links" %>
+</div>
