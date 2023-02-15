@@ -21,7 +21,9 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params.except(:location))
     @room.location = Location.find(room_params[:location])
 
-    if @room.save
+    if !content_type_valid?
+      redirect_to new_room_path, alert: "Please upload images in jpg or png format.", status: :unprocessable_entity
+    elsif @room.save
       redirect_to room_url(@room), notice: "Room was successfully created."
     else
       redirect_to new_room_path, alert: "Room was not created.", status: :unprocessable_entity
@@ -33,6 +35,7 @@ class RoomsController < ApplicationController
   end
 
   def update
+    @room.images.purge
     @room.location = Location.find(room_params[:location]) if room_params[:location].present? 
 
     if @room.update(room_params.except(:location))
@@ -43,6 +46,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
+    @room.images.purge
     @room.destroy
     redirect_to new_room_path, notice: "Room was successfully deleted."
   end
@@ -57,10 +61,18 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :rent, :capacity, :vacancies, :description, :location, tags: [])
+    params.require(:room).permit(:name, :rent, :capacity, :vacancies, :description, :location, tags: [], images: [])
   end
 
   def set_locations
     @locations = current_owner.locations
+  end
+
+  def content_type_valid?
+    return true if room_params[:images].nil?
+    room_params[:images].each do |image|
+      return false unless image.content_type.in? %w[ image/jpeg image/png ]
+    end
+    true
   end
 end
