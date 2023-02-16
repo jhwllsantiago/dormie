@@ -1,27 +1,32 @@
-<%= form_with(model: location) do |f| %>
-  <div>
-    <%= f.label :name, style: "display: block" %>
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+<div class="container-fluid bg-p-options h-custom mb-custom d-flex align-items-center justify-content-center">
+  <div class="form shadow-lg p-5">
+    <h3 class="text-center monsterrat heading-color semiBold mb-3">List Property</h3>
+    <%= form_with(model: location) do |f| %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :name, class: "form-control", placeholder: "Name", autofocus: true %>
+        <%= f.label :name, style: "display: block" %>
+      </div>
 
-  <div>
-    <%= f.label :unit, style: "display: block" %>
-    <%= f.text_field :unit %>
-  </div>
+      <div class="form-floating mb-3">
+        <%= f.text_field :unit, class: "form-control", placeholder: "Unit" %>
+        <%= f.label :unit, style: "display: block" %>
+      </div>
 
-  <div>
-    <%= f.label :street, style: "display: block" %>
-    <%= f.text_field :street %>
-  </div>
-  
-  <div data-controller="select" data-select-url-value="<%= select_barangay_path %>" data-select-identifier-value="city">
-    <%= f.select :city, options_from_collection_for_select(@cities, :last, :first, @city),
-      { prompt: "Select a city" },
-      { class: "form-select", data: { action: "change->select#change" } } %>
-    <%= f.select :barangay, [], { prompt: "Select a barangay" }, { class: "form-select", data: { select_target: "select" } } %>
-  </div>
+      <div class="form-floating mb-3">
+        <%= f.text_field :street, class: "form-control", placeholder: "Street" %>
+        <%= f.label :street, style: "display: block" %>
+      </div>
+      
+      <div data-controller="select" data-select-url-value="<%= select_barangay_path %>" data-select-identifier-value="city">
+        <%= f.select :city, options_from_collection_for_select(@cities, :last, :first, @city),
+          { prompt: "Select a city" },
+          { class: "form-select mb-3", data: { action: "change->select#change" } } %>
+        <%= f.select :barangay, [], { prompt: "Select a barangay" }, { class: "form-select mb-3", data: { select_target: "select" } } %>
+      </div>
 
-  <div>
-    <%= f.submit "Save" %>
+      <div class="actions d-flex align-items-content justify-content-center mb-3">
+        <%= f.submit "Post" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
