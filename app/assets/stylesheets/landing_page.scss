@@ -141,8 +141,37 @@ $placeholder-color: #8e8e8e;
   }
 }
 
+.dropdown-menu {
+  border: 1px solid $heading-color !important;
+}
+
+.dropdown-divider {
+  border-top: 1px solid $heading-color !important;
+}
+
+.dropdown-item {
+  font-family: $sec-font !important;
+  color: $grey !important;
+}
+
+.dropdown-item:hover, .dropdown-item:focus  {
+  background-color: $light-violet !important;
+}
+
+.dropdown-item:active {
+  background-color: $heading-color !important;
+  color: white !important;
+}
+
+.dropdown-toggle {
+  font-family: $sec-font;
+  font-weight: 600;
+  color: $heading-color !important;
+  text-decoration: none;
+}
+
 .h-custom {
-  height: 100vh;
+  height: 91vh;
 }
 
 .mb-custom {
