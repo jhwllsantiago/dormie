@@ -83,17 +83,21 @@ $placeholder-color: #8e8e8e;
   width: 700px;
   border-radius: 5px;
   font-family: $sec-font;
-  // text-transform: lowercase;
   color: $grey;
   background-color: white;
 
-  .form-control:focus {
+  .form-select {
+    font-family: $sec-font;
+    color: $grey;
+  }
+
+  .form-control:focus, .form-select:focus {
     border-color: $heading-color;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
     box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
   }
-
+  
   .actions {
     input {
       border: none;
