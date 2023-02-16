@@ -1,9 +1,21 @@
+<% unless owner_signed_in? or occupant_signed_in? %>
+  <ul class="navbar-nav ms-auto mb-lg-0">
+    <li class="nav-item me-3">
+      <%= link_to "find a home", rooms_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item me-3">
+      <%= link_to "partner with us", new_owner_registration_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item me-3">
+      <%= link_to "sign up", new_occupant_registration_path, class: "nav-link" %>
+    </li>
+  </ul>
+<% end %>
+
 <% if owner_signed_in? %>
-  <p><%= current_owner.name %></p>
-  <%= button_to "Logout", destroy_owner_session_path, method: :delete %>
+  <%= render "layouts/dropdown/owner" %>
 <% elsif occupant_signed_in? %>
-  <p><%= current_occupant.name %></p>
-  <%= button_to "Logout", destroy_occupant_session_path, method: :delete %>
+  <%= render "layouts/dropdown/occupant" %>
 <% else %>
   <%= button_to "login", sign_in_path, method: :get, class: "nav-button" %>
 <% end %>
