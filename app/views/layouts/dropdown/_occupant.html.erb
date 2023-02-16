@@ -1,0 +1,16 @@
+<ul class="navbar-nav ms-auto mb-lg-0">
+  <div class="d-flex flex-row align-items-center justify-content-center me-3">
+    <%= image_tag "https://api.dicebear.com/5.x/initials/svg?seed=#{current_occupant.name}&backgroundColor=3c529c&radius=50", style: "width: 40px; height: 40px;", class: "me-2" %>
+    <li class="nav-item dropdown">
+      <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= current_occupant.name %>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <%= link_to "Find a home", room_path, class: "dropdown-item" %>
+        <%= link_to "Edit profile", edit_occupant_registration_path, class: "dropdown-item" %>
+        <div class="dropdown-divider"></div>
+        <%= button_to "Logout", destroy_occupant_session_path, method: :delete, class: "dropdown-item" %>
+      </div>
+    </li>
+  </div>
+</ul>
