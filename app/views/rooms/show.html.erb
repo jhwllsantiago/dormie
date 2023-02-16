@@ -9,6 +9,12 @@
 <p>Tags</p>
 
 <% @tags.each do |tag| %>
+  <%#= image_tag("#{tag.name}.png") %>
+  <%#= image_tag(tag.icon) if tag.icon %>
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 m-1" style="width: 10px; height: 10px;">
+    <path d="<%= tag.icon %>"></path>
+  </svg>
   <span><%= tag.name %></span>
 <% end %>
 
