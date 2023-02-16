@@ -3,6 +3,7 @@ class RoomsController < ApplicationController
   before_action :set_room, only: %i[ show edit update destroy ]
   before_action :room_ownership, only: %i[ edit update destroy ]
   before_action :set_locations, only: %i[ new edit ]
+  before_action :validate_images, only: %i[ create ]
 
   def index
     @rooms = Room.all.includes(:location)
@@ -33,6 +34,7 @@ class RoomsController < ApplicationController
   end
 
   def update
+    @room.images.purge
     @room.location = Location.find(room_params[:location]) if room_params[:location].present? 
 
     if @room.update(room_params.except(:location))
@@ -43,6 +45,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
+    @room.images.purge
     @room.destroy
     redirect_to new_room_path, notice: "Room was successfully deleted."
   end
@@ -57,10 +60,21 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :rent, :capacity, :vacancies, :description, :location, tags: [])
+    params.require(:room).permit(:name, :rent, :capacity, :vacancies, :description, :location, tags: [], images: [])
   end
 
   def set_locations
     @locations = current_owner.locations
+  end
+
+  def validate_images
+    return if room_params[:images].nil?
+    room_params[:images].each do |image|
+      if image.size > 4194304
+        redirect_to new_room_path, alert: "Please upload images less than 4MB in size.", status: :unprocessable_entity
+      elsif !image.content_type.in?(%w[ image/jpeg image/png ])
+        redirect_to new_room_path, alert: "Please upload images in jpeg or png format.", status: :unprocessable_entity
+      end
+    end
   end
 end

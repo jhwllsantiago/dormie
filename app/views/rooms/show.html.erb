@@ -12,6 +12,14 @@
   <span><%= tag.name %></span>
 <% end %>
 
+<div>
+  <% @room.images.each do |image| %>
+    <% if image.content_type.in?(%w[ image/jpeg image/png ]) %>
+      <%= link_to image_tag(@room.image_as_thumbnail(image), style: "max-width: 400px; max-height: 400px"), image, target: "_blank" %>
+    <% end %>
+  <% end %>
+</div>
+
 <p>Location</p>
 <p><%= @room.location.address %></p>
 
