@@ -11,6 +11,13 @@ class RoomsController < ApplicationController
 
   def show
     @tags = Tag.where(id: @room.tags)
+    if occupant_signed_in?
+      @review = current_occupant.reviews.find_by(room: @room)
+      @reviews = @room.reviews.where.not(room: @room)
+    else
+      @review = nil
+      @reviews = @room.reviews
+    end
   end
 
   def new

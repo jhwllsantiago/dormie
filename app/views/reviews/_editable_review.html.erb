@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "room_review_frame" do %>
+  <%= render "reviews/review", review: review %>
+  <%= link_to "Edit Review", edit_room_review_path(room, review) %>
+  <%= button_to "Delete Review", [room, review], method: :delete %>
+<% end %>
