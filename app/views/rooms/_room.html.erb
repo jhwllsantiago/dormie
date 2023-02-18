@@ -1,9 +1,28 @@
-<div class="card m-3" style="width: 300px;">
-  <img src="https://picsum.photos/seed/room<%= room.id %>/300/200" class="card-img-top" alt="...">
+<div class="card mx-3 flex-grow mb-5 shadow-lg" style="width: 500px;">
+  <% if room.images.present? %>
+    <%= image_tag room.images.first %>
+  <% else %>
+    <img src="https://picsum.photos/seed/room<%= room.id %>/300/200" class="card-img-top" alt="...">
+  <% end %>
   <div class="card-body">
-    <h5 class="card-title"><%= room.name %></h5>
-    <p class="card-text"><%= room.description %></p>
-    <p class="card-text"><%= room.location.name %></p>
-    <%= link_to "More Details", room_path(room) %>
+    <div class="d-flex flex-row align-items-center justify-content-between">
+      <div>
+        <h4 class="monsterrat heading-color bold" style="margin: 0px;"><%= room.name %></h4>
+        <div class="d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
+            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+          </svg>
+          <div class="quicksand grey px-1" style="font-size: 14px;"><%= room.location.name %>, <%= room.location.city %></div>
+        </div>
+      </div>
+      <div>
+        <div class="quicksand light-grey" style="font-size: 12px;">rent starts at</div>
+        <h5 class="monsterrat heading-color bold" style="margin: 0px;"><%= number_to_currency(room.rent, :unit => "₱") %></h5>
+      </div>
+    </div>
+    <div class="mt-5 text-center ri-button d-flex align-items-center justify-content-center">
+      <%= link_to "View Property", room_path(room) %>
+    </div>
   </div>
 </div>
+
