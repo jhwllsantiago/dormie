@@ -42,7 +42,6 @@
           <% end %>
         </div>
       </div>
-
       <div class="w-50">
         <h4 class="monsterrat heading-color bold" style="margin: 0px;">Description</h4>
         <div class="quicksand grey" style="font-size: 14px;"><%= @room.description %></div>
@@ -70,16 +69,22 @@
         class="rounded shadow">
       </iframe>
     </div>
-    <div class="w-100 mb-3">
-      <h4 class="text-center monsterrat heading-color bold" style="margin: 0px;">Room Reviews</h4>
-    </div>
-    <div class="review-cont quicksand grey">
-      <% @room.reviews.each do |review| %>
-        <p><%= review.occupant.name %></p>
-        <p>Rated: <%= review.rating %></p>
-        <p><%= review.title %></p>
-        <p><%= review.comment %></p>
-      <% end %>
-    </div>
   </div>
+  <p>Your review</p>
+  <%= turbo_frame_tag "room_review_frame" do %>
+    <% if occupant_signed_in? and @review.nil? %>
+      <%= render "reviews/form", room: @room, review: Review.new, show_cancel_button: false %>
+    <% elsif occupant_signed_in? and @review.present? %>
+      <%= render "reviews/editable_review", room: @room, review: @review %>
+    <% end %>
+  <% end %>
+  
+  <p>Reviews</p>
+  <% if @reviews.present? %>
+    <% @reviews.each do |review| %>
+      <%= render "reviews/review", review: review %>
+    <% end %>
+  <% else %>
+    <p>No reviews yet.</p>
+  <% end %>
 </div>
