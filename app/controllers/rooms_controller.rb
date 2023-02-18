@@ -12,11 +12,11 @@ class RoomsController < ApplicationController
   def show
     @tags = Tag.where(id: @room.tags)
     if occupant_signed_in?
-      @review = current_occupant.reviews.find_by(room: @room)
-      @reviews = @room.reviews.where.not(room: @room)
+      @review = @room.reviews.find_by(occupant: current_occupant)
+      @reviews = @room.reviews.where.not(occupant: current_occupant).order(updated_at: :desc)
     else
       @review = nil
-      @reviews = @room.reviews
+      @reviews = @room.reviews.order(updated_at: :desc)
     end
   end
 
