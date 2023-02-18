@@ -1,8 +1,10 @@
 <%= turbo_frame_tag "room_review_frame" do %>
   <%= form_with(model: [room, review]) do |f| %>
-    <div>
-      <%= f.label :rating, style: "display: block" %>
-      <%= f.number_field :rating %>
+    <div class="rating">
+      <%= f.collection_radio_buttons(:rating, [[5],[4],[3],[2],[1]], :first, :last) do |star| %>
+        <%= star.radio_button %>
+        <%= star.label class: "text-white" %>
+      <% end %>
     </div>
 
     <div>
