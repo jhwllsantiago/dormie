@@ -3,7 +3,7 @@
     <%= image_tag "https://api.dicebear.com/5.x/initials/svg?seed=#{current_occupant.name}&backgroundColor=3c529c&radius=50", style: "width: 40px; height: 40px;", class: "me-2" %>
     <li class="nav-item dropdown">
       <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= current_occupant.name %>
+        <%= current_occupant.name.titleize %>
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to "Find a home", rooms_path, class: "dropdown-item" %>
