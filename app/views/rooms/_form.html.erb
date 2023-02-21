@@ -43,7 +43,7 @@
           <div class="mb-4">
             <div class="d-flex w-100 justify-content-between">
               <span>Locations</span>
-              <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", locations_new_path %></span>
+              <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", new_location_path %></span>
             </div>
             <% unless current_owner.locations.blank? %>
               <div class="d-flex flex-wrap align-items-center justify-content-between w-100">

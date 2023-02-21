@@ -1,7 +1,7 @@
 <div class="container w-75 d-flex">
   <div>
     <div>
-      <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", locations_new_path %></span>
+      <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", new_location_path %></span>
       <%= render "pages/dashboard/locations", locations: @locations %>
     </div>
     <div class="dashboard-map" style="width: 600px; height: 500px;">
