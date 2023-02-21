@@ -1,69 +1,79 @@
 <div class="container-fluid bg-p-options h-custom mb-custom d-flex align-items-center justify-content-center">
-  <div class="form shadow-lg p-5">
-    <% if room.name == "" %>
-      <h3 class="text-center monsterrat heading-color semiBold mb-3">List Property</h3>
-    <% else %>
-      <h3 class="text-center monsterrat heading-color semiBold mb-3">Edit <%= room.name %></h3>
-    <% end %>
-    <%= form_with(model: room) do |f| %>
-      <div class="form-floating mb-3">
-        <%= f.text_field :name, class: "form-control", placeholder: "Name", autofocus: true %>
-        <%= f.label :name, style: "display: block" %>
-      </div>
-
-      <div class="form-floating mb-3">
-        <%= f.text_area :description, class: "form-control", placeholder: "Description" %>
-        <%= f.label :description, style: "display: block" %>
-      </div>
-
-      <div class="form-floating mb-3">
-        <%= f.number_field :rent, class: "form-control", placeholder: "Rent" %>
-        <%= f.label :rent, style: "display: block" %>
-      </div>
-
-      <div class="form-floating mb-3">
-        <%= f.number_field :capacity, class: "form-control", placeholder: "Capacity" %>
-        <%= f.label :capacity, style: "display: block" %>
-      </div>
-
-      <div class="form-floating mb-3">
-        <%= f.number_field :vacancies, class: "form-control", placeholder: "Vacancies" %>
-        <%= f.label :vacancies, style: "display: block" %>
-      </div>
-
-      <div class>
-        <%= f.label :images, style: "display: block", class: "form-label" %>
-        <%= f.file_field :images, class: "form-control", multiple: true, accept: "image/png,image/jpeg", include_hidden: false %>
-      </div>
-
-      <div>
-        <div class="mt-3 mb-2">Tags</div>
-        <%= f.collection_check_boxes(:tags, @tags, :last, :first, include_hidden: false) do |box| %>
-          <div class="form-check form-check-inline">
-            <%= box.check_box class: "form-check-input", checked: room.tags&.include?(box.object.last.to_s) %>
-            <%= box.label class: "form-check-label" %>
+  <%= form_with(model: room) do |f| %>
+    <div class="form-lg shadow-lg p-5">
+      <% if room.name == "" %>
+          <h3 class="text-center monsterrat heading-color semiBold mb-5">List Property</h3>
+      <% else %>
+          <h3 class="text-center monsterrat heading-color semiBold mb-3">Edit <%= room.name %></h3>
+      <% end %>
+      <div class="d-flex flex-row">
+        <div class="w-50 me-5">
+          <div class="form-floating mb-3">
+            <%= f.text_field :name, class: "form-control", placeholder: "Name", autofocus: true %>
+            <%= f.label :name, style: "display: block" %>
           </div>
-        <% end %>
-      </div>
-      
-      <div class="mt-3 mb-2">
-        <div class="d-flex w-100 justify-content-between">
-          <span>Locations</span>
-          <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", locations_new_path %></span>
-        </div>
-        <% unless current_owner.locations.blank? %>
-          <% locations.each do |location| %>
-            <div class="form-check form-check-inline">
-            <%= f.radio_button :location, location.id, class:"form-check-input" %>
-            <%= f.label "location_#{location.id}", location.name.titleize, class:"form-check-label"%>
-            </div>
-          <% end %>
-        <% end %>
-      </span>
 
-      <div class="actions d-flex align-items-content justify-content-center mb-3 mt-4">
-        <%= f.submit "Post" %>
+          <div class="form-floating mb-3">
+            <%= f.text_area :description, class: "form-control", placeholder: "Description", style: "height: 200px; resize: none;" %>
+            <%= f.label :description, style: "display: block" %>
+          </div>
+
+          <div class="form-floating mb-3">
+            <%= f.number_field :rent, class: "form-control", placeholder: "Rent" %>
+            <%= f.label :rent, style: "display: block" %>
+          </div>
+
+          <div class="form-floating mb-3">
+            <%= f.number_field :capacity, class: "form-control", placeholder: "Capacity" %>
+            <%= f.label :capacity, style: "display: block" %>
+          </div>
+
+          <div class="form-floating mb-3">
+            <%= f.number_field :vacancies, class: "form-control", placeholder: "Vacancies" %>
+            <%= f.label :vacancies, style: "display: block" %>
+          </div>
+
+          <div class>
+            <%= f.label :images, style: "display: block", class: "form-label" %>
+            <%= f.file_field :images, class: "form-control", multiple: true, accept: "image/png,image/jpeg", include_hidden: false %>
+          </div>
+        </div>
+
+        <div class="w-50">          
+          <div class="mb-4">
+            <div class="d-flex w-100 justify-content-between">
+              <span>Locations</span>
+              <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", locations_new_path %></span>
+            </div>
+            <% unless current_owner.locations.blank? %>
+              <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+              <% locations.each do |location| %>
+                <div class="form-check w-50">
+                  <%= f.radio_button :location, location.id, class:"form-check-input" %>
+                  <%= f.label "location_#{location.id}", location.name, class:"form-check-label"%>
+                </div>
+              <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="mb-4">
+            <div class="mb-1">Tags</div>
+            <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+            <%= f.collection_check_boxes(:tags, @tags, :last, :first, include_hidden: false) do |box| %>       
+              <div class="form-check" style="width: 30%;">
+                <%= box.check_box class: "form-check-input", checked: room.tags&.include?(box.object.last.to_s) %>
+                <%= box.label class: "form-check-label" %>
+              </div>
+            <% end %>
+            </div>
+          </div>
+
+          <div class="actions d-flex align-items-content justify-content-center mb-3 mt-4">
+            <%= f.submit "Post" %>
+          </div>
+        </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
