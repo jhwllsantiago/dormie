@@ -39,7 +39,7 @@
     <% end %>
 
     <div class="links text-center quicksand grey">
-      <%= link_to "Deactivate my account", registration_path(resource_name), method: :delete, data: { "turbo-confirm": "Are you sure you want to deactivate your account?" } %><br />
+      <%= link_to "Deactivate my account", registration_path(resource_name), data: { "turbo-method": "delete", "turbo-confirm": "Are you sure you want to deactivate your account?" } %><br />
       <%= link_to "Back", :back %>
     </div>
   </div>
