@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "dashboard_rooms_frame" do %>
+  <% rooms.each do |room| %>
+    <div class="d-flex align-items-center my-3">
+      <%= link_to room_path(room) do %>
+        <div>
+          <span class="d-block"><%= room.name %></span>
+          <span class="d-block"><%= room.location.name %></span>
+        </div>
+      <% end %>
+      <%= button_to "edit icon", edit_room_path(room), class: "rs-button", method: :get %>
+      <%= button_to "delete icon", room_path(room), class: "rs-button", method: :delete %>
+    </div>
+  <% end %>
+<% end %>

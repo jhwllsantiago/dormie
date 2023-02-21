@@ -1,0 +1,18 @@
+<div class="container w-75 d-flex">
+  <div>
+    <div>
+      <span class="links text-right quicksand semiBold"><%= link_to "+ Add New Location", locations_new_path %></span>
+      <%= render "pages/dashboard/locations", locations: @locations %>
+    </div>
+    <div class="dashboard-map" style="width: 600px; height: 500px;">
+      <%= render "pages/dashboard/map", query: @locations.first.query %>
+    </div>
+  </div>
+
+  <div>
+    <span class="links text-right quicksand semiBold"><%= link_to "+ Add Room", new_room_path %></span>
+    <%= render "pages/dashboard/rooms", rooms: @rooms %>
+  </div>
+</div>
+
+

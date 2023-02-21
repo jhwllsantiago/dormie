@@ -16,10 +16,17 @@ class LocationsController < ApplicationController
     @location.owner = current_owner
 
     if @location.save
-      redirect_to new_room_path, notice: "Location was successfully added."
+      redirect_to dashboard_path, notice: "Location was successfully added."
     else
       redirect_to locations_new_url, alert: "Location was not added.", status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @location = Location.find(params[:id])
+    @location.destroy
+
+    render partial: "pages/dashboard/locations", locals: { locations: current_owner.locations }
   end
 
   # turbo-stream for GET /locations/select-barangay

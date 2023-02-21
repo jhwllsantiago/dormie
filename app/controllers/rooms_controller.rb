@@ -54,7 +54,8 @@ class RoomsController < ApplicationController
   def destroy
     @room.images.purge
     @room.destroy
-    redirect_to new_room_path, notice: "Room was successfully deleted."
+
+    render partial: "pages/dashboard/rooms", locals: { rooms: current_owner.rooms.includes(:location) }
   end
 
   private

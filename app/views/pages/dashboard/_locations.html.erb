@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "dashboard_locations_frame" do %>
+  <% locations.each do |location| %>
+    <div class="d-flex align-items-center">
+      <div>
+        <span class="d-block"><%= location.name %></span>
+        <span class="d-block"><%= location.address %></span>
+      </div>
+      <%= button_to "map icon", map_path(location), class: "rs-button", method: :get, data: { "turbo-frame": "map_frame" } %>
+      <%= button_to "delete icon", location_path(location), class: "rs-button", method: :delete %>
+    </div>
+  <% end %>
+<% end %>
