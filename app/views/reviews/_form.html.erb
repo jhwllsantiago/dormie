@@ -1,28 +1,32 @@
 <%= turbo_frame_tag "room_review_frame" do %>
+  <h5 class="monsterrat heading-color semiBold mb-3">Add a review</h5>
   <%= form_with(model: [room, review]) do |f| %>
-    <div class="rating">
+    <div class="rating d-flex justify-content-end align-items-center quicksand grey semiBold" style="font-size: 14px;">
+      <div class="order-1">Room rate: </div>
       <%= f.collection_radio_buttons(:rating, [[5],[4],[3],[2],[1]], :first, :last) do |star| %>
         <%= star.radio_button %>
-        <%= star.label class: "text-white" %>
+        <%= star.label class: "text-transparent" %>
       <% end %>
     </div>
 
-    <div>
-      <%= f.label :title, style: "display: block" %>
-      <%= f.text_field :title %>
+    <div class="quicksand grey semiBold" style="font-size: 14px;">
+      <%= f.label :title, 'Title:', style: "display: block" %>
+      <%= f.text_field :title, placeholder: 'Give your review a title, e.g. "Overall Experience," "Best Room," "Good rent!" etc.', class: "review-form w-100 mb-2" %>
     </div>
 
-    <div>
-      <%= f.label :comment, style: "display: block" %>
-      <%= f.text_area :comment %>
+    <div class="quicksand grey semiBold" style="font-size: 14px;">
+      <%= f.label :comment, 'Review:', style: "display: block" %>
+      <%= f.text_area :comment, placeholder: "Share more thoughts on the room to help other dormers.", class: "f-textarea review-form w-100 mb-2" %>
     </div>
 
-    <div class="mt-3">
-      <%= f.submit "Submit" %>
+    <div class="text-center review-button mt-1 mb-2">
+      <%= f.submit "Submit Review" %>
     </div>
   <% end %>
 
-  <% if show_cancel_button %>
-    <%= link_to "Cancel", room_path(room) %>
-  <% end %>
+  <div class="w-100 text-center quicksand grey review-link" style="font-size: 14px;">
+    <% if show_cancel_button %>
+      <%= link_to "Cancel", room_path(room) %>
+    <% end %>
+  </div>
 <% end %>
