@@ -63,23 +63,23 @@ $placeholder-color: #8e8e8e;
   .nav-link:hover {
     color: $heading-color;
   }
-  .nav-link:after {
-    content: '';
-    width: 0px;
-    height: 2px;
-    display: block;
-    background: $heading-color;
-    transition: 0.5s;
-  }
-  .nav-link:hover:after {
-    width: 100%;
-  }
+  // .nav-link:after {
+  //   content: '';
+  //   width: 0px;
+  //   height: 2px;
+  //   display: block;
+  //   background: $heading-color;
+  //   transition: 0.5s;
+  // }
+  // .nav-link:hover:after {
+  //   width: 100%;
+  // }
   .nav-link:active, .nav-link:visited {
     color: $heading-color !important;
   }
-  .nav-link:active:after {
-    width: 100%;
-  }
+  // .nav-link:active:after {
+  //   width: 100%;
+  // }
   .nav-button {
     border: none;
     outline: 0;

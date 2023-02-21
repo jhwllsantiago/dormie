@@ -79,7 +79,7 @@ $placeholder-color: #8e8e8e;
   }
 }
 
-.form {
+.form, .form-lg {
   width: 700px;
   border-radius: 5px;
   font-family: $sec-font;
@@ -89,6 +89,10 @@ $placeholder-color: #8e8e8e;
   .form-select {
     font-family: $sec-font;
     color: $grey;
+  }
+
+  .form-control.capitalize {
+    text-transform: capitalize;
   }
 
   .form-control:focus, .form-select:focus {
@@ -129,6 +133,10 @@ $placeholder-color: #8e8e8e;
       color: $heading-color;
     }
   }
+}
+
+.form-lg {
+  width: 1500px;
 }
 
 @media (max-width: 375px) {
