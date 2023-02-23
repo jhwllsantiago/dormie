@@ -1,14 +1,22 @@
 <%= turbo_frame_tag "dashboard_rooms_frame" do %>
-  <% rooms.each do |room| %>
+  <% rooms.includes(:location).order("locations.name").each do |room| %>
     <div class="d-flex align-items-center my-3">
-      <%= link_to room_path(room) do %>
-        <div>
-          <span class="d-block"><%= room.name %></span>
-          <span class="d-block"><%= room.location.name %></span>
+      <%= link_to room_path(room), class: "w-75 text-decoration-none" do %>
+        <div style="margin-bottom: 12px">
+          <h6 class="monsterrat heading-color semiBold" style="margin: 0px;"><%= room.name %></h6>
+          <div class="d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+            </svg>
+            <div class="quicksand grey px-1" style="font-size: 14px;"><%= room.location.name %></div>
+          </div>
         </div>
       <% end %>
-      <%= button_to "edit icon", edit_room_path(room), class: "rs-button", method: :get %>
-      <%= button_to "delete icon", room_path(room), class: "rs-button", method: :delete %>
+      
+      <div class="w-25 d-flex align-items-center justify-content-around">
+        <%= button_to " ", edit_room_path(room), method: :get, class: "db-edit" %>
+        <%= button_to " ", room_path(room), method: :delete, class: "db-delete" %>
+      </div>
     </div>
   <% end %>
 <% end %>
