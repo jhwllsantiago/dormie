@@ -139,6 +139,15 @@ $placeholder-color: #8e8e8e;
   width: 1500px;
 }
 
+.validation {
+  font-family: $main-font;
+  font-weight: 700;
+  font-size: 14px;
+  color: #d80000;
+}
+
+.field_with_errors { display: inline; }
+
 @media (max-width: 375px) {
   .form {
     margin-top: 130px;
