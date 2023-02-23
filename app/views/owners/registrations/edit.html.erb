@@ -2,21 +2,36 @@
   <div class="form shadow-lg p-5">
     <h3 class="text-center monsterrat heading-color semiBold mb-5">Edit Profile</h3>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
-      <%= render "owners/shared/error_messages", resource: resource %>
+      <%#= render "owners/shared/error_messages", resource: resource %>
 
       <div class="form-floating mb-3">
         <%= f.text_field :name, class: "form-control capitalize", placeholder: "Name", autofocus: true %>
         <%= f.label :name %>
+        <% if resource.errors[:name].present? %>
+          <% resource.errors[:name].each do |error| %>
+            <p class="validation">Name <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="form-floating mb-3">
         <%= f.email_field :email, class: "form-control", placeholder: "Email", autocomplete: "email" %>
         <%= f.label :email %>
+        <% if resource.errors[:email].present? %>
+          <% resource.errors[:email].each do |error| %>
+            <p class="validation">Email <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="form-floating mb-3">
         <%= f.number_field :contact, class: "form-control", placeholder: "Contact", pattern: "[0-9]{10}" %>
         <%= f.label :contact %>
+        <% if resource.errors[:contact].present? %>
+          <% resource.errors[:contact].each do |error| %>
+            <p class="validation">Contact <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -24,18 +39,33 @@
       <% end %>
 
       <div class="form-floating mb-3">
-          <%= f.password_field :password, class: "form-control", placeholder: "New Password", autocomplete: "new-password" %>
-          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+        <%= f.password_field :password, class: "form-control", placeholder: "New Password", autocomplete: "new-password" %>
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+        <% if resource.errors[:password].present? %>
+          <% resource.errors[:password].each do |error| %>
+            <p class="validation">Password <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="form-floating mb-3">
         <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Password Confirmation", autocomplete: "new-password" %>
         <%= f.label :password_confirmation %>
+        <% if resource.errors[:password_confirmation].present? %>
+          <% resource.errors[:password_confirmation].each do |error| %>
+            <p class="validation">Password confirmation <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="form-floating mb-3">
         <%= f.password_field :current_password, class: "form-control", placeholder: "Current Password", autocomplete: "current-password" %>
         <%= f.label :current_password %> <i>(enter your current password to confirm your changes)</i>
+        <% if resource.errors[:current_password].present? %>
+          <% resource.errors[:current_password].each do |error| %>
+            <p class="validation">Current password <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="actions d-flex align-items-content justify-content-center mb-3">
