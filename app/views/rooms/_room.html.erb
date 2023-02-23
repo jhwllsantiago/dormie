@@ -2,7 +2,7 @@
   <% if room.images.present? %>
     <%= image_tag room.images.first, :style => "min-height: 365px; border-radius: 5px 5px 0px 0px;" %>
   <% else %>
-    <img src="https://picsum.photos/seed/room<%= room.id %>/300/200" class="card-img-top" alt="...">
+    <%= image_tag "nia.png", :style => "min-height: 365px; border-radius: 5px 5px 0px 0px;" %>
   <% end %>
   <div class="card-body">
     <div class="d-flex flex-row align-items-center justify-content-between">
