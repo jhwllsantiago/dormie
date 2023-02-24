@@ -5,7 +5,7 @@
         <span class="d-block"><%= location.name %></span>
         <span class="d-block"><%= location.address %></span>
       </div>
-      <%= button_to "map icon", map_path(location), class: "rs-button", method: :get, data: { "turbo-frame": "map_frame" } %>
+      <%= button_to "map icon", location_map_path(location), class: "rs-button", method: :get, data: { "turbo-frame": "location_map_frame" } %>
       <%= button_to "delete icon", location_path(location), class: "rs-button", method: :delete %>
     </div>
   <% end %>

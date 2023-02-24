@@ -1,31 +1,77 @@
-<div class="container-fluid bg-p-options h-custom mb-custom d-flex align-items-center justify-content-center">
+<div class="container-fluid bg-p-options mb-custom d-flex align-items-center justify-content-center">
   <div class="form shadow-lg p-5">
     <h3 class="text-center monsterrat heading-color semiBold mb-5">New Location</h3>
     <%= form_with(model: location) do |f| %>
-      <div class="form-floating mb-3">
-        <%= f.text_field :name, class: "form-control", placeholder: "Name", autofocus: true %>
-        <%= f.label :name, style: "display: block" %>
-      </div>
+      <div data-controller="location" data-location-url-value="<%= location_preview_path %>">
+        <p class="mb-1 ps-1 monsterrat">What is the name of the property?</p>
+        <div class="form-floating mb-5">
+          <%= f.text_field :name, class: "form-control",
+            placeholder: "Name",
+            autofocus: true,
+            required: true,
+            data: { location_target: "name" }
+          %>
+          <%= f.label :name, style: "display: block" %>
+        </div>
 
-      <div class="form-floating mb-3">
-        <%= f.text_field :unit, class: "form-control", placeholder: "Unit" %>
-        <%= f.label :unit, style: "display: block" %>
-      </div>
+        <p class="mb-1 ps-1 monsterrat">Where is the property located?</p>
+        <div class="d-flex mb-3" style="gap: 2%">
+          <div class="form-floating" style="width: 16%">
+            <%= f.text_field :unit, class: "form-control", placeholder: "Unit" %>
+            <%= f.label :unit, style: "display: block" %>
+          </div>
 
-      <div class="form-floating mb-3">
-        <%= f.text_field :street, class: "form-control", placeholder: "Street" %>
-        <%= f.label :street, style: "display: block" %>
-      </div>
+          <div class="form-floating" style="width: 40%">
+            <%= f.text_field :street, class: "form-control", placeholder: "Street", required: true %>
+            <%= f.label :street, style: "display: block" %>
+          </div>
+
+          <div class="form-floating" style="width: 40%">
+            <%= f.text_field :barangay, class: "form-control", placeholder: "Barangay", required: true %>
+            <%= f.label :barangay, style: "display: block" %>
+          </div>
+        </div>
+
+        <div class="d-flex mb-5" style="gap: 2%">
+          <div class="form-floating" style="width: 49%">
+            <%= f.text_field :city, class: "form-control",
+              placeholder: "City",
+              required: true,
+              data: { location_target: "city", action: "input->location#map" }
+            %>
+            <%= f.label :city, style: "display: block" %>
+          </div>
+          <div class="form-floating" style="width: 49%">
+            <%= f.text_field :province, class: "form-control",
+              placeholder: "Province",
+              required: true,
+              data: { location_target: "province", action: "input->location#map" }
+            %>
+            <%= f.label :province, style: "display: block" %>
+          </div>
+        </div>
+
+        <div class="p-3 mb-5 d-none" data-location-target="mapContainer">
+          <div class="d-flex align-items-center justify-content-between">
+            <p class="mb-1 ps-1 monsterrat">Is the marker correct?</p>
+            <%#= link_to "Adjust Marker", marker_forward_geocoding_path %>
+            <%= f.button "Adjust Marker", formaction: marker_forward_geocoding_path, formmethod: :get %>
+          </div>
+          
+          <div style="height: 400px">
+            <%= f.text_field :latitude, hidden: true, value: lat,
+              data: { location_target: "lat" } %>
+            <%= f.text_field :longitude, hidden: true, value: lng,
+              data: { location_target: "lng" } %>
+            <%= render "maps/location_map", query: query %>
+          </div>
+        </div>
       
-      <div data-controller="select" data-select-url-value="<%= select_barangay_path %>" data-select-identifier-value="city">
-        <%= f.select :city, options_from_collection_for_select(@cities, :last, :first, @city),
-          { prompt: "Select a city" },
-          { class: "form-select mb-3", data: { action: "change->select#change" } } %>
-        <%= f.select :barangay, [], { prompt: "Select a barangay" }, { class: "form-select mb-3", data: { select_target: "select" } } %>
-      </div>
-
-      <div class="actions d-flex align-items-content justify-content-center mb-3">
-        <%= f.submit "Add Location" %>
+        <div class="actions d-flex align-items-content justify-content-center mb-3 w-75 mx-auto">
+          <%= f.submit "Add Location", class: "btn",
+            disabled: true,
+            data: { location_target: "submit" } %>
+        </div>
       </div>
     <% end %>
   </div>

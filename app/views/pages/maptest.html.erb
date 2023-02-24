@@ -1,0 +1,31 @@
+<div>
+  <button id="continue-button">Continue</button>
+</div>
+<div id="reverse-geocoding-map" style="height: 70vh"></div>
+<script>
+  function mapInit() {
+    let lat, lng;
+    const initialPosition = { "lat": 14.652794669768262, "lng": 121.0340736769664 };
+    const target = document.getElementById("reverse-geocoding-map");
+    const map = new google.maps.Map(target, {
+      zoom: 7,
+      center: initialPosition,
+    });
+      
+    let marker = new google.maps.Marker({
+      map: map,
+      draggable: false,
+    });
+
+    map.addListener("click", (mapsMouseEvent) => {
+      marker.setPosition(mapsMouseEvent.latLng)
+      lat = mapsMouseEvent.latLng.toJSON().lat
+      lng = mapsMouseEvent.latLng.toJSON().lng
+    });
+
+    document.getElementById("continue-button").addEventListener("click", () => {
+      window.location.href = `locations/new?latitude=${lat}&longitude=${lng}`
+    })
+  }
+</script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTWqRfU_UTfxr6CgZkjtthN0KjnyEujTo&callback=mapInit&v=weekly"></script>
