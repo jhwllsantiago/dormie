@@ -10,6 +10,5 @@ class PagesController < ApplicationController
   def dashboard
     @locations = current_owner.locations
     @rooms = current_owner.rooms.includes(:location)
-    @schedule = current_owner.schedule
   end
 end

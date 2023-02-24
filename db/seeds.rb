@@ -42,17 +42,6 @@ room = Room.create(
   location: location
 )
 
-Schedule.create(
-  mon: [true, true, false, false],
-  tue: [false, true, false, true],
-  wed: [true, true, false, false],
-  thu: [false, true, false, true],
-  fri: [true, true, false, false],
-  sat: [false, true, false, true],
-  sun: [true, true, false, false],
-  owner: owner
-)
-
 Review.create(
   rating: 4,
   title: "So clean, So good.",
