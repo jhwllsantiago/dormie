@@ -1,11 +1,17 @@
-<div id="carouselExampleControls" class="carousel slide mb-sr shadow-lg">
+<div id="carouselExampleControls" class="carousel slide mb-sr shadow-lg" style="background-color: transparent;">
   <div class="carousel-inner">
-    <% @room.images.each.with_index do |image, index| %>
-      <% if image.content_type.in?(%w[ image/jpeg image/png ]) %>
-        <div class="carousel-item <%= 'active' if index.zero? %>">
-          <%= link_to image_tag(image), image, target: "_blank", class: "d-block w-100" %>
-        </div>
+    <% if @room.images.present? %>
+      <% @room.images.each.with_index do |image, index| %>
+        <% if image.content_type.in?(%w[ image/jpeg image/png ]) %>
+          <div class="carousel-item <%= 'active' if index.zero? %>">
+            <%= link_to image_tag(@room.image_as_thumbnail(image, 800, 450)), image, target: "_blank", class: "d-block w-100" %>
+          </div>
+        <% end %>
       <% end %>
+    <% else %>
+      <div class="carousel-item active">
+        <%= image_tag "nia.png", class: "d-block" %>
+      </div>
     <% end %>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
