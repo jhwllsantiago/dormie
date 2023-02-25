@@ -59,17 +59,7 @@
         class="rounded shadow">
       </iframe>
     </div>
-    <div class="w-100 mb-3" style="font-size: 14px;">
-      <h4 class="text-center monsterrat heading-color bold" style="margin: 0px;">Room Reviews</h4>
-        <% if @reviews.present? %>
-          <% @reviews.each do |review| %>
-            <%= render "reviews/review", review: review %>
-          <% end %>
-        <% else %>
-          <div class="text-center quicksand grey" style="font-size: 14px;">No reviews yet.</div>
-        <% end %>
-    </div>
-    <div class="w-100 mb-sr" style="font-size: 14px;">
+    <div class="w-50 mb-3" style="font-size: 14px;">
       <%= turbo_frame_tag "room_review_frame" do %>
         <% if occupant_signed_in? and @review.nil? %>
           <%= render "reviews/form", room: @room, review: Review.new, show_cancel_button: false %>
@@ -77,6 +67,16 @@
           <%= render "reviews/editable_review", room: @room, review: @review %>
         <% end %>
       <% end %> 
+    </div>
+    <h4 class="text-center monsterrat heading-color bold mb-5">Room Reviews</h4>
+    <div class="w-100 mb-3 <%= "review-grid" if @reviews.present? %>" style="font-size: 14px;">
+      <% if @reviews.present? %>
+        <% @reviews.each do |review| %>
+          <%= render "reviews/review", review: review %>
+        <% end %>
+      <% else %>
+        <div class="text-center quicksand grey" style="font-size: 14px;">No reviews yet.</div>
+      <% end %>
     </div>
   </div>
 </div>
