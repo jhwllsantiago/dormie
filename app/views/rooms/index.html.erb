@@ -1,7 +1,7 @@
 <div class="container-fluid mb-custom">
   <h3 class="text-center monsterrat heading-color semiBold p-3 m-3" style="margin: 0px;">Properties for Rent</h3>
   <div class="d-flex flex-wrap justify-content-center">
-    <% @rooms.order(updated_at: :desc).each do |room| %>
+    <% @rooms.each do |room| %>
       <%= render "room", room: room %>
     <% end %>
   </div>

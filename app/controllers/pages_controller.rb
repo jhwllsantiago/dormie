@@ -8,7 +8,8 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @locations = current_owner.locations
-    @rooms = current_owner.rooms.includes(:location)
+    @locations = current_owner.locations.order(:name)
+    @rooms = current_owner.rooms.includes(:location).order("locations.name")
+    @query = @locations.first.query if @locations.present?
   end
 end

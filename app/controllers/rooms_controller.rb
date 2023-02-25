@@ -6,7 +6,7 @@ class RoomsController < ApplicationController
   before_action :validate_images, only: %i[ create ]
 
   def index
-    @rooms = Room.all.includes(:location)
+    @rooms = Room.all.includes(:location).order(updated_at: :desc)
   end
 
   def show

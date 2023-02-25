@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "dashboard_locations_frame" do %>
-  <% locations.order(:name).each do |location| %>
+  <% locations.each do |location| %>
     <div class="d-flex align-items-center">
       <div class="w-75" style="margin-bottom: 11px">
         <h6 class="monsterrat heading-color semiBold" style="margin: 0px;"><%= location.name %></h6>
