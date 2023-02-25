@@ -7,11 +7,11 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
           </svg>
-          <div class="quicksand grey px-1" style="font-size: 14px;"><%= location.address %></div>
+          <div class="quicksand grey px-1" style="font-size: 14px;"><%= "#{location.unit}, #{location.address_line}" %></div>
         </div>
       </div>
       <div class="w-25 d-flex align-items-center justify-content-around">
-        <%= button_to " ", map_path(location), method: :get, data: { "turbo-frame": "map_frame" }, class: "db-map" %>
+        <%= button_to " ", location_map_path(location), method: :get, data: { "turbo-frame": "location_map_frame" }, class: "db-map" %>
         <%= button_to " ", location_path(location), method: :delete, class: "db-delete" %>
       </div>
     </div>

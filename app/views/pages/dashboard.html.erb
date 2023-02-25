@@ -8,10 +8,9 @@
       <div class="w-100 divider mt-4"></div>
       <div class="h-5 w-100 bg-heading d-flex db-main-links align-items-center justify-content-center">MAP PREVIEW</div>
       <div class="dashboard-map h-60">
-        <%= render "pages/dashboard/map", query: @locations.order(:name).first.query %>
+        <%= render "maps/location_map", query: @locations.first.query %>
       </div>
     </div>
-
     <div class="w-40 mx-3 bg-white db-cont rounded shadow-lg">
       <div class="h-5 w-100 mb-3 bg-heading d-flex db-main-links align-items-center justify-content-center"><%= link_to "+ ADD ROOM", new_room_path %></div>
       <div class="px-4 overflow-auto h-100">
