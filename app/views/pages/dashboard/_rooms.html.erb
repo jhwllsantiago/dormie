@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "dashboard_rooms_frame" do %>
   <% rooms.includes(:location).order("locations.name").each do |room| %>
-    <div class="d-flex align-items-center my-3">
+    <div class="d-flex align-items-center mb-3">
       <%= link_to room_path(room), class: "w-75 text-decoration-none" do %>
         <div style="margin-bottom: 12px">
           <h6 class="monsterrat heading-color semiBold" style="margin: 0px;"><%= room.name %></h6>
