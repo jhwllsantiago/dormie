@@ -24,5 +24,8 @@ Rails.application.routes.draw do
   delete "room/:room_id/reviews/:review_id", to: "reviews#destroy"
 
   get "dashboard", to: "pages#dashboard", as: "dashboard"
-  get "map/:location_id", to: "pages#map", as: "map"
+
+  get "maps/render/location/:location_id", to: "maps#location_map", as: "location_map"
+  get "maps/render/preview", to: "maps#location_preview", as: "location_preview"
+  get "maps/geocoding/forward/marker", to: "maps#marker_forward_geocoding", as: "marker_forward_geocoding"
 end

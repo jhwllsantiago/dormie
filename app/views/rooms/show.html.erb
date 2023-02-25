@@ -47,12 +47,12 @@
     <div class="w-100 mb-3">
       <h4 class="text-center monsterrat heading-color bold" style="margin: 0px;">Property Location</h4>
       <div class="text-center quicksand grey" style="font-size: 14px;">
-        <%= @room.location.address %>
+        <%= @room.location.full_address %>
       </div>
     </div>
     <div class="mb-sr" style="width: 100%; height: 500px;">
       <iframe
-        src="https://www.google.com/maps/place?q=<%= @room.location.query %>&output=embed"
+        src="https://www.google.com/maps/place?q=<%= "#{@room.location.latitude},#{@room.location.longitude}" %>&output=embed"
         frameborder="0"
         width="100%"
         height="100%"

@@ -5,7 +5,7 @@
       <%= render "pages/dashboard/locations", locations: @locations %>
     </div>
     <div class="dashboard-map" style="width: 600px; height: 500px;">
-      <%= render "pages/dashboard/map", query: @locations.first.query %>
+      <%= render "maps/location_map", query: @locations.first.query %>
     </div>
   </div>
 
