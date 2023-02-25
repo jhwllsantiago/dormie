@@ -81,4 +81,8 @@ group :test do
   gem "webdrivers"
 end
 
+# Use geocoder for forward geocoding
 gem "geocoder", "~> 1.8"
+
+# Use .env for credentials
+gem 'dotenv-rails', groups: [:development, :test]
