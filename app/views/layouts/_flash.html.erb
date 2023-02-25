@@ -1,0 +1,21 @@
+<% if notice or alert %>
+  <div class="f-modal rounded text-white quicksand <%= notice ? "bg-main" : "bg-danger" %>" id="flash">
+    <span class="opacity-75"><%= notice ? notice : alert %></span>
+  </div>
+  <script defer>
+    var flash = document.getElementById("flash");
+    var timeout;
+
+    function fade() {
+      flash.style.opacity = 0;
+      setTimeout(() => flash.remove(), 100)
+    }
+
+    flash.addEventListener('click', () => {
+      flash.remove()
+      clearTimeout(timeout);
+    })
+
+    timeout = setTimeout(fade, 3000);
+  </script>
+<% end %>

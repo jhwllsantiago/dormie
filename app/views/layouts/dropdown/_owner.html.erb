@@ -6,6 +6,7 @@
         <%= current_owner.name.titleize %>
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <%= link_to "Dashboard", dashboard_path, class: "dropdown-item", method: :get %>
         <%= link_to "Properties", rooms_path, class: "dropdown-item", method: :get %>
         <%= link_to "Add new location", new_location_path, class: "dropdown-item", method: :get %>
         <%= link_to "List my property", new_room_path, class: "dropdown-item", method: :get %>
