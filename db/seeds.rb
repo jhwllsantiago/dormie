@@ -22,15 +22,17 @@ occupant.skip_confirmation!
 occupant.save
 
 location = Location.create(
-  name: "El Pueblo Manila",
-  address: "B1214 Anonas St., Barangay 630, City of Manila",
-  unit: "B1214",
-  street: "Anonas St.",
-  barangay: "Barangay 630",
-  city: "City of Manila",
-  query: "El+Pueblo+Manila,Anonas+St.,Barangay+630,City+of+Manila",
+  name: "DormTeL Recto",
+  unit: "4F",
+  address_line: "Cartimar Shopping Center, Recto Ave, Quiapo",
+  city: "Manila",
+  province: "Metro Manila",
+  query: "DormTeL Recto Manila Metro Manila",
+  full_address: "4F, Cartimar Shopping Center, Recto Ave, Quiapo, Manila, Metro Manila", 
   owner: owner
 )
+location.geocode
+location.save
 
 room = Room.create(
   name: "The Expanse",

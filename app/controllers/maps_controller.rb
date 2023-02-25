@@ -1,9 +1,10 @@
 class MapsController < ApplicationController
+  include MapsHelper
   before_action :authenticate_owner!
 
   def location_map
     location = Location.find(params[:location_id])
-    render partial: "maps/location_map", locals: { query: location.query } 
+    render partial: "maps/location_map", locals: { query: coordinates_string(location) } 
   end
 
   def location_preview

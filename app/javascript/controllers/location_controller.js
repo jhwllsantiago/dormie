@@ -4,7 +4,7 @@ import { get } from "@rails/request.js";
 let mapTimeout;
 
 export default class extends Controller {
-  static targets = ["name", "city", "lat", "lng", "mapContainer", "submit"];
+  static targets = ["name", "city", "province", "lat", "lng", "mapContainer", "submit"];
   static values = {
     url: String,
   };
@@ -19,10 +19,10 @@ export default class extends Controller {
   map() {
     if (this.latTarget.value && this.lngTarget.value) return;
     const params = new URLSearchParams();
-    params.append("query", `${this.nameTarget.value},${this.cityTarget.value}`);
+    params.append("query", `${this.nameTarget.value},${this.cityTarget.value},${this.provinceTarget.value}`);
     params.append("target", "location_map_frame");
 
-    if (this.cityTarget.value.length > 3) {
+    if (this.provinceTarget.value.length > 2) {
       clearTimeout(mapTimeout);
       mapTimeout = setTimeout(() => {
         this.submitTarget.disabled = false

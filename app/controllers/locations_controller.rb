@@ -4,14 +4,14 @@ class LocationsController < ApplicationController
   before_action :set_coordinates, only: %i[ new ]
 
   def new
-    @location = Location.new(location_params.except(:province))
-    @query = @coordinates.present? ? @coordinates.join(",") : nil
+    @location = Location.new(location_params)
+    @query = @coordinates.join(",") if @coordinates.present?
   end
 
   def create
     @location = Location.new(location_params)
-    @location.address = address_string(@location)
-    @location.query = query_string(@location)
+    @location.full_address = address_string(location_params)
+    @location.query = query_string(location_params)
     @location.owner = current_owner
 
     if @location.save
@@ -30,7 +30,7 @@ class LocationsController < ApplicationController
 
   private
   def location_params
-    params.fetch(:location, {}).permit(:name, :unit, :street, :barangay, :city, :province, :latitude, :longitude)
+    params.fetch(:location, {}).permit(:name, :unit, :address_line, :city, :province, :latitude, :longitude)
   end
 
   def set_coordinates

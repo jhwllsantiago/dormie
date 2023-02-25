@@ -16,19 +16,14 @@
 
         <p class="mb-1 ps-1 monsterrat">Where is the property located?</p>
         <div class="d-flex mb-3" style="gap: 2%">
-          <div class="form-floating" style="width: 16%">
+          <div class="form-floating" style="width: 25%">
             <%= f.text_field :unit, class: "form-control", placeholder: "Unit" %>
-            <%= f.label :unit, style: "display: block" %>
+            <%= f.label :unit, "Lot No.", style: "display: block" %>
           </div>
 
-          <div class="form-floating" style="width: 40%">
-            <%= f.text_field :street, class: "form-control", placeholder: "Street", required: true %>
-            <%= f.label :street, style: "display: block" %>
-          </div>
-
-          <div class="form-floating" style="width: 40%">
-            <%= f.text_field :barangay, class: "form-control", placeholder: "Barangay", required: true %>
-            <%= f.label :barangay, style: "display: block" %>
+          <div class="form-floating" style="width: 73%">
+            <%= f.text_field :address_line, class: "form-control", placeholder: "Street", required: true %>
+            <%= f.label :address_line, "Street, Barangay", style: "display: block" %>
           </div>
         </div>
 
@@ -37,7 +32,7 @@
             <%= f.text_field :city, class: "form-control",
               placeholder: "City",
               required: true,
-              data: { location_target: "city", action: "input->location#map" }
+              data: { location_target: "city" }
             %>
             <%= f.label :city, style: "display: block" %>
           </div>
@@ -54,7 +49,6 @@
         <div class="p-3 mb-5 d-none" data-location-target="mapContainer">
           <div class="d-flex align-items-center justify-content-between">
             <p class="mb-1 ps-1 monsterrat">Is the marker correct?</p>
-            <%#= link_to "Adjust Marker", marker_forward_geocoding_path %>
             <%= f.button "Adjust Marker", formaction: marker_forward_geocoding_path, formmethod: :get %>
           </div>
           

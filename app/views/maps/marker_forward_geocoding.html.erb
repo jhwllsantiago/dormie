@@ -1,20 +1,19 @@
 <%= form_with(model: Location.new, url: new_location_url, method: :get) do |f|%>
   <%= f.text_field :name, hidden: true, value: @params[:name] %>
   <%= f.text_field :unit, hidden: true, value: @params[:unit] %>
-  <%= f.text_field :street, hidden: true, value: @params[:street] %>
-  <%= f.text_field :barangay, hidden: true, value: @params[:barangay] %>
+  <%= f.text_field :address_line, hidden: true, value: @params[:address_line] %>
   <%= f.text_field :city, hidden: true, value: @params[:city] %>
   <%= f.text_field :province, hidden: true, value: @params[:province] %>
-  <%= f.text_field :name, hidden: true, value: @params[:name] %>
-  <%= f.text_field :latitude, hidden: true, value: nil, id: "hidden-lat" %>
-  <%= f.text_field :longitude, hidden: true, value: nil, id: "hidden-lng" %>
+  <%= f.text_field :latitude, hidden: true, value: nil, id: "hidden-latitude" %>
+  <%= f.text_field :longitude, hidden: true, value: nil, id: "hidden-longitude" %>
   <%= f.submit :continue %>
 <% end %>
 <div id="map" style="height: 70vh"></div>
 <script>
   function mapInit() {
-    let lat, lng;
     const initialPosition = { "lat": 14.652794669768262, "lng": 121.0340736769664 };
+    const latitude = document.getElementById("hidden-latitude");
+    const longitude = document.getElementById("hidden-longitude")
     const target = document.getElementById("map");
     const map = new google.maps.Map(target, {
       zoom: 7,
@@ -28,8 +27,8 @@
 
     map.addListener("click", (mapsMouseEvent) => {
       marker.setPosition(mapsMouseEvent.latLng)
-      document.getElementById("hidden-lat").value = mapsMouseEvent.latLng.toJSON().lat
-      document.getElementById("hidden-lng").value = mapsMouseEvent.latLng.toJSON().lng
+      latitude.value = mapsMouseEvent.latLng.toJSON().lat
+      longitude.value = mapsMouseEvent.latLng.toJSON().lng
     });
   }
 </script>
