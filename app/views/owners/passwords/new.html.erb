@@ -8,10 +8,15 @@
       <div class="form-floating mb-3">
         <%= f.email_field :email, class: "form-control", placeholder: "Email", autofocus: true, autocomplete: "email" %>
         <%= f.label :email %>
+        <% if resource.errors[:email].present? %>
+          <% resource.errors[:email].each do |error| %>
+            <p class="validation">Email <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="actions d-flex align-items-content justify-content-center mb-3">
-        <%= f.submit "Send me reset password instructions" %>
+        <%= f.submit "Reset password" %>
       </div>
     <% end %>
 
