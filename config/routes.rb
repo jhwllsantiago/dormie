@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   get "maps/render/location/:location_id", to: "maps#location_map", as: "location_map"
   get "maps/render/preview", to: "maps#location_preview", as: "location_preview"
   get "maps/geocoding/forward/marker", to: "maps#marker_forward_geocoding", as: "marker_forward_geocoding"
+  get "maps/results", to: "maps#results_map", as: "results_map"
 end

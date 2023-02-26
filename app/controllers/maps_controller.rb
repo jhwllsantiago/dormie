@@ -19,8 +19,24 @@ class MapsController < ApplicationController
     @params = location_params
   end
 
+  def results_map
+    if params[:query]
+      @rooms = Room.joins(:location).where("locations.query ILIKE ?", "%#{params[:query]}%")
+      @rooms = Room.includes(:location) if @rooms.blank?
+    else
+      @rooms = Room.includes(:location)
+    end
+
+    @rooms = merge_fields(@rooms)
+    @center = geographic_center(@rooms)
+  end
+
   private
   def location_params
     params.fetch(:location, {}).permit!
+  end
+
+  def query_params
+    params.permit(:query, :nearby, :distance, :max_rent)
   end
 end
