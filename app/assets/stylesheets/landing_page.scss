@@ -171,7 +171,7 @@ $placeholder-color: #8e8e8e;
 }
 
 .h-custom {
-  height: 91vh;
+  height: calc(100vh - 87px /* navbar height */);
 }
 
 .mb-custom {
