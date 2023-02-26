@@ -4,6 +4,8 @@ class Location < ApplicationRecord
   after_save :geocode if :coordinate_blank?
   belongs_to :owner
   has_many :rooms, dependent: :destroy
+  attribute :latitude, :float
+  attribute :longitude, :float
 
   def coordinate_blank?
     this.latitude.blank? or this.longitude.blank?
