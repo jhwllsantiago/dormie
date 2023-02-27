@@ -1,6 +1,6 @@
 class MapsController < ApplicationController
   include MapsHelper
-  before_action :authenticate_owner!
+  before_action :authenticate_owner!, except: %i[ results_map ]
 
   def location_map
     location = Location.find(params[:location_id])
@@ -15,7 +15,7 @@ class MapsController < ApplicationController
     end
   end
 
-  def marker_forward_geocoding
+  def marker_map
     @params = location_params
   end
 
