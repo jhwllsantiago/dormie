@@ -4,7 +4,7 @@
     <div class="px-1 d-flex align-items-center"><%= image_tag("landing_page/search-icon.png", size: "20x20", class: "search-img") %></div>
     <div class="mx-4 quicksand placeholder-color semiBold w-100">
       <%= form_with(url: results_map_url, method: :get) do |f| %>
-        <%= f.text_field :query, placeholder: "Search", class: "w-100" %>
+        <%= f.search_field :near, placeholder: "enter a place or landmark", class: "w-100 px-3" %>
       <% end %>
     </div>
   </div>

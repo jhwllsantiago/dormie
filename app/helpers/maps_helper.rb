@@ -12,10 +12,9 @@ module MapsHelper
     end
   end
 
-  def geographic_center rooms
-    points = rooms.map do |room|
-       [room[:latitude], room[:longitude]]
-    end
-    Geocoder::Calculations.geographic_center(points)
+  def geocode_param param
+    return [14.5995124, 120.9842195] if param.blank?
+    results = Geocoder.search(param)
+    results.present? ? results.first.coordinates : [14.5995124, 120.9842195]
   end
 end

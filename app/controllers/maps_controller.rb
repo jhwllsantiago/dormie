@@ -1,6 +1,7 @@
 class MapsController < ApplicationController
   include MapsHelper
   before_action :authenticate_owner!, except: %i[ results_map ]
+  before_action :set_map_params, only: %i[ results_map ]
 
   def location_map
     location = Location.find(params[:location_id])
@@ -20,15 +21,19 @@ class MapsController < ApplicationController
   end
 
   def results_map
-    if params[:query]
-      @rooms = Room.joins(:location).where("locations.query ILIKE ?", "%#{params[:query]}%")
-      @rooms = Room.includes(:location) if @rooms.blank?
-    else
-      @rooms = Room.includes(:location)
+    if search_params[:near]
+      locations = Location.near(search_params[:near], @distance)
+      if locations.present?
+        @rooms = Room.where(location: locations.pluck(:id)).select { |room| @rent >= room.rent }
+      end
     end
-
-    @rooms = merge_fields(@rooms)
-    @center = geographic_center(@rooms)
+    
+    if @rooms.blank?
+      flash.now.alert = "No rooms found."
+    else
+      flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found."
+      @rooms = merge_fields(@rooms)
+    end
   end
 
   private
@@ -36,7 +41,14 @@ class MapsController < ApplicationController
     params.fetch(:location, {}).permit!
   end
 
-  def query_params
-    params.permit(:query, :nearby, :distance, :max_rent)
+  def search_params
+    params.permit(:near, :distance, :rent)
+  end
+
+  def set_map_params
+    @rooms = []
+    @center = geocode_param(params[:near])
+    @distance = search_params[:distance]&.to_i || 10
+    @rent = search_params[:rent]&.to_f || 10000
   end
 end

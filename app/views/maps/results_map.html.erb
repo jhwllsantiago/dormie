@@ -1,11 +1,56 @@
-<div id="results-map" style="width: 75vw; height: 80vh; margin: 10px auto;"></div>
+<div style="height: 80vh;" class="w-75 mt-3 mx-auto">
+  <%= form_with(url: results_map_url, method: :get, class:"results-map-form") do |f| %>
+    <p>Advanced search</p>
+    
+    <div>
+      <%= f.label :near, "Landmark", style: "display: block" %>
+      <%= f.text_field :near, placeholder: "UP Manila", value: params[:near] %>
+    </div>
+
+    <div class="slidecontainer">
+      <p>Max Distance: <span id="distance-value"></span>km</p>
+      <%= f.range_field :distance, in: 1..20, class: "slider", value: @distance %>
+    </div>
+    
+    <div class="slidecontainer">
+      <p>Max Rent: ₱<span id="rent-value"></span></p>
+      <%= f.range_field :rent, in: 1000..20000, step: 100, class: "slider", value: @rent %>
+    </div>
+
+    <%= f.submit :continue, style: "display: block" %>
+  <% end %>
+  <div id="results-map" style="height: 100%" class="w-100"></div>
+</div>
 <script>
+  var distanceSlider = document.getElementById("distance");
+  var rentSlider = document.getElementById("rent");
+  var distanceValue = document.getElementById("distance-value");
+  var rentValue = document.getElementById("rent-value");
+  distanceValue.textContent = distanceSlider.value;
+  rentValue.textContent = rentSlider.value;
+
+  distanceSlider.oninput = function() {
+    distanceValue.textContent = this.value;
+  }
+
+  rentSlider.oninput = function() {
+    rentValue.textContent = this.value;
+  }
+
   function initializeResultsMap() {
     const center = { "lat": <%= @center[0].to_f %>, "lng": <%= @center[1].to_f %> };
     const target = document.getElementById("results-map");
     const map = new google.maps.Map(target, {
-      zoom: 10,
+      zoom: 11,
       center,
+      restriction: {
+        latLngBounds: {
+          north: 25,
+          south: 0,
+          east: 130,
+          west: 110,
+        },
+      },
     });
       
     const rooms = <%= @rooms.to_json.html_safe %>
