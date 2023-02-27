@@ -1,8 +1,8 @@
-<div class="form shadow-lg p-5">
+<div class="form-md shadow-lg p-5">
   <h3 class="text-center monsterrat heading-color semiBold mb-5">New Location</h3>
   <%= form_with(model: location) do |f| %>
     <div data-controller="location" data-location-url-value="<%= location_preview_path %>">
-      <p class="mb-1 ps-1 monsterrat">What is the name of the property?</p>
+      <p class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">What is the name of the property? <i style="font-size: 0.8em;">(e.g., Avion Residences, JY Dormitory, Casa Victoria)</i></p>
       <div class="form-floating mb-5">
         <%= f.text_field :name, class: "form-control",
           placeholder: "Name",
@@ -13,16 +13,16 @@
         <%= f.label :name, style: "display: block" %>
       </div>
 
-      <p class="mb-1 ps-1 monsterrat">Where is the property located?</p>
+      <p class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">Where is the property located? <i style="font-size: 0.8em;">(e.g., 123, ABC Street, Barangay XYZ, Manila, Metro Manila)</i></p>
       <div class="d-flex mb-3" style="gap: 2%">
-        <div class="form-floating" style="width: 25%">
+        <div class="form-floating" style="width: 35%">
           <%= f.text_field :unit, class: "form-control", placeholder: "Unit" %>
-          <%= f.label :unit, "Lot No.", style: "display: block" %>
+          <%= f.label :unit, "Unit No./House No./Bldg. No.", style: "display: block" %>
         </div>
 
-        <div class="form-floating" style="width: 73%">
+        <div class="form-floating" style="width: 63%">
           <%= f.text_field :address_line, class: "form-control", placeholder: "Street", required: true %>
-          <%= f.label :address_line, "Street, Barangay", style: "display: block" %>
+          <%= f.label :address_line, "Street/Avenue, Barangay", style: "display: block" %>
         </div>
       </div>
 
@@ -46,9 +46,9 @@
       </div>
 
       <div class="p-3 mb-5 d-none" data-location-target="mapContainer">
-        <div class="d-flex align-items-center justify-content-between">
-          <p class="mb-1 ps-1 monsterrat">Is the marker correct?</p>
-          <%= f.button "Adjust Marker", formaction: marker_forward_geocoding_path, formmethod: :get %>
+        <div class="mb-3 d-flex align-items-center justify-content-between">
+          <p class="m-0 ps-1 monsterrat semiBold">Is the marker correct?</p>
+          <%= f.button "Adjust Marker", class: "rs-button py-1 px-3", formaction: marker_forward_geocoding_path, formmethod: :get %>
         </div>
         
         <div style="height: 400px">
