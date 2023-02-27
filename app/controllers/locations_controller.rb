@@ -12,6 +12,7 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     @location.full_address = address_string(location_params)
     @location.query = query_string(location_params)
+    @location.geocode if coordinates_blank?(location_params)
     @location.owner = current_owner
 
     if @location.save
