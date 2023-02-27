@@ -1,4 +1,8 @@
-<div style="height: 80vh;" class="w-75 mt-3 mx-auto">
+<div style="height: 80vh;" class="w-75 mt-3 mx-auto"
+  data-controller="results"
+  data-results-coordinates-value="<%= @center.to_json %>"
+  data-results-rooms-value="<%= @rooms.to_json %>"
+  >
   <%= form_with(url: results_map_url, method: :get, class:"results-map-form") do |f| %>
     <p>Advanced search</p>
     
@@ -8,78 +12,18 @@
     </div>
 
     <div class="slidecontainer">
-      <p>Max Distance: <span id="distance-value"></span>km</p>
-      <%= f.range_field :distance, in: 1..20, class: "slider", value: @distance %>
+      <p>Max Distance: <span data-results-target="distance"></span>km</p>
+      <%= f.range_field :distance, in: 1..20, class: "slider", value: @distance,
+        data: { results_target: "distanceSlider" } %>
     </div>
     
     <div class="slidecontainer">
-      <p>Max Rent: ₱<span id="rent-value"></span></p>
-      <%= f.range_field :rent, in: 1000..20000, step: 100, class: "slider", value: @rent %>
+      <p>Max Rent: ₱<span data-results-target="rent"></span></p>
+      <%= f.range_field :rent, in: 1000..20000, step: 100, class: "slider", value: @rent,
+        data: { results_target: "rentSlider" } %>
     </div>
 
     <%= f.submit :continue, style: "display: block" %>
   <% end %>
-  <div id="results-map" style="height: 100%" class="w-100"></div>
+  <div data-results-target="mapDiv" style="height: 100%" class="w-100"></div>
 </div>
-<script>
-  var distanceSlider = document.getElementById("distance");
-  var rentSlider = document.getElementById("rent");
-  var distanceValue = document.getElementById("distance-value");
-  var rentValue = document.getElementById("rent-value");
-  distanceValue.textContent = distanceSlider.value;
-  rentValue.textContent = rentSlider.value;
-
-  distanceSlider.oninput = function() {
-    distanceValue.textContent = this.value;
-  }
-
-  rentSlider.oninput = function() {
-    rentValue.textContent = this.value;
-  }
-
-  function initializeResultsMap() {
-    const center = { "lat": <%= @center[0].to_f %>, "lng": <%= @center[1].to_f %> };
-    const target = document.getElementById("results-map");
-    const map = new google.maps.Map(target, {
-      zoom: 11,
-      center,
-      restriction: {
-        latLngBounds: {
-          north: 25,
-          south: 0,
-          east: 130,
-          west: 110,
-        },
-      },
-    });
-      
-    const rooms = <%= @rooms.to_json.html_safe %>
-    var infowindow =  new google.maps.InfoWindow({
-      disableAutoPan: true
-    });
-    var marker, count;
-    for (count = 0; count < rooms.length; count++) {
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(rooms[count]["latitude"], rooms[count]["longitude"]),
-        map,
-      }); 
-      google.maps.event.addListener(marker, "mouseover", ((marker, count) => {
-        return () => {
-          infowindow.setContent(`
-          <div class="infowindow">
-            <p class="infowindow-item">${rooms[count]['location_name']}</p>
-            <p class="infowindow-item">${rooms[count]['name']}</p>
-            <p class="infowindow-item">₱${rooms[count]['rent']}</p>
-            <p class="infowindow-item"><a href="/rooms/${rooms[count]['id']}" target="_blank">Details</a></p>
-          </div>
-          `);
-          infowindow.open(map, marker);
-        }
-      })(marker, count));
-    }
-  }
-</script>
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV["GM_KEY"]}&callback=initializeResultsMap&v=weekly",
-  async: true,
-  defer: true
-%>

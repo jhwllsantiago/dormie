@@ -1,35 +1,13 @@
-<%= form_with(model: Location.new, url: new_location_url, method: :get) do |f|%>
-  <%= f.text_field :name, hidden: true, value: @params[:name] %>
-  <%= f.text_field :unit, hidden: true, value: @params[:unit] %>
-  <%= f.text_field :address_line, hidden: true, value: @params[:address_line] %>
-  <%= f.text_field :city, hidden: true, value: @params[:city] %>
-  <%= f.text_field :province, hidden: true, value: @params[:province] %>
-  <%= f.text_field :latitude, hidden: true, value: nil, id: "hidden-latitude" %>
-  <%= f.text_field :longitude, hidden: true, value: nil, id: "hidden-longitude" %>
-  <%= f.submit :continue %>
-<% end %>
-<div id="map" style="height: 70vh"></div>
-<script>
-  function mapInit() {
-    const initialPosition = { "lat": 14.652794669768262, "lng": 121.0340736769664 };
-    const latitude = document.getElementById("hidden-latitude");
-    const longitude = document.getElementById("hidden-longitude")
-    const target = document.getElementById("map");
-    const map = new google.maps.Map(target, {
-      zoom: 7,
-      center: initialPosition,
-    });
-      
-    let marker = new google.maps.Marker({
-      map: map,
-      draggable: false,
-    });
-
-    map.addListener("click", (mapsMouseEvent) => {
-      marker.setPosition(mapsMouseEvent.latLng)
-      latitude.value = mapsMouseEvent.latLng.toJSON().lat
-      longitude.value = mapsMouseEvent.latLng.toJSON().lng
-    });
-  }
-</script>
-<script defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GM_KEY"] %>&callback=mapInit&v=weekly"></script>
+<div data-controller="marker" data-marker-coordinates-value="<%= @center.to_json %>">
+  <%= form_with(model: Location.new, url: new_location_url, method: :get) do |f|%>
+    <%= f.text_field :name, hidden: true, value: @params[:name] %>
+    <%= f.text_field :unit, hidden: true, value: @params[:unit] %>
+    <%= f.text_field :address_line, hidden: true, value: @params[:address_line] %>
+    <%= f.text_field :city, hidden: true, value: @params[:city] %>
+    <%= f.text_field :province, hidden: true, value: @params[:province] %>
+    <%= f.text_field :latitude, hidden: true, value: nil, data: { marker_target: "latitude" } %>
+    <%= f.text_field :longitude, hidden: true, value: nil, data: { marker_target: "longitude" } %>
+    <%= f.submit :continue %>
+  <% end %>
+  <div data-marker-target="mapDiv" style="width: 80vw; height: 80vh;" class="my-3 mx-auto"></div>
+</div>
