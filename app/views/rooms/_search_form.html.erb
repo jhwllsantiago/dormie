@@ -1,8 +1,9 @@
 <div data-controller="search">
-  <div data-search-target="backdrop" class="search-form-backdrop d-none"></div>
+  <div data-search-target="backdrop" data-action="click->search#hide" class="search-form-backdrop d-none"></div>
   <button data-action="click->search#show">Advanced Search</button>
   <%= link_to "View results on map", results_map_path(map_params) %>
-  <%= form_with(url: rooms_url, method: :get, data: { search_target: "form" }, class:"d-none search-form") do |f| %>
+  <%= form_with(url: rooms_url, method: :get, data: { search_target: "form", action: "submit->search#hide" },
+    class:"d-none search-form") do |f| %>
     <%= f.search_field :place, placeholder: "enter a place or landmark",
       class: "px-3", spellcheck: false, value: params[:place] %>
 
@@ -27,6 +28,6 @@
       ], selected: selected, prompt: "Sorting options" )%>
     </div>
 
-    <%= f.submit :search, style: "display: block" %>
+    <%= f.submit :search, data: { action: "click->search#hide" }, style: "display: block" %>
   <% end %>
 </div>
