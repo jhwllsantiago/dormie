@@ -1,4 +1,5 @@
 module RoomsHelper
+  include Pagy::Frontend
   
   def shortened_city(city)
     arr = city.split(" ")

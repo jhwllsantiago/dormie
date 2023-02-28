@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   include RoomsHelper
+  include Pagy::Backend
   before_action :authenticate_owner!, except: %i[ index show ]
   before_action :set_room, only: %i[ show edit update destroy ]
   before_action :room_ownership, only: %i[ edit update destroy ]
@@ -11,18 +12,21 @@ class RoomsController < ApplicationController
     if search_params[:place].present?
       if @sort_option[0] == :distance
         locations = locations_sorted_by_distance
-        collect_rooms_and_filter(locations)
+        room_ids = locations_room_ids(locations)
+        @rooms = Room.includes(:location).where(id: room_ids)
+        @pagy, @pagy_rooms = pagy(@rooms.order(Arel.sql("position(id::text in '#{room_ids.join(',')}')")))
       else
         locations = Location.near(search_params[:place], @distance)
         sort_rooms_and_filter(locations)
+        @pagy, @pagy_rooms = pagy(@rooms)
       end
     end
     
     if @rooms.blank?
-      @rooms = Room.includes(:location).order(updated_at: :desc)
+      @pagy, @pagy_rooms = pagy(Room.includes(:location).order(updated_at: :desc))
       flash.now.alert = "No match found. Displaying all rooms." if search_params[:place].present?
     else
-      flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found."
+      flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found." if params[:page].blank?
     end
   end
 
@@ -123,12 +127,14 @@ class RoomsController < ApplicationController
       .reorder(@sort_option[0] => @sort_option[1])
   end
 
-  def collect_rooms_and_filter locations
+  def locations_room_ids locations
+    room_ids = []
     locations.each do |location|
       location.rooms.each do |room|
-        @rooms << room if @rent >= room.rent
+        room_ids << room.id if @rent >= room.rent
       end
     end
+    room_ids
   end
 
   def sort_rooms_and_filter locations

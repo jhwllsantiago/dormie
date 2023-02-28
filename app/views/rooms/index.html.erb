@@ -4,8 +4,10 @@
     map_params: { place: params[:place], distance: @distance,
     rent: @rent }, selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
   <div class="d-flex flex-wrap justify-content-center">
-    <% @rooms.each do |room| %>
+    <% @pagy_rooms.each do |room| %>
       <%= render "room", room: room %>
     <% end %>
   </div>
+  <%# Note the double equals sign "==" which marks the output as trusted and html safe: %>
+  <%== pagy_bootstrap_nav(@pagy) %>
 </div>
