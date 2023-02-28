@@ -43,10 +43,14 @@ export default class extends Controller {
     });
 
     const rooms = this.roomsValue;
-    var infowindow = new google.maps.InfoWindow({
+    let infowindow = new google.maps.InfoWindow({
       disableAutoPan: true,
     });
-    var marker, count;
+    let marker, count;
+    let PhP = Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "PHP",
+    });
 
     for (count = 0; count < rooms.length; count++) {
       marker = new google.maps.Marker({
@@ -65,7 +69,7 @@ export default class extends Controller {
           <div class="infowindow">
             <p class="infowindow-item">${rooms[count]["location_name"]}</p>
             <p class="infowindow-item">${rooms[count]["name"]}</p>
-            <p class="infowindow-item">₱${rooms[count]["rent"]}</p>
+            <p class="infowindow-item">${PhP.format(rooms[count]["rent"])}</p>
             <p class="infowindow-item"><a href="/rooms/${rooms[count]["id"]}" target="_blank">Details</a></p>
           </div>
           `);
