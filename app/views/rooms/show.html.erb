@@ -9,14 +9,14 @@
     <div class="d-flex align-items-start justify-content-between w-100 mb-sr">
       <%= render "name_desc" %>
     </div>
-    <% if occupant_signed_in? or owner_signed_in? %>
-      <div class="w-100 d-flex flex-row align-items-center justify-content-between mb-sr">
-        <div style="width: 48%;"><%= render "rooms/details" %></div>
+    <div class="w-100 d-flex flex-row align-items-center justify-content-between mb-sr">
+      <div style="width: 48%;"><%= render "rooms/details" %></div>
+      <% if occupant_signed_in? or owner_signed_in? %>
         <div style="width: 48%;"><%= render "rooms/contact" %></div>
-      </div>
-    <% else %>
-      <div class="w-100 mb-sr"><%= render "rooms/details" %></div>
-    <% end %>
+      <% else %>
+        <div style="width: 48%; align-self: start;"><%= render "rooms/contact" %></div>
+      <% end %>
+    </div>
     <div class="w-100 mb-3">
       <h3 class="text-center monsterrat heading-color bold">Property Location</h3>
       <p class="text-center quicksand grey" style="font-size: 15px;">
