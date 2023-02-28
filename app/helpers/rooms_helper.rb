@@ -11,4 +11,8 @@ module RoomsHelper
     end
   end
   
+  def extract_sort_option param
+    return [:updated_at, :desc] if param.blank?
+    param.split("-").map(&:to_sym)
+  end
 end

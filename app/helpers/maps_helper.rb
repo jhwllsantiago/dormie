@@ -12,7 +12,7 @@ module MapsHelper
     end
   end
 
-  def geocode_param param
+  def self.geocode_param param
     return [14.5995124, 120.9842195] if param.blank?
     results = Geocoder.search(param)
     results.present? ? results.first.coordinates : [14.5995124, 120.9842195]

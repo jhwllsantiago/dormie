@@ -1,0 +1,32 @@
+<div data-controller="search">
+  <div data-search-target="backdrop" class="search-form-backdrop d-none"></div>
+  <button data-action="click->search#show">Advanced Search</button>
+  <%= link_to "View results on map", results_map_path(map_params) %>
+  <%= form_with(url: rooms_url, method: :get, data: { search_target: "form" }, class:"d-none search-form") do |f| %>
+    <%= f.search_field :place, placeholder: "enter a place or landmark",
+      class: "px-3", spellcheck: false, value: params[:place] %>
+
+    <div class="slidecontainer">
+      <p>Max Distance: <span data-search-target="distance"></span>km</p>
+      <%= f.range_field :distance, in: 1..20, class: "slider", value: @distance,
+        data: { search_target: "distanceSlider" } %>
+    </div>
+    
+    <div class="slidecontainer">
+      <p>Max Rent: ₱<span data-search-target="rent"></span></p>
+      <%= f.range_field :rent, in: 1000..20000, step: 100, class: "slider", value: @rent,
+        data: { search_target: "rentSlider" } %>
+    </div>
+
+    <div>
+      <%= f.select(:sort, [
+      ["Distance - nearest to farthest", "distance-asc"],
+      ["Distance - farthest to nearest", "distance-desc"],
+      ["Rent - lowest to highest", "rent-asc"],
+      ["Rent - highest to lowest", "rent-desc"],
+      ], selected: selected, prompt: "Sorting options" )%>
+    </div>
+
+    <%= f.submit :search, style: "display: block" %>
+  <% end %>
+</div>
