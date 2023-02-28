@@ -11,14 +11,11 @@ class RoomsController < ApplicationController
   def index
     if search_params[:place].present?
       if @sort_option[0] == :distance
-        locations = locations_sorted_by_distance
-        room_ids = locations_room_ids(locations)
-        @rooms = Room.includes(:location).where(id: room_ids)
-        @pagy, @pagy_rooms = pagy(@rooms.order(Arel.sql("position(id::text in '#{room_ids.join(',')}')")))
+        locations = locations_ordered_by_distance
+        order_rooms_by_distance(locations)
       else
         locations = Location.near(search_params[:place], @distance)
-        sort_rooms_and_filter(locations)
-        @pagy, @pagy_rooms = pagy(@rooms)
+        order_rooms_by_param(locations)
       end
     end
     
@@ -26,6 +23,7 @@ class RoomsController < ApplicationController
       @pagy, @pagy_rooms = pagy(Room.includes(:location).order(updated_at: :desc))
       flash.now.alert = "No match found. Displaying all rooms." if search_params[:place].present?
     else
+      @pagy, @pagy_rooms = pagy(@rooms)
       flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found." if params[:page].blank?
     end
   end
@@ -121,23 +119,31 @@ class RoomsController < ApplicationController
     @sort_option = extract_sort_option(search_params[:sort])
   end
 
-  def locations_sorted_by_distance
+  def locations_ordered_by_distance
     Location.near(search_params[:place], @distance)
       .includes(:rooms)
       .reorder(@sort_option[0] => @sort_option[1])
   end
 
-  def locations_room_ids locations
-    room_ids = []
-    locations.each do |location|
-      location.rooms.each do |room|
-        room_ids << room.id if @rent >= room.rent
-      end
-    end
-    room_ids
+  def order_rooms_by_distance locations
+    return if locations.blank?
+    room_ids = locations_room_ids(locations)
+    return if room_ids.blank?
+    @rooms = Room.includes(:location)
+      .where(id: room_ids)
+      .order(Arel.sql("position(id::text in '#{room_ids.join(',')}')"))
   end
 
-  def sort_rooms_and_filter locations
+  def locations_room_ids locations
+    locations.flat_map do |location|
+      location.rooms.flat_map do |room|
+        room.id if @rent >= room.rent
+      end
+    end.compact
+  end
+
+
+  def order_rooms_by_param locations
     return if locations.blank?
     @rooms = Room.includes(:location)
       .where(location: locations.pluck(:id), rent: ..@rent)
