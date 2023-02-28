@@ -22,8 +22,8 @@ class MapsController < ApplicationController
   end
 
   def results_map
-    if search_params[:near]
-      locations = Location.near(search_params[:near], @distance)
+    if search_params[:place]
+      locations = Location.near(search_params[:place], @distance)
       if locations.present?
         @rooms = Room.where(location: locations.pluck(:id)).select { |room| @rent >= room.rent }
       end
@@ -43,12 +43,12 @@ class MapsController < ApplicationController
   end
 
   def search_params
-    params.permit(:near, :distance, :rent)
+    params.permit(:place, :distance, :rent)
   end
 
   def set_map_params
     @rooms = []
-    @center = geocode_param(params[:near])
+    @center = MapsHelper.geocode_param(params[:place])
     @distance = search_params[:distance]&.to_i || 10
     @rent = search_params[:rent]&.to_f || 10000
   end
