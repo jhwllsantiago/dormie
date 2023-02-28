@@ -27,7 +27,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params.except(:location))
-    @room.location = Location.find(room_params[:location])
+    @room.location = Location.find(room_params[:location]) if room_params[:location].present?
 
     if @room.save
       redirect_to room_url(@room), notice: "Room was successfully created."
