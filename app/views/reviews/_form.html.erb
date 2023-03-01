@@ -5,18 +5,18 @@
       <div class="order-1">Room rate: </div>
       <%= f.collection_radio_buttons(:rating, [[5],[4],[3],[2],[1]], :first, :last) do |star| %>
         <%= star.radio_button %>
-        <%= star.label class: "text-transparent" %>
+        <%= star.label class: "text-transparent user-select-none" %>
       <% end %>
     </div>
 
     <div class="quicksand grey semiBold" style="font-size: 14px;">
       <%= f.label :title, 'Title:', style: "display: block" %>
-      <%= f.text_field :title, placeholder: 'Give your review a title, e.g. "Overall Experience," "Best Room," "Good rent!" etc.', class: "review-form w-100 mb-2" %>
+      <%= f.text_field :title, required: true, placeholder: 'Give your review a title, e.g. "Overall Experience," "Best Room," "Good rent!" etc.', class: "review-form w-100 mb-2" %>
     </div>
 
     <div class="quicksand grey semiBold" style="font-size: 14px;">
       <%= f.label :comment, 'Review:', style: "display: block" %>
-      <%= f.text_area :comment, placeholder: "Share more thoughts on the room to help other dormers.", class: "f-textarea review-form w-100 mb-2" %>
+      <%= f.text_area :comment, required: true, placeholder: "Share more thoughts on the room to help other dormers.", class: "f-textarea review-form w-100 mb-2" %>
     </div>
 
     <div class="text-center review-button mt-1 mb-2">

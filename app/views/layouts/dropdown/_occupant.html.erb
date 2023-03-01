@@ -5,7 +5,7 @@
       <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= current_occupant.name.titleize %>
       </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <div class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
         <%= link_to "Edit profile", edit_occupant_registration_path, class: "dropdown-item" %>
         <div class="dropdown-divider"></div>
         <%= button_to "Logout", destroy_occupant_session_path, method: :delete, class: "dropdown-item" %>
