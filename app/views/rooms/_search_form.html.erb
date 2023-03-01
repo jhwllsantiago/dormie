@@ -5,7 +5,7 @@
   <%= form_with(url: rooms_url, method: :get, data: { search_target: "form", action: "submit->search#hide" },
     class:"d-none search-form") do |f| %>
     <%= f.search_field :place, placeholder: "enter a place or landmark",
-      class: "px-3", spellcheck: false, value: params[:place] %>
+      class: "px-3", spellcheck: false, required: true, value: params[:place] %>
 
     <div class="slidecontainer">
       <p>Max Distance: <span data-search-target="distance"></span>km</p>
@@ -25,11 +25,11 @@
       ["Distance - farthest to nearest", "distance-desc"],
       ["Rent - lowest to highest", "rent-asc"],
       ["Rent - highest to lowest", "rent-desc"],
-      ["Newest", "created_at-desc"],
-      ["Oldest", "created_at-asc"],
+      ["Newest", "updated_at-desc"],
+      ["Oldest", "updated_at-asc"],
       ], selected: selected, prompt: "Sorting options" )%>
     </div>
 
-    <%= f.submit :search, data: { action: "click->search#hide" }, style: "display: block" %>
+    <%= f.submit :search, style: "display: block" %>
   <% end %>
 </div>
