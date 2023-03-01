@@ -5,4 +5,14 @@ class Location < ApplicationRecord
   has_many :rooms, dependent: :destroy
   attribute :latitude, :float
   attribute :longitude, :float
+
+  def self.order_near place, distance, sort_option
+    self.near(place, distance)
+      .includes(:rooms)
+      .reorder(sort_option[0] => sort_option[1])
+  end
+
+  def self.near_ids place, distance
+    self.near(place, distance, order: false).pluck(:id)
+  end
 end

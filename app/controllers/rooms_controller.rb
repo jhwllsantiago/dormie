@@ -6,23 +6,11 @@ class RoomsController < ApplicationController
   before_action :room_ownership, only: %i[ edit update destroy ]
   before_action :set_locations, only: %i[ new edit ]
   before_action :validate_images, only: %i[ create ]
-  before_action :set_search_params, only: %i[ index ]
+  before_action :set_search_params, :set_rooms, only: %i[ index ]
 
   def index
-    if @place.present?
-      if @sort_option[0] == :distance
-        locations = locations_ordered_by_distance
-        order_rooms_by_distance(locations)
-      else
-        locations = Location.near(@place, @distance)
-        order_rooms_by_param(locations)
-      end
-    else
-      @rooms = Room.order(@sort_option[0] => @sort_option[1])
-    end
-    
     if @rooms.blank?
-      @pagy, @pagy_rooms = pagy(Room.includes(:location).order(updated_at: :desc))
+      @pagy, @pagy_rooms = pagy(Room.default_order)
       flash.now.alert = "No match found. Displaying all rooms." if @place.present?
     else
       @pagy, @pagy_rooms = pagy(@rooms)
@@ -92,6 +80,21 @@ class RoomsController < ApplicationController
     params.require(:room).permit(:name, :rent, :capacity, :vacancies, :description, :location, tags: [], images: [])
   end
 
+  def set_rooms
+    if @place.present?
+      if @sort_option[0] == :distance
+        locations = Location.order_near(@place, @distance, @sort_option)
+        room_ids = rentable_room_ids(locations, @rent)
+        @rooms = Room.where_order_maintained(room_ids)
+      else
+        location_ids = Location.near_ids(@place, @distance)
+        @rooms = Room.rentables(location_ids, @rent, @sort_option)
+      end
+    else
+      @rooms = Room.order(@sort_option[0] => @sort_option[1])
+    end
+  end
+
   def set_locations
     @locations = current_owner.locations
   end
@@ -120,35 +123,5 @@ class RoomsController < ApplicationController
     @distance = search_params[:distance]&.to_i || 20
     @rent = search_params[:rent]&.to_f || 20000
     @sort_option = extract_sort_option(search_params[:sort])
-  end
-
-  def locations_ordered_by_distance
-    Location.near(@place, @distance)
-      .includes(:rooms)
-      .reorder(@sort_option[0] => @sort_option[1])
-  end
-
-  def order_rooms_by_distance locations
-    return if locations.blank?
-    room_ids = locations_room_ids(locations)
-    return if room_ids.blank?
-    @rooms = Room.includes(:location)
-      .where(id: room_ids)
-      .order(Arel.sql("position(id::text in '#{room_ids.join(',')}')"))
-  end
-
-  def locations_room_ids locations
-    locations.flat_map do |location|
-      location.rooms.flat_map do |room|
-        room.id if @rent >= room.rent
-      end
-    end.compact
-  end
-
-  def order_rooms_by_param locations
-    return if locations.blank?
-    @rooms = Room.includes(:location)
-      .where(location: locations.pluck(:id), rent: ..@rent)
-      .order(@sort_option[0] => @sort_option[1])
   end
 end

@@ -9,4 +9,12 @@ module RoomsHelper
       order
     end
   end
+
+  def rentable_room_ids locations, rent
+    locations.flat_map do |location|
+      location.rooms.flat_map do |room|
+        room.id if rent >= room.rent
+      end
+    end.compact
+  end
 end
