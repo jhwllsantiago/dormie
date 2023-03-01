@@ -1,5 +1,7 @@
 class Room < ApplicationRecord
   validates :name, :description, :rent, :capacity, :vacancies, presence: true
+  validates :capacity, :vacancies, numericality: { only_integer: true, greater_than: 0 }
+  validates :rent, numericality: { greater_than: 0 }
   delegate :owner, to: :location
   belongs_to :location
   has_many :reviews, dependent: :destroy
