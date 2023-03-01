@@ -5,7 +5,8 @@ class Owner < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
   validates :name, presence: true
+  validates :contact, presence: true, format: { with: /\A09\d{9}\z/ }
   has_many :locations, dependent: :destroy
   has_many :rooms, through: :locations
-  enum :status, { unverified: 0, verified: 1, partner: 2, inactive: 3 }
+  enum :status, { standard: 0, partner: 1, inactive: 2 }
 end

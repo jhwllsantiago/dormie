@@ -21,19 +21,19 @@
 
         <p class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">What is the starting rental price?</p>
         <div class="form-floating mb-3">
-          <%= f.number_field :rent, class: "form-control", placeholder: "Rent", required: true, value: 3000.00 %>
+          <%= f.number_field :rent, class: "form-control", placeholder: "Rent", required: true, value: 3000.00, min: 1000, max: 20000, step: 100 %>
           <%= f.label :rent, style: "display: block" %>
         </div>
 
         <p class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">What is the maximum number of occupants that can stay in this room?</p>
         <div class="form-floating mb-3">
-          <%= f.number_field :capacity, class: "form-control", placeholder: "Capacity", required: true, value: 4 %>
+          <%= f.number_field :capacity, class: "form-control", placeholder: "Capacity", required: true, value: 4, min: 1 %>
           <%= f.label :capacity, style: "display: block" %>
         </div>
 
         <p class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">How many vacancies are left?</p>
         <div class="form-floating mb-3">
-          <%= f.number_field :vacancies, class: "form-control", placeholder: "Vacancies", required: true, value: 4 %>
+          <%= f.number_field :vacancies, class: "form-control", placeholder: "Vacancies", required: true, value: 4, min: 1 %>
           <%= f.label :vacancies, style: "display: block" %>
         </div>
 
