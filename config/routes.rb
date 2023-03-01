@@ -28,4 +28,12 @@ Rails.application.routes.draw do
   get "maps/render/preview", to: "maps#location_preview", as: "location_preview"
   get "maps/marker", to: "maps#marker_map", as: "marker_map"
   get "maps/results", to: "maps#results_map", as: "results_map"
+
+  devise_scope :owner do
+    get "owners", to: "owners/registrations#edit"
+  end
+
+  devise_scope :occupant do
+    get "occupants", to: "occupants/registrations#edit"
+  end
 end
