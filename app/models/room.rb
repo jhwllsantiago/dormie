@@ -28,6 +28,6 @@ class Room < ApplicationRecord
   def self.rentables location_ids, rent, sort_option
     self.includes(:location)
       .where(location: location_ids, rent: ..rent)
-      .order(sort_option[0] => sort_option[1])
+      .order(sort_option)
   end
 end

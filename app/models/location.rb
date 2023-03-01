@@ -9,7 +9,7 @@ class Location < ApplicationRecord
   def self.order_near place, distance, sort_option
     self.near(place, distance)
       .includes(:rooms)
-      .reorder(sort_option[0] => sort_option[1])
+      .reorder(sort_option)
   end
 
   def self.near_ids place, distance

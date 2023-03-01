@@ -2,11 +2,11 @@ module RoomsHelper
   include Pagy::Frontend
   
   def extract_sort_option param
-    order = param&.split("-")&.map(&:to_sym)
-    if param.blank? or %i[ distance rent updated_at ].exclude?(order[0]) or %i[ asc desc ].exclude?(order[1])
-      [:updated_at, :desc]
+    a, b = param&.split("-")
+    if a.nil? or b.nil? or %w[ distance rent updated_at ].exclude?(a) or %w[ asc desc ].exclude?(b)
+      { updated_at: :desc }
     else
-      order
+      Hash[a.to_sym, b.to_sym]
     end
   end
 

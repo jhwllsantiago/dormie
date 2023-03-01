@@ -82,7 +82,7 @@ class RoomsController < ApplicationController
 
   def set_rooms
     if @place.present?
-      if @sort_option[0] == :distance
+      if @sort_option.has_key?(:distance)
         locations = Location.order_near(@place, @distance, @sort_option)
         room_ids = rentable_room_ids(locations, @rent)
         @rooms = Room.where_order_maintained(room_ids)
@@ -91,7 +91,7 @@ class RoomsController < ApplicationController
         @rooms = Room.rentables(location_ids, @rent, @sort_option)
       end
     else
-      @rooms = Room.order(@sort_option[0] => @sort_option[1])
+      @rooms = Room.order(@sort_option)
     end
   end
 
