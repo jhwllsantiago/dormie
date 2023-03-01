@@ -1,5 +1,7 @@
 <form action="<%= rooms_url %>" method="get" id="sort-select-form">
   <input type="text" hidden value=<%= @place %> name="place">
+  <input type="text" hidden value=<%= @distance %> name="distance">
+  <input type="text" hidden value=<%= @rent %> name="rent">
   <select name="sort" id="sort" onchange="submitForm()">
     <option value="">Sorting options</option>
     <% if @place.present? %>
