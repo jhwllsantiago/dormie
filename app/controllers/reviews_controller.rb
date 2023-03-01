@@ -20,9 +20,11 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review.update(review_params)
-   
-    render partial: "reviews/editable_review", locals: { room: @room, review: @review }
+    if @review.update(review_params) 
+      render partial: "reviews/editable_review", locals: { room: @room, review: @review }
+    else
+      render partial: "reviews/editable_review", locals: { room: @room, review: Review.find(@review.id) }
+    end
   end
 
   def destroy

@@ -1,0 +1,26 @@
+<div style="width: 48%;">
+  <div class="d-flex flex-row justify-content-between">
+    <div class="w-100 d-flex flex-column">
+      <h3 class="text-center monsterrat heading-color bold"><%= @room.name %></h3>
+      <div class="d-flex align-items-center justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
+          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="quicksand grey px-1" style="font-size: 15px;"><%= @room.location.name %>, <%= shortened_city(@room.location.city) %></span>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 h-5 d-flex flex-wrap align-items-center justify-content-start mt-4">
+    <% @tags.each do |tag| %>
+      <div class="tag-img d-flex align-items-center justify-content-start" style="width: 33%;">
+        <%= image_tag(tag.icon) if tag.icon %>
+        <span class="quicksand light-grey mx-2" style="font-size: 15px;"><%= tag.name %></span>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div style="width: 48%;">
+  <h3 class="text-center monsterrat heading-color bold">Description</h3>
+  <p class="quicksand grey" style="font-size: 15px;"><%= @room.description %></p>
+</div>

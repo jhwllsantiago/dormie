@@ -1,5 +1,60 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="x-apple-disable-message-reformatting">
+  <title></title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    table, td, div, h1, p {font-family: 'Montserrat', sans-serif;}
+  </style>
+</head>
+<body style="margin:0;padding:0;">
+  <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#d8e4fb;">
+    <tr>
+      <td align="center" style="padding:20px;">
+        <table role="presentation" style="width:602px;border-collapse:collapse;border-spacing:0;text-align:left;">
+          <tr>
+            <td align="left" style="padding: 12px 0px 16px 12px;background: #d8e4fb;">
+              <img src="https://i.ibb.co/r5ZxQSM/logo.png" alt="" width="120" style="height:auto;display:block;" />
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 20px 25px;background: white;border-radius: 10px;">
+              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                <tr>
+                  <td style="padding:0;">
+                    <h1 style="font-size:24px;font-weight:600;margin:0 0 20px 0;color:#3c529c;">Welcome to Dormie, <%= @resource.name %>!</h1>
+                    <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:'Quicksand',sans-serif;color:#59657c;">
+                      We are thrilled to have you here. Thank you for signing up and entrusting us with finding your perfect space. You can confirm your account by clicking the confirmation link below.<br/><br/>
+                      <%= link_to "Account Confirmation Link", confirmation_url(@resource, confirmation_token: @token), style: "text-decoration: none; color: #3c529c; font-weight: 600;" %><br/><br/>
+                      Happy dorm hunting!<br/><br/>
+                      Best,<br/>
+                      Dormie
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:30px;background:#d8e4fb;">
+              <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:'Quicksand',sans-serif;">
+                <tr>
+                  <td style="padding:0;width:100%;">
+                    <p style="margin:0;font-size:14px;line-height:16px;font-family:'Quicksand',sans-serif;color: #59657c;text-align: center;">
+                      Copyright © 2023 Dormie. All rights reserved.<br/>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

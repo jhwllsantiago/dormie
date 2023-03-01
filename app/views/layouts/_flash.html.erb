@@ -1,5 +1,5 @@
 <% if notice or alert %>
-  <div class="f-modal rounded text-white quicksand <%= notice ? "bg-main" : "bg-danger" %>" id="flash">
+  <div class="f-modal rounded text-white text-center quicksand <%= notice ? "bg-success" : "bg-danger" %>" id="flash">
     <span class="opacity-75"><%= notice ? notice : alert %></span>
   </div>
   <script defer>

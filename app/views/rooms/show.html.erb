@@ -1,54 +1,27 @@
-<div class="container-fluid mb-custom">
+<div class="container-fluid bg-repeat mb-custom py-4">
   <div class="container-lg">
-    <div class="d-flex justify-content-end align-items-center my-4">
+    <div class="d-flex justify-content-end align-items-center mb-4">
       <% if owner_signed_in? and current_owner&.rooms.include?(@room) %>
-        <%= button_to "Edit Room", edit_room_path(@room), class: "rs-button ms-1 fs-7 w-f-90 mx-2 py-1 px-3", method: :get %>
+        <%= button_to "Edit Room", edit_room_path(@room), class: "rs-button mx-2 py-1 px-3", method: :get %>
       <% end %>
     </div>
     <%= render "carousel" %>
     <div class="d-flex align-items-start justify-content-between w-100 mb-sr">
-      <div class="w-50">
-        <div class="d-flex flex-row justify-content-between">
-          <div class="w-75 d-flex flex-column">
-            <h4 class="monsterrat heading-color bold" style="margin: 0px;"><%= @room.name %></h4>
-            <div class="d-flex align-items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
-                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-              </svg>
-              <div class="quicksand grey px-1" style="font-size: 14px;"><%= @room.location.name %>, <%= shortened_city(@room.location.city) %></div>
-            </div>
-          </div>
-          <div class="w-50 d-flex flex-column align-items-center justify-content-start">
-            <div class="quicksand grey px-1" style="font-size: 14px;">rent starts at</div>
-            <h5 class="monsterrat heading-color bold" style="margin: 0px;"><%= number_to_currency(@room.rent, :unit => "₱") %></h5>
-          </div>
-        </div>
-        <div class="d-flex flex-wrap align-items-center justify-content-start mt-4 me-5">
-          <% @tags.each do |tag| %>
-            <div class="tag-img d-flex align-items-center" style="width: 30%;">
-              <%= image_tag(tag.icon) if tag.icon %>
-              <span class="quicksand light-grey mx-2" style="font-size: 14px;"><%= tag.name %></span>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="w-50">
-        <h4 class="monsterrat heading-color bold" style="margin: 0px;">Description</h4>
-        <div class="quicksand grey" style="font-size: 14px;"><%= @room.description %></div>
-      </div>
+      <%= render "name_desc" %>
     </div>
-    <div class="w-100 mb-sr">
-      <h4 class="text-center monsterrat heading-color bold" style="margin: 0px;">Room Details</h4>
-      <div class="text-center quicksand grey" style="font-size: 14px;">
-        Maximum of <%= @room.capacity %> pax<br/>
-        <%= pluralize(@room.vacancies, "bed") %> remaining
-      </div>
+    <div class="w-100 d-flex flex-row align-items-center justify-content-between mb-sr">
+      <div style="width: 48%;"><%= render "rooms/details" %></div>
+      <% if occupant_signed_in? or owner_signed_in? %>
+        <div style="width: 48%;"><%= render "rooms/contact" %></div>
+      <% else %>
+        <div style="width: 48%; align-self: start;"><%= render "rooms/contact" %></div>
+      <% end %>
     </div>
     <div class="w-100 mb-3">
-      <h4 class="text-center monsterrat heading-color bold" style="margin: 0px;">Property Location</h4>
-      <div class="text-center quicksand grey" style="font-size: 14px;">
+      <h3 class="text-center monsterrat heading-color bold">Property Location</h3>
+      <p class="text-center quicksand grey" style="font-size: 15px;">
         <%= @room.location.full_address %>
-      </div>
+      </p>
     </div>
     <div class="mb-sr" style="width: 100%; height: 500px;">
       <iframe
@@ -59,7 +32,7 @@
         class="rounded shadow">
       </iframe>
     </div>
-    <div class="w-50 mb-3" style="font-size: 14px;">
+    <div class="w-50 mb-3" style="font-size: 15px;">
       <%= turbo_frame_tag "room_review_frame" do %>
         <% if occupant_signed_in? and @review.nil? %>
           <%= render "reviews/form", room: @room, review: Review.new, show_cancel_button: false %>
@@ -68,14 +41,14 @@
         <% end %>
       <% end %> 
     </div>
-    <h4 class="text-center monsterrat heading-color bold mb-5">Room Reviews</h4>
-    <div class="w-100 mb-3 <%= "review-grid" if @reviews.present? %>" style="font-size: 14px;">
+    <h3 class="text-center monsterrat heading-color bold mb-5">Room Reviews</h3>
+    <div class="w-100 mb-3 <%= "review-grid" if @reviews.present? %>" style="font-size: 15px;">
       <% if @reviews.present? %>
         <% @reviews.each do |review| %>
           <%= render "reviews/review", review: review %>
         <% end %>
       <% else %>
-        <div class="text-center quicksand grey" style="font-size: 14px;">No reviews yet.</div>
+        <p class="text-center quicksand grey mb-sr" style="font-size: 15px;">No reviews yet.</p>
       <% end %>
     </div>
   </div>
