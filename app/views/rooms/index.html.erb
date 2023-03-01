@@ -3,6 +3,14 @@
   <%= render "search_form",
     map_params: { place: params[:place], distance: @distance,
     rent: @rent }, selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
+  <%= render "select_form", selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
+  <% if @place.present? %>
+    <div>
+      <p>place <%= @place %></p>
+      <p>distance <%= @distance %>km</p>
+      <p>rent <%= number_to_currency(@rent, unit: "₱") %></p>
+    </div>
+  <% end %>
   <div class="d-flex flex-wrap justify-content-center">
     <% @pagy_rooms.each do |room| %>
       <%= render "room", room: room %>

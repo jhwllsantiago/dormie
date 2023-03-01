@@ -9,19 +9,21 @@ class RoomsController < ApplicationController
   before_action :set_search_params, only: %i[ index ]
 
   def index
-    if search_params[:place].present?
+    if @place.present?
       if @sort_option[0] == :distance
         locations = locations_ordered_by_distance
         order_rooms_by_distance(locations)
       else
-        locations = Location.near(search_params[:place], @distance)
+        locations = Location.near(@place, @distance)
         order_rooms_by_param(locations)
       end
+    else
+      @rooms = Room.order(@sort_option[0] => @sort_option[1])
     end
     
     if @rooms.blank?
       @pagy, @pagy_rooms = pagy(Room.includes(:location).order(updated_at: :desc))
-      flash.now.alert = "No match found. Displaying all rooms." if search_params[:place].present?
+      flash.now.alert = "No match found. Displaying all rooms." if @place.present?
     else
       @pagy, @pagy_rooms = pagy(@rooms)
       flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found." if params[:page].blank?
@@ -112,6 +114,7 @@ class RoomsController < ApplicationController
   end
 
   def set_search_params
+    @place = search_params[:place]
     @rooms = []
     @center = MapsHelper.geocode_param(params[:place])
     @distance = search_params[:distance]&.to_i || 20
@@ -120,7 +123,7 @@ class RoomsController < ApplicationController
   end
 
   def locations_ordered_by_distance
-    Location.near(search_params[:place], @distance)
+    Location.near(@place, @distance)
       .includes(:rooms)
       .reorder(@sort_option[0] => @sort_option[1])
   end
@@ -141,7 +144,6 @@ class RoomsController < ApplicationController
       end
     end.compact
   end
-
 
   def order_rooms_by_param locations
     return if locations.blank?
