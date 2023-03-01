@@ -16,4 +16,8 @@ module LocationsHelper
     return nil if lng.blank?
     lng.count("^0-9.") == 0 and lng.to_d.between?(-180,180) ? lng.to_f : nil
   end
+
+  def coordinates_blank? params
+    params[:latitude].blank? or params[:longitude].blank?
+  end
 end

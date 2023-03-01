@@ -1,0 +1,13 @@
+<div data-controller="marker" data-marker-coordinates-value="<%= @center.to_json %>">
+  <%= form_with(model: Location.new, url: new_location_url, method: :get) do |f|%>
+    <%= f.text_field :name, hidden: true, value: @params[:name] %>
+    <%= f.text_field :unit, hidden: true, value: @params[:unit] %>
+    <%= f.text_field :address_line, hidden: true, value: @params[:address_line] %>
+    <%= f.text_field :city, hidden: true, value: @params[:city] %>
+    <%= f.text_field :province, hidden: true, value: @params[:province] %>
+    <%= f.text_field :latitude, hidden: true, value: nil, data: { marker_target: "latitude" } %>
+    <%= f.text_field :longitude, hidden: true, value: nil, data: { marker_target: "longitude" } %>
+    <%= f.submit :continue %>
+  <% end %>
+  <div data-marker-target="mapDiv" style="width: 80vw; height: 80vh;" class="my-3 mx-auto"></div>
+</div>

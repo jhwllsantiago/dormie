@@ -86,3 +86,6 @@ gem "geocoder", "~> 1.8"
 
 # Use .env for credentials
 gem 'dotenv-rails', groups: [:development, :test]
+
+# Use pagy for pagination
+gem "pagy"

@@ -1,8 +1,21 @@
 <div class="container-fluid mh mb-custom py-3 bg-repeat">
   <h3 class="text-center monsterrat heading-color semiBold p-3" >Rooms for Rent</h3>
+  <%= render "search_form",
+    map_params: { place: params[:place], distance: @distance,
+    rent: @rent }, selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
+  <%= render "select_form", selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
+  <% if @place.present? %>
+    <div>
+      <p>place <%= @place %></p>
+      <p>distance <%= @distance %>km</p>
+      <p>rent <%= number_to_currency(@rent, unit: "₱") %></p>
+    </div>
+  <% end %>
   <div class="d-flex flex-wrap justify-content-center">
-    <% @rooms.each do |room| %>
+    <% @pagy_rooms.each do |room| %>
       <%= render "room", room: room %>
     <% end %>
   </div>
+  <%# Note the double equals sign "==" which marks the output as trusted and html safe: %>
+  <%== pagy_bootstrap_nav(@pagy) %>
 </div>
