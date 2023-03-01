@@ -31,9 +31,11 @@ Rails.application.routes.draw do
 
   devise_scope :owner do
     get "owners", to: "owners/registrations#edit"
+    get "owners/password", to: "owners/passwords#new"
   end
 
   devise_scope :occupant do
     get "occupants", to: "occupants/registrations#edit"
+    get "occupants/password", to: "occupants/passwords#new"
   end
 end
