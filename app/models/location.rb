@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  validates :name, :unit, :address_line, :city, :province, :query, presence: true
+  validates :name, :address_line, :city, :province, :query, presence: true
   geocoded_by :query
   belongs_to :owner
   has_many :rooms, dependent: :destroy

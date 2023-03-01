@@ -79,12 +79,12 @@ $placeholder-color: #8e8e8e;
   }
 }
 
-.form, .form-lg {
+.form, .form-lg, .form-md {
   width: 700px;
   border-radius: 5px;
   font-family: $sec-font;
   color: $grey;
-  background-color: white;
+  background-color: transparent;
 
   .form-select {
     font-family: $sec-font;
@@ -136,7 +136,11 @@ $placeholder-color: #8e8e8e;
 }
 
 .form-lg {
-  width: 1500px;
+  width: 80%;
+}
+
+.form-md {
+  width: 50%;
 }
 
 .validation {

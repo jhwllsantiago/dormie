@@ -48,7 +48,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(room_params.except(:location))
-    @room.location = Location.find(room_params[:location])
+    @room.location = Location.find(room_params[:location]) if room_params[:location].present?
 
     if @room.save
       redirect_to room_url(@room), notice: "Room was successfully created."
@@ -68,7 +68,7 @@ class RoomsController < ApplicationController
     if @room.update(room_params.except(:location))
       redirect_to room_url(@room), notice: "Room details was successfully updated."
     else
-      redirect_to new_room_path, alert: "Room was not created.", status: :unprocessable_entity
+      redirect_to new_room_path, alert: "Room was not updated.", status: :unprocessable_entity
     end
   end
 

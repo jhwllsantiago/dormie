@@ -6,11 +6,21 @@
       <div class="form-floating mb-3">
         <%= f.email_field :email, class: "form-control", placeholder: "Email", autofocus: true, autocomplete: "email" %>
         <%= f.label :email %>
+        <% if resource.errors[:email].present? %>
+          <% resource.errors[:email].each do |error| %>
+            <p class="validation">Email <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="form-floating mb-3">
         <%= f.password_field :password, class: "form-control", placeholder: "Password", autocomplete: "current-password" %>
         <%= f.label :password %>
+        <% if resource.errors[:password].present? %>
+          <% resource.errors[:password].each do |error| %>
+            <p class="validation">Password <%= error %>.</p>
+          <% end %>
+        <% end %>
       </div>
 
       <% if devise_mapping.rememberable? %>

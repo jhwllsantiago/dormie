@@ -1,19 +1,22 @@
 <div class="container-fluid h-custom mb-custom bg-dashboard">
   <div class="container-lg d-flex py-4 h-100">
-    <div class="w-60 mx-3 bg-white db-cont rounded shadow-lg">
-      <div class="h-5 w-100 bg-heading d-flex db-main-links align-items-center justify-content-center"><%= link_to "+ ADD NEW LOCATION", new_location_path %></div>
-      <div class="h-30 overflow-auto mt-4 px-4">
-        <%= render "pages/dashboard/locations", locations: @locations %>
+    <div class="w-55 h-100">
+      <div class="h-50 bg-transparent db-cont rounded shadow-lg mb-3">
+        <p class="w-100 bg-heading d-flex db-main-links align-items-center justify-content-center"><%= link_to "+ ADD NEW LOCATION", new_location_path %></p>
+        <div class="scrollable overflow-auto px-4" style="height: calc(100% - 2rem - 40px);">
+          <%= render "pages/dashboard/locations", locations: @locations %>
+        </div>
       </div>
-      <div class="w-100 divider mt-4"></div>
-      <div class="h-5 w-100 bg-heading d-flex db-main-links align-items-center justify-content-center">MAP PREVIEW</div>
-      <div class="dashboard-map h-60">
-        <%= render "maps/location_map", query: @query %>
+      <div class="bg-transparent db-cont rounded shadow-lg" style="height: calc(50% - 1rem);">
+        <p class="w-100 m-0 bg-heading d-flex db-main-links align-items-center justify-content-center">MAP PREVIEW</p>
+        <div class="dashboard-map" style="height: calc(100% - 40px);">
+          <%= render "maps/location_map", query: @query %>
+        </div>
       </div>
     </div>
-    <div class="w-40 mx-3 bg-white db-cont rounded shadow-lg">
-      <div class="h-5 w-100 mb-3 bg-heading d-flex db-main-links align-items-center justify-content-center"><%= link_to "+ ADD ROOM", new_room_path %></div>
-      <div class="px-4 overflow-auto h-100">
+    <div class="w-45 mx-3 bg-transparent db-cont rounded shadow-lg">
+      <p class="w-100 mb-3 bg-heading d-flex db-main-links align-items-center justify-content-center"><%= link_to "+ ADD ROOM", new_room_path %></p>
+      <div class="scrollable overflow-auto px-4" style="height: calc(100% - 2rem - 40px);">
         <%= render "pages/dashboard/rooms", rooms: @rooms, locations: @locations %>
       </div>
     </div>

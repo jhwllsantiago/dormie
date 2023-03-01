@@ -13,8 +13,24 @@
 <% end %>
 
 <% if owner_signed_in? %>
+  <ul class="navbar-nav ms-auto mb-lg-0">
+    <li class="nav-item me-3">
+      <%= link_to "dashboard", dashboard_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item me-3">
+      <%= link_to "add new location", new_location_path, method: :get, class: "nav-link" %>
+    </li>
+    <li class="nav-item me-3">
+      <%= link_to "list room", new_room_path, method: :get, class: "nav-link" %>
+    </li>
+  </ul>
   <%= render "layouts/dropdown/owner" %>
 <% elsif occupant_signed_in? %>
+  <ul class="navbar-nav ms-auto mb-lg-0">
+    <li class="nav-item me-3">
+      <%= link_to "find a home", rooms_path, class: "nav-link" %>
+    </li>
+  </ul>
   <%= render "layouts/dropdown/occupant" %>
 <% else %>
   <%= button_to "login", sign_in_path, method: :get, class: "nav-button" %>
