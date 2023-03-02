@@ -8,14 +8,6 @@ class MapsController < ApplicationController
     render partial: "maps/location_map", locals: { query: coordinates_string(location) } 
   end
 
-  def location_preview
-    @target = params[:target]
-    @query = params[:query]
-    respond_to do |f|
-      f.turbo_stream
-    end
-  end
-
   def marker_map
     @params = location_params
     @center = MapsHelper.geocode_param(location_params)

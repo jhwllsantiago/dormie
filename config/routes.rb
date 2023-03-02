@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   get "dashboard", to: "pages#dashboard", as: "dashboard"
 
   get "maps/render/location/:location_id", to: "maps#location_map", as: "location_map"
-  get "maps/render/preview", to: "maps#location_preview", as: "location_preview"
   get "maps/marker", to: "maps#marker_map", as: "marker_map"
   get "maps/results", to: "maps#results_map", as: "results_map"
 

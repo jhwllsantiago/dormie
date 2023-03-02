@@ -25,14 +25,6 @@ RSpec.describe "Maps", type: :request do
       end
     end
 
-    # describe "GET location_preview" do
-    #   it "is succesful" do
-    #     get location_preview_path
-    #     expect(response).to be_successful
-    #     expect(response.media_type).to eq Mime[:turbo_stream]
-    #   end
-    # end
-
     describe "GET marker_map" do
       it "is succesful" do
         get marker_map_path
@@ -45,13 +37,6 @@ RSpec.describe "Maps", type: :request do
     describe "GET location_map" do
       it "redirects to new_owner_session" do
         get location_map_path(1)
-        expect(response).to redirect_to(new_owner_session_path)
-      end
-    end
-
-    describe "GET location_preview" do
-      it "redirects to new_owner_session" do
-        get location_preview_path
         expect(response).to redirect_to(new_owner_session_path)
       end
     end

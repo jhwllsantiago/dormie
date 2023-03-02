@@ -5,7 +5,6 @@ class LocationsController < ApplicationController
 
   def new
     @location = Location.new(location_params)
-    @query = @coordinates.join(",") if @coordinates.present?
   end
 
   def create
@@ -35,6 +34,5 @@ class LocationsController < ApplicationController
   def set_coordinates
     @latitude = param_to_latitude(location_params[:latitude])
     @longitude = param_to_longitude(location_params[:longitude])
-    @coordinates = [@latitude, @longitude].compact
   end
 end
