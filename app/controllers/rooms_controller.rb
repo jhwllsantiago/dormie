@@ -39,9 +39,9 @@ class RoomsController < ApplicationController
     @room.location = Location.find(room_params[:location]) if room_params[:location].present?
 
     if @room.save
-      redirect_to room_url(@room), notice: "Room was successfully created."
+      redirect_to room_path(@room), notice: "Room was successfully listed."
     else
-      redirect_to new_room_path, alert: "Room was not created.", status: :unprocessable_entity
+      redirect_to new_room_path, alert: "Room was not listed.", status: 302
     end
   end
 
@@ -54,9 +54,9 @@ class RoomsController < ApplicationController
     @room.location = Location.find(room_params[:location]) if room_params[:location].present? 
 
     if @room.update(room_params.except(:location))
-      redirect_to room_url(@room), notice: "Room details was successfully updated."
+      redirect_to room_path(@room), notice: "Room details was successfully updated."
     else
-      redirect_to new_room_path, alert: "Room was not updated.", status: :unprocessable_entity
+      redirect_to edit_room_path(@room), alert: "Room was not updated.", status: 302
     end
   end
 
