@@ -14,11 +14,11 @@ RSpec.describe "Maps", type: :request do
 
     describe "GET location_map" do
       let(:location) {create(:location, owner: owner)}
-      it "raises an error" do
-        expect { get location_map_path(1) }.to raise_error(ActiveRecord::RecordNotFound)
+      it "raises an error if location does not exist" do
+        expect { get location_map_path(0) }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
-      it "is succesful" do
+      it "is succesful and responds with turbo frame" do
         get location_map_path(location.id)
         expect(response).to be_successful
         expect(response.body).to include('<turbo-frame id="location_map_frame">')
