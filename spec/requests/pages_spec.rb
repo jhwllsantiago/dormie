@@ -25,17 +25,7 @@ RSpec.describe "Pages", type: :request do
   end
 
   context "user is signed in" do
-    Owner.destroy_all
-    user = Owner.new(
-      name: "John Doe",
-      contact: "09123123123",
-      email: "johndoe@example.com",
-      password: "password",
-      password_confirmation: "password"
-    )
-    user.skip_confirmation!
-    user.save!
-
+    let(:user) {create(:owner)}
     it "returns http success" do
       sign_in user
       get dashboard_path
