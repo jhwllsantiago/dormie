@@ -10,18 +10,20 @@ RSpec.describe "Locations", type: :request do
   describe "GET new_location" do
     it "is successful" do
       get new_location_path
-      expect(response).to be_successful
+      expect(response).to have_http_status(200)
     end
   end
 
   describe "POST locations" do
     it "redirects to dashboard with valid params" do
       post locations_path(location: params)
+      expect(response).to have_http_status(302)
       expect(response).to redirect_to(dashboard_path)
     end
 
     it "redirects to new_location with invalid params" do
       post locations_path(location: params.update(name: nil))
+      expect(response).to have_http_status(302)
       expect(response).to redirect_to(new_location_path)
     end
   end
@@ -29,7 +31,7 @@ RSpec.describe "Locations", type: :request do
   describe "DELETE location" do
     it "is successful" do
       delete location_path(location)
-      expect(response).to be_successful
+      expect(response).to have_http_status(200)
     end
   end
 end

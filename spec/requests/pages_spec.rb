@@ -6,14 +6,14 @@ RSpec.describe "Pages", type: :request do
   describe "GET root" do
     it "is succesful" do
       get root_path
-      expect(response).to be_successful
+      expect(response).to have_http_status(200)
     end
   end
 
   describe "GET sign_in" do
     it "is succesful" do
       get sign_in_path
-      expect(response).to be_successful
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -22,13 +22,14 @@ RSpec.describe "Pages", type: :request do
       it "is succesful" do
         sign_in owner
         get dashboard_path
-        expect(response).to be_successful
+        expect(response).to have_http_status(200)
       end
     end
 
     context "owner signed out" do
       it "redirects to new_owner_session" do
         get dashboard_path
+        expect(response).to have_http_status(302)
         expect(response).to redirect_to(new_owner_session_path)
       end
     end

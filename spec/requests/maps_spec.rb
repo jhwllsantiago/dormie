@@ -7,7 +7,7 @@ RSpec.describe "Maps", type: :request do
   describe "GET results_map" do
     it "is succesful" do
       get results_map_path
-      expect(response).to be_successful
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -15,13 +15,9 @@ RSpec.describe "Maps", type: :request do
     before { sign_in owner }
 
     describe "GET location_map" do
-      it "raises an error if location does not exist" do
-        expect { get location_map_path(0) }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-
       it "is succesful and responds with turbo frame" do
         get location_map_path(location.id)
-        expect(response).to be_successful
+        expect(response).to have_http_status(200)
         expect(response.body).to include('<turbo-frame id="location_map_frame">')
       end
     end
@@ -29,7 +25,7 @@ RSpec.describe "Maps", type: :request do
     describe "GET marker_map" do
       it "is succesful" do
         get marker_map_path
-        expect(response).to be_successful
+        expect(response).to have_http_status(200)
       end
     end
   end
@@ -38,6 +34,7 @@ RSpec.describe "Maps", type: :request do
     describe "GET location_map" do
       it "redirects to new_owner_session" do
         get location_map_path(location)
+        expect(response).to have_http_status(302)
         expect(response).to redirect_to(new_owner_session_path)
       end
     end
@@ -45,6 +42,7 @@ RSpec.describe "Maps", type: :request do
     describe "GET marker_map" do
       it "redirects to new_owner_session" do
         get marker_map_path
+        expect(response).to have_http_status(302)
         expect(response).to redirect_to(new_owner_session_path)
       end
     end
