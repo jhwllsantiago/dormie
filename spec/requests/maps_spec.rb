@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Maps", type: :request do
+  let(:owner) {create(:owner)}
+  let(:location) {create(:location, owner: owner)}
+
   describe "GET results_map" do
     it "is succesful" do
       get results_map_path
@@ -8,12 +11,10 @@ RSpec.describe "Maps", type: :request do
     end
   end
 
-  context "owner is signed in" do
-    let(:owner) {create(:owner)}
+  context "owner signed in" do
     before { sign_in owner }
 
     describe "GET location_map" do
-      let(:location) {create(:location, owner: owner)}
       it "raises an error if location does not exist" do
         expect { get location_map_path(0) }.to raise_error(ActiveRecord::RecordNotFound)
       end
@@ -33,10 +34,10 @@ RSpec.describe "Maps", type: :request do
     end
   end
 
-  context "owner is not signed in" do
+  context "owner signed out" do
     describe "GET location_map" do
       it "redirects to new_owner_session" do
-        get location_map_path(1)
+        get location_map_path(location)
         expect(response).to redirect_to(new_owner_session_path)
       end
     end

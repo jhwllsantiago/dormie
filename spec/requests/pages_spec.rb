@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Pages", type: :request do
+  let(:owner) {create(:owner)}
+
   describe "GET root" do
     it "is succesful" do
       get root_path
@@ -9,24 +11,23 @@ RSpec.describe "Pages", type: :request do
   end
 
   describe "GET sign_in" do
-    it "returns http success" do
+    it "is succesful" do
       get sign_in_path
       expect(response).to be_successful
     end
   end
 
   describe "GET dashboard" do 
-    context "user is signed in" do
-      let(:user) {create(:owner)}
-      it "returns http success" do
-        sign_in user
+    context "owner signed in" do
+      it "is succesful" do
+        sign_in owner
         get dashboard_path
         expect(response).to be_successful
       end
     end
 
-    context "user is not signed in" do
-      it "redirects to new_owner_session_path" do
+    context "owner signed out" do
+      it "redirects to new_owner_session" do
         get dashboard_path
         expect(response).to redirect_to(new_owner_session_path)
       end
