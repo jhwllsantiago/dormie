@@ -25,7 +25,7 @@ class Room < ApplicationRecord
       .order(Arel.sql("position(id::text in '#{room_ids.join(',')}')"))
   end
   
-  def self.rentables location_ids, rent, sort_option
+  def self.rentables location_ids, rent, sort_option={}
     self.includes(:location)
       .where(location: location_ids, rent: ..rent)
       .order(sort_option)
