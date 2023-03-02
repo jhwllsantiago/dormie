@@ -11,19 +11,18 @@ class ReviewsController < ApplicationController
     if @review.save
       render partial: "reviews/editable_review", locals: { room: @room, review: @review }
     else
-      redirect_to room_url(@room), alert: "Review was not added.", status: :unprocessable_entity
+      redirect_to room_path(@room), status: 302
     end
   end
 
   def edit
-
   end
 
   def update
     if @review.update(review_params) 
       render partial: "reviews/editable_review", locals: { room: @room, review: @review }
     else
-      render partial: "reviews/editable_review", locals: { room: @room, review: Review.find(@review.id) }
+      render partial: "reviews/editable_review", locals: { room: @room, review: Review.find(@review.id) }, status: 302
     end
   end
 

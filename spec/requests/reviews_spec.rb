@@ -38,14 +38,14 @@ RSpec.describe "Reviews", type: :request do
       expect(response).to be_successful
     end
 
-    # it "is not successful with invalid params" do
-    #   patch room_review_path(room, review, review: params.update(rating: 6))
-    #   expect(response).to_not be_successful
-    #   patch room_review_path(room, review, review: params.update(title: nil))
-    #   expect(response).to_not be_successful
-    #   patch room_review_path(room, review, review: params.update(comment: nil))
-    #   expect(response).to_not be_successful
-    # end
+    it "is not successful with invalid params" do
+      patch room_review_path(room, review, review: params.update(rating: 6))
+      expect(response).to_not be_successful
+      patch room_review_path(room, review, review: params.update(title: nil))
+      expect(response).to_not be_successful
+      patch room_review_path(room, review, review: params.update(comment: nil))
+      expect(response).to_not be_successful
+    end
   end
 
   describe "DELETE room_review" do
