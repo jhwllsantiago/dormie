@@ -15,7 +15,7 @@ class LocationsController < ApplicationController
     if @location.save
       redirect_to dashboard_path, notice: "Location was successfully added."
     else
-      redirect_to new_location_url, alert: "Location was not added.", status: :unprocessable_entity
+      redirect_to new_location_path, alert: "Location was not added.", status: 302
     end
   end
 
