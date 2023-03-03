@@ -16,9 +16,13 @@ export default class extends Controller {
 
   connect() {
     if (this.latTarget.value && this.lngTarget.value) {
-      this.iframeTarget.src = `https://www.google.com/maps/place?q=${`${this.latTarget.value},${this.lngTarget.value}`}&output=embed`;
-      this.submitTarget.disabled = false;
-      this.mapContainerTarget.classList.remove("d-none");
+      this.enable(this.coordinates());
+    } else if (
+      this.nameTarget.value &&
+      this.cityTarget.value &&
+      this.provinceTarget.value
+    ) {
+      this.enable(this.address());
     }
   }
 
@@ -27,14 +31,24 @@ export default class extends Controller {
     if (
       this.nameTarget.value.length > 2 &&
       this.cityTarget.value.length > 2 &&
-      this.cityTarget.value.length > 2
+      this.provinceTarget.value.length > 2
     ) {
       clearTimeout(mapTimeout);
-      mapTimeout = setTimeout(() => {
-        this.iframeTarget.src = `https://www.google.com/maps/place?q=${`${this.nameTarget.value},${this.cityTarget.value},${this.provinceTarget.value}`}&output=embed`;
-        this.submitTarget.disabled = false;
-        this.mapContainerTarget.classList.remove("d-none");
-      }, 2000);
+      mapTimeout = setTimeout(() => this.enable(this.address()), 1000);
     }
+  }
+
+  enable(q) {
+    this.iframeTarget.src = `https://www.google.com/maps/place?q=${q}&output=embed`;
+    this.submitTarget.disabled = false;
+    this.mapContainerTarget.classList.remove("d-none");
+  }
+
+  address() {
+    return `${this.nameTarget.value},${this.cityTarget.value},${this.provinceTarget.value}`;
+  }
+
+  coordinates() {
+    return `${this.latTarget.value},${this.lngTarget.value}`;
   }
 }
