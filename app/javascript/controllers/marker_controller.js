@@ -9,7 +9,7 @@ export default class extends Controller {
   connect() {
     const [lat, lng] = this.coordinatesValue;
     const map = new google.maps.Map(this.mapDivTarget, {
-      zoom: 11,
+      zoom: 15,
       center: { lat, lng },
     });
 

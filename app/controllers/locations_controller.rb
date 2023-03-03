@@ -5,20 +5,17 @@ class LocationsController < ApplicationController
 
   def new
     @location = Location.new(location_params)
-    @query = @coordinates.join(",") if @coordinates.present?
   end
 
   def create
     @location = Location.new(location_params)
-    @location.full_address = address_string(location_params)
-    @location.query = query_string(location_params)
-    @location.geocode if coordinates_blank?(location_params)
+    @location.build_attributes(location_params)
     @location.owner = current_owner
 
     if @location.save
       redirect_to dashboard_path, notice: "Location was successfully added."
     else
-      redirect_to new_location_url, alert: "Location was not added.", status: :unprocessable_entity
+      redirect_to new_location_path, alert: "Location was not added.", status: 302
     end
   end
 
@@ -37,6 +34,5 @@ class LocationsController < ApplicationController
   def set_coordinates
     @latitude = param_to_latitude(location_params[:latitude])
     @longitude = param_to_longitude(location_params[:longitude])
-    @coordinates = [@latitude, @longitude].compact
   end
 end

@@ -2,8 +2,8 @@
   <h3 class="text-center monsterrat heading-color semiBold p-3" >Rooms for Rent</h3>
   <%= render "search_form",
     map_params: { place: params[:place], distance: @distance,
-    rent: @rent }, selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
-  <%= render "select_form", selected: @sort_option[0] == :updated_at ? nil : @sort_option.join("-") %>
+    rent: @rent }, selected: params[:sort] %>
+  <%= render "select_form" %>
   <% if @place.present? %>
     <div>
       <p>place <%= @place %></p>
