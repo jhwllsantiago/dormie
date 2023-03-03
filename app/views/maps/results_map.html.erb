@@ -1,14 +1,14 @@
-<div style="height: 80vh;" class="w-75 mt-3 mx-auto"
+<div class="container-fluid h-custom mb-custom p-5 bg-repeat" style="width: 100%; max-width: 1600px;"
   data-controller="results"
   data-results-coordinates-value="<%= @center.to_json %>"
   data-results-rooms-value="<%= @rooms.to_json %>"
   >
   <%= form_with(url: results_map_url, method: :get, class:"results-map-form") do |f| %>
-    <p>Advanced search</p>
+    <p class="monsterrat heading-color text-uppercase text-center" style="font-weight: 500;">Advanced search</p>
     
-    <div>
-      <%= f.label :place, "Landmark", style: "display: block" %>
-      <%= f.text_field :place, placeholder: "UP Manila", value: params[:place] %>
+    <div class="form-floating mb-3">
+      <%= f.text_field :place, placeholder: "UP Manila", value: params[:place], class: "form-control quicksand" %>
+      <%= f.label :place, 'Place or Landmark', style: "display: block", class: "quicksand grey" %>
     </div>
 
     <div class="slidecontainer">
@@ -23,7 +23,7 @@
         data: { results_target: "rentSlider" } %>
     </div>
 
-    <%= f.submit :continue, style: "display: block" %>
+    <%= f.submit :Continue, style: "display: block", class: "mx-auto submit" %>
   <% end %>
-  <div data-results-target="mapDiv" style="height: 100%" class="w-100"></div>
+  <div data-results-target="mapDiv" style="height: 100%;" class="rounded shadow-lg w-100"></div>
 </div>

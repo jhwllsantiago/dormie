@@ -1,10 +1,10 @@
 <div class="container-fluid bg-p-landing h-custom mb-custom">
   <h1 class="pt-5 text-center monsterrat heading-color fs">find your <span class="bold">perfect space.</span></h1>
   <div class="search shadow p-2 mt-3 mx-auto bg-white d-flex flex-row">
-    <div class="px-1 d-flex align-items-center"><%= image_tag("landing_page/search-icon.png", size: "20x20", class: "search-img") %></div>
-    <div class="mx-4 quicksand placeholder-color semiBold w-100">
+    <div class="px-2 d-flex align-items-center"><%= image_tag("landing_page/search-icon.png", size: "20x20", class: "search-img") %></div>
+    <div class="quicksand placeholder-color semiBold w-100">
       <%= form_with(url: rooms_url, method: :get) do |f| %>
-        <%= f.search_field :place, placeholder: "enter a place or landmark", class: "w-100 px-3" %>
+        <%= f.search_field :place, placeholder: "enter a place or landmark", id: "search-lp", class: "w-100 px-3 border-0", style: "outline: none;" %>
       <% end %>
     </div>
   </div>

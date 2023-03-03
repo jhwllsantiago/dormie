@@ -1,16 +1,14 @@
 <div class="container-fluid mh mb-custom py-3 bg-repeat">
   <h3 class="text-center monsterrat heading-color semiBold p-3" >Rooms for Rent</h3>
-  <%= render "search_form",
-    map_params: { place: params[:place], distance: @distance,
-    rent: @rent }, selected: params[:sort] %>
-  <%= render "select_form" %>
-  <% if @place.present? %>
-    <div>
-      <p>place <%= @place %></p>
-      <p>distance <%= @distance %>km</p>
-      <p>rent <%= number_to_currency(@rent, unit: "₱") %></p>
+  <div class="d-flex align-items-center justify-content-start mb-4" style="padding: 0px 5.5rem 0px 5.5rem;">
+    <div class="d-flex align-items-center">
+      <span class="monsterrat heading-color semiBold me-2">SORT BY</span>
+      <%= render "select_form", selected: params[:sort] %>
     </div>
-  <% end %>
+    <%= render "search_form",
+      map_params: { place: params[:place], distance: @distance,
+      rent: @rent }, selected: params[:sort] %>
+  </div>
   <div class="d-flex flex-wrap justify-content-center">
     <% @pagy_rooms.each do |room| %>
       <%= render "room", room: room %>

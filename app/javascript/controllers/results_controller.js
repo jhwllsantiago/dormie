@@ -67,10 +67,10 @@ export default class extends Controller {
           return () => {
             infowindow.setContent(`
           <div class="infowindow">
-            <p class="infowindow-item">${rooms[count]["location_name"]}</p>
-            <p class="infowindow-item">${rooms[count]["name"]}</p>
-            <p class="infowindow-item">${PhP.format(rooms[count]["rent"])}</p>
-            <p class="infowindow-item"><a href="/rooms/${rooms[count]["id"]}" target="_blank">Details</a></p>
+            <p class="infowindow-item quicksand" style="font-weight: 700;">${rooms[count]["location_name"]}</p>
+            <p class="infowindow-item quicksand" style="font-weight: 700;">${rooms[count]["name"]}</p>
+            <p class="infowindow-item quicksand" style="font-weight: 700;">${PhP.format(rooms[count]["rent"])}</p>
+            <p class="infowindow-item quicksand" style="font-weight: 700;"><a href="/rooms/${rooms[count]["id"]}" target="_blank" style="color: #3c529c !important;">View Room</a></p>
           </div>
           `);
             infowindow.open(map, marker);
