@@ -1,14 +1,14 @@
 <div class="form-md shadow-lg p-5">
   <h3 class="text-center monsterrat heading-color semiBold mb-5">New Location</h3>
   <%= form_with(model: location) do |f| %>
-    <div data-controller="location" data-location-url-value="<%= location_preview_path %>">
+    <div data-controller="location">
       <p class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">What is the name of the property? <i style="font-size: 0.8em;">(e.g., Avion Residences, JY Dormitory, Casa Victoria)</i></p>
       <div class="form-floating mb-5">
         <%= f.text_field :name, class: "form-control",
           placeholder: "Name",
           autofocus: true,
           required: true,
-          data: { location_target: "name" }
+          data: { location_target: "name", action: "input->location#map" }
         %>
         <%= f.label :name, style: "display: block" %>
       </div>
@@ -31,7 +31,7 @@
           <%= f.text_field :city, class: "form-control",
             placeholder: "City",
             required: true,
-            data: { location_target: "city" }
+            data: { location_target: "city", action: "input->location#map" }
           %>
           <%= f.label :city, style: "display: block" %>
         </div>
@@ -56,7 +56,13 @@
             data: { location_target: "lat" } %>
           <%= f.text_field :longitude, hidden: true, value: lng,
             data: { location_target: "lng" } %>
-          <%= render "maps/location_map", query: query %>
+          <iframe data-location-target="iframe"
+            src=""
+            frameborder="0"
+            width="100%"
+            height="100%"
+            class="rounded">
+          </iframe>
         </div>
       </div>
     

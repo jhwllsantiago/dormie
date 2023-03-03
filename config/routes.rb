@@ -25,7 +25,16 @@ Rails.application.routes.draw do
   get "dashboard", to: "pages#dashboard", as: "dashboard"
 
   get "maps/render/location/:location_id", to: "maps#location_map", as: "location_map"
-  get "maps/render/preview", to: "maps#location_preview", as: "location_preview"
   get "maps/marker", to: "maps#marker_map", as: "marker_map"
   get "maps/results", to: "maps#results_map", as: "results_map"
+
+  devise_scope :owner do
+    get "owners", to: "owners/registrations#edit"
+    get "owners/password", to: "owners/passwords#new"
+  end
+
+  devise_scope :occupant do
+    get "occupants", to: "occupants/registrations#edit"
+    get "occupants/password", to: "occupants/passwords#new"
+  end
 end
