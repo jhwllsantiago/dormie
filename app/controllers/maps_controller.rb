@@ -18,7 +18,7 @@ class MapsController < ApplicationController
 
   def marker_map
     @params = location_params
-    @center = geocode_param(location_params.values.compact.join(" "))
+    @center = MapsHelper.geocode_param(location_params.values.compact.join(" "))
   end
 
   def results_map

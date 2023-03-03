@@ -9,7 +9,7 @@
       <%= f.text_field :latitude, hidden: true, value: nil, data: { marker_target: "latitude" } %>
       <%= f.text_field :longitude, hidden: true, value: nil, data: { marker_target: "longitude" } %>
       <div class="container-lg d-flex justify-content-center">
-        <%= f.submit :Continue, class: "rs-button py-1 px-3" %>
+        <%= f.submit :Continue, class: "w-50 rs-button py-1 px-3" %>
       </div>
     <% end %>
     <div data-marker-target="mapDiv" style="width: 80vw; height: 80vh;" class="rounded shadow-lg my-3 mx-auto"></div>

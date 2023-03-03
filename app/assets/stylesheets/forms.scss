@@ -80,7 +80,8 @@ $placeholder-color: #8e8e8e;
 }
 
 .form, .form-lg, .form-md {
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   border-radius: 5px;
   font-family: $sec-font;
   color: $grey;
@@ -136,11 +137,13 @@ $placeholder-color: #8e8e8e;
 }
 
 .form-lg {
-  width: 80%;
+  width: 100%;
+  max-width: 1300px;
 }
 
 .form-md {
-  width: 50%;
+  width: 100%;
+  max-width: 800px;
 }
 
 .validation {

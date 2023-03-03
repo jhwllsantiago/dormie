@@ -38,7 +38,10 @@
         </div>
 
         <div class>
-          <%= f.label :images, style: "display: block", class: "form-label d-inline-block" %><span class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;"><i style="font-size: 0.8em;">(supported orientation: landscape; aspect: 3:2)</i></span>
+          <%= f.label :images, style: "display: block", class: "form-label d-inline-block" %>
+          <span class="mb-1 ps-1 monsterrat" style="font-size: 0.9em;">
+            <i style="font-size: 0.8em;">(less than 4MB, .jpeg or .png, 16:9 or 3:2 aspect-ratio)</i>
+          </span>
           <%= f.file_field :images, class: "form-control", multiple: true, accept: "image/png,image/jpeg", include_hidden: false %>
         </div>
       </div>

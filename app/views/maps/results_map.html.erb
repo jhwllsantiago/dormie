@@ -1,4 +1,4 @@
-<div class="container-fluid h-custom mb-custom p-5 bg-repeat"
+<div class="container-fluid h-custom mb-custom p-5 bg-repeat" style="width: 100%; max-width: 1600px;"
   data-controller="results"
   data-results-coordinates-value="<%= @center.to_json %>"
   data-results-rooms-value="<%= @rooms.to_json %>"
@@ -25,5 +25,5 @@
 
     <%= f.submit :Continue, style: "display: block", class: "mx-auto submit" %>
   <% end %>
-  <div data-results-target="mapDiv" style="height: 100%" class="rounded shadow-lg w-100"></div>
+  <div data-results-target="mapDiv" style="height: 100%;" class="rounded shadow-lg w-100"></div>
 </div>
