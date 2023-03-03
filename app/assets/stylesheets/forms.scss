@@ -152,6 +152,34 @@ $placeholder-color: #8e8e8e;
 
 .field_with_errors { display: inline; }
 
+#search-lp::-webkit-search-cancel-button, #place::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 10px;
+  background:
+    linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 43%,$heading-color 45%,$heading-color 55%,rgba(0,0,0,0) 57%,rgba(0,0,0,0) 100%),
+    linear-gradient(135deg, transparent 0%,transparent 43%,$heading-color 45%,$heading-color 55%,transparent 57%,transparent 100%);
+  cursor: pointer;
+}
+
+#place:focus {
+  border-color: $heading-color;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
+}
+
+.select-form-dd {
+  border: 1px solid $heading-color;
+  height: 30px;
+}
+
+.select-form-dd:focus, .select-form-dd:active {
+  border: 2px solid $heading-color;
+}
+
 @media (max-width: 375px) {
   .form {
     margin-top: 130px;

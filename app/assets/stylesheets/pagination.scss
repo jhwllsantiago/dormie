@@ -1,0 +1,34 @@
+.pagy-bootstrap-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.pagination {
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+  color: #59657c;
+  --bs-pagination-active-bg: #3c529c !important;
+  --bs-pagination-active-border-color: #3c529c !important;
+
+  .page-link {
+    color: #3c529c;
+    font-weight: 600;
+  }
+  
+  .page-link:hover {
+    background-color: #d8e4fb;
+    border-color: #d8e4fb;
+    color: #3c529c;
+  }
+
+  .page-link:focus {
+    border-color: #d8e4fb;
+    color: #3c529c;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.5);
+  }
+}

@@ -360,6 +360,46 @@ $placeholder-color: #8e8e8e;
   background: $heading-color; 
 }
 
+.adv-search {
+  height: 30px;
+  border: none;
+  outline: 0;
+  border-radius: 5px;
+  background-color: $heading-color;
+  font-family: $sec-font;
+  font-weight: 600;
+  text-decoration: none;
+  color: white; 
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.adv-search:hover {
+  background-color: $light-violet;
+  color: $heading-color;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.3)!important;
+}
+
+.view-results {
+  text-decoration: none;
+  display: inline-flex;
+  height: 30px;
+  border: 1px solid $heading-color;
+  border-radius: 0.375rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  color: $grey;
+  font-family: $sec-font;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  background: transparent;
+}
+
+.view-results:hover {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,0);;
+  font-weight: 700;
+  color: #3c529c;
+}
+
 @supports (scrollbar-color: red blue) {
   * {
     scrollbar-color: $light-violet white;
