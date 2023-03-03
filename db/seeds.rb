@@ -1,25 +1,22 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
-owner = Owner.new(
+owner = Owner.create(
   name: "John Doe",
-  contact: "1234567890",
-  status: 0,
+  contact: "09123123123",
   email: "johndoe@example.com",
   password: "password",
-  password_confirmation: "password"
+  password_confirmation: "password",
+  confirmed_at: Time.now
 )
-owner.skip_confirmation!
-owner.save
 
-occupant = Occupant.new(
+occupant = Occupant.create(
   name: "Jane Doe",
   email: "janedoe@example.com",
   password: "password",
-  password_confirmation: "password"
+  password_confirmation: "password",
+  confirmed_at: Time.now
 )
-occupant.skip_confirmation!
-occupant.save
 
 location = Location.create(
   name: "DormTeL Recto",
@@ -40,7 +37,7 @@ room = Room.create(
   rent: 10000.0,
   capacity: 10,
   vacancies: 5,
-  tags: ["1", "2", "3", "7"],
+  tags: ["1", "3", "4", "7", "8", "9"],
   location: location
 )
 
