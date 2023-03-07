@@ -69,9 +69,27 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Part of devise installation
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  ## SMTP settings for mailcatcher
+  # SMTP settings for mailcatcher
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = { address: "127.0.0.1", port: 1025 }
+
+  # settings for railway
+  config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag.html_safe }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: "127.0.0.1", port: 1025 }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 465,
+    domain: "gmail.com",
+    user_name: ENV["USERNAME"],
+    password: ENV["PASSWORD"],
+    authentication: "plain",
+    :ssl => true,
+    :tsl => true,
+    enable_starttls_auto: true
+  }
+  config.action_mailer.default_url_options = { host: "dormie.up.railway.app", protocol: "https" }
+  config.hosts << "dormie.up.railway.app"
 end
