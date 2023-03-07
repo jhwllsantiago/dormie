@@ -105,6 +105,6 @@ Rails.application.configure do
     :tsl => true,
     enable_starttls_auto: true
   }
-  # config.action_mailer.default_url_options = { host: "", protocol: "https" }
-  # config.hosts << ""
+  config.action_mailer.default_url_options = { host: "dormie.up.railway.app", protocol: "https" }
+  config.hosts << "dormie.up.railway.app"
 end
