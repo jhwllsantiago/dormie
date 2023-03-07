@@ -84,3 +84,4 @@ production:
   database: dormie_production
   username: dormie
   password: <%= ENV["DORMIE_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
