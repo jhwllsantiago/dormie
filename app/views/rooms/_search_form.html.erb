@@ -3,17 +3,11 @@
   <button data-action="click->search#show" class="adv-search rounded px-3 ms-2">Advanced Search</button>
   <div>
     <div>
-      <% if @place.present? and @rent == 20000 and @distance = 20 %>
-        <span class="quicksand me-2">
-          Showing results for <span class="heading-color" style="font-weight: 700;"><%= @place.titleize %></span>
-        </span>
-        <%= link_to "View results on map", results_map_path(map_params), class: "view-results" %>
-      <% elsif @place.present? and @rent != 20000 or @distance != 20 %>
+      <% if @place.present? %>
         <span class="quicksand me-2">
           Showing results for <span class="heading-color" style="font-weight: 700;"><%= @distance %>km</span> from <span class="heading-color" style="font-weight: 700;"><%= @place.titleize %></span> (max rent: <span class="heading-color" style="font-weight: 700;"><%= number_to_currency(@rent, unit: "₱") %></span>)
         </span>
         <%= link_to "View results on map", results_map_path(map_params), class: "view-results" %>
-      <% else %>
       <% end %>
     </div>
   </div>

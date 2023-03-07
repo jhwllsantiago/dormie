@@ -17,4 +17,8 @@ module RoomsHelper
       end
     end.compact
   end
+
+  def notify?
+    params[:page].blank? and params[:commit] == "Search"
+  end
 end

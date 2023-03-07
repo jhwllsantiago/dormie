@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   before_action :authenticate_owner!, except: %i[ index show ]
   before_action :set_room, only: %i[ show edit update destroy ]
   before_action :room_ownership, only: %i[ edit update destroy ]
-  before_action :set_locations, only: %i[ new edit ]
+  before_action :set_locations, :locations_count, only: %i[ new edit ]
   before_action :validate_images, only: %i[ create ]
   before_action :set_search_params, :set_rooms, only: %i[ index ]
 
@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
       flash.now.alert = "No match found. Displaying all rooms." if @place.present?
     else
       @pagy, @pagy_rooms = pagy(@rooms)
-      flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found." if params[:page].blank?
+      flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found." if notify?
     end
   end
 
@@ -70,6 +70,10 @@ class RoomsController < ApplicationController
   private
   def room_ownership
     redirect_to root_path unless current_owner&.rooms.include?(@room)
+  end
+
+  def locations_count
+    redirect_to new_location_path, alert: "You must add a location first." if current_owner&.locations.count.zero?
   end
 
   def set_room
