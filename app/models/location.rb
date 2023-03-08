@@ -30,6 +30,18 @@ class Location < ApplicationRecord
         .near(place, distance)
   end
 
+  def self.filter_and_count locations, rent
+    room_count = 0
+    locations = locations.map do |location|
+      rooms = location.rooms.where(rent: ..rent).to_a
+      room_count += rooms.count
+      location = location.serializable_hash
+      location["rooms"] = rooms
+      location
+    end.to_a.select { |location| location["rooms"].present? }
+    [locations, room_count]
+  end
+
   def self.coordinates params
     lat = params[:latitude]
     lng = params[:longitude]
@@ -37,5 +49,16 @@ class Location < ApplicationRecord
     latitude = lat.to_f if lat.count("^0-9.").zero? and lat.to_f.between?(-90,90)
     longitude = lng.to_f if lng.count("^0-9.").zero? and lng.to_f.between?(-180,180)
     [latitude, longitude]
+  end
+
+  def coordinates_string
+    self.slice(:latitude, :longitude).values.join(",")
+  end
+
+  def self.geocode_place place
+    return [14.5995124, 120.9842195] if place.blank?
+    place = place.values.compact.join(" ") if place.kind_of?(ActionController::Parameters)
+    results = Geocoder.search(place)
+    results.present? ? results.first.coordinates : [14.5995124, 120.9842195]
   end
 end

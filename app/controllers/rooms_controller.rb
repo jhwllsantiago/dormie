@@ -127,7 +127,7 @@ class RoomsController < ApplicationController
   def set_search_params
     @place = search_params[:place]
     @rooms = []
-    @center = MapsHelper.geocode_param(params[:place])
+    @center = Location.geocode_place(@place)
     @distance = search_params[:distance]&.to_i || 20
     @rent = search_params[:rent]&.to_f || 20000
     @sort_option = extract_sort_option(search_params[:sort])

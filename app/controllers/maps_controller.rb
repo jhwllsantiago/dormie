@@ -1,16 +1,15 @@
 class MapsController < ApplicationController
-  include MapsHelper
   before_action :authenticate_owner!, except: %i[ results_map ]
   before_action :set_map_params, :set_locations, only: %i[ results_map ]
 
   def location_map
     location = Location.find(params[:location_id])
-    render partial: "maps/location_map", locals: { query: coordinates_string(location) } 
+    render partial: "maps/location_map", locals: { query: location.coordinates_string }
   end
 
   def marker_map
     @params = location_params
-    @center = MapsHelper.geocode_param(location_params)
+    @center = Location.geocode_place(location_params)
   end
 
   def results_map
@@ -32,13 +31,13 @@ class MapsController < ApplicationController
 
   def set_map_params
     @place = search_params[:place]
-    @center = MapsHelper.geocode_param(params[:place])
+    @center = Location.geocode_place(@place)
     @distance = search_params[:distance]&.to_i || 20
     @rent = search_params[:rent]&.to_f || 20000
   end
 
   def set_locations
     @locations = Location.with_nearby_rooms(@place, @distance)
-    @locations, @room_count = filter_and_count
+    @locations, @room_count = Location.filter_and_count(@locations, @rent)
   end
 end
