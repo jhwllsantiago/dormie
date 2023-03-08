@@ -3,13 +3,16 @@ module MapsHelper
     location.slice(:latitude, :longitude).values.join(",")
   end
 
-  def merge_fields rooms
-    rooms.map do |room|
-      location = room.location.slice(:name, :latitude, :longitude)
-      location[:location_name] = location.delete(:name)
-      room = room.slice(:id, :name, :rent)
-      room.merge(location)
-    end
+  def filter_and_count
+    room_count = 0
+    locations = @locations.map do |location|
+      rooms = location.rooms.where(rent: ..@rent).to_a
+      room_count += rooms.count
+      location = location.serializable_hash
+      location["rooms"] = rooms
+      location
+    end.to_a.select { |location| location["rooms"].present? }
+    [locations, room_count]
   end
 
   def self.geocode_param param

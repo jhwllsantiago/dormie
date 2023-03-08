@@ -10,7 +10,7 @@ export default class extends Controller {
   ];
   static values = {
     coordinates: Array,
-    rooms: Array,
+    locations: Array,
   };
 
   connect() {
@@ -42,21 +42,16 @@ export default class extends Controller {
       },
     });
 
-    const rooms = this.roomsValue;
+    const locations = this.locationsValue;
     let infowindow = new google.maps.InfoWindow({
       disableAutoPan: true,
     });
     let marker, count;
-    let PhP = Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "PHP",
-    });
-
-    for (count = 0; count < rooms.length; count++) {
+    for (count = 0; count < locations.length; count++) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(
-          rooms[count]["latitude"],
-          rooms[count]["longitude"]
+          locations[count]["latitude"],
+          locations[count]["longitude"]
         ),
         map,
       });
@@ -65,18 +60,27 @@ export default class extends Controller {
         "mouseover",
         ((marker, count) => {
           return () => {
-            infowindow.setContent(`
-          <div class="infowindow">
-            <p class="infowindow-item quicksand" style="font-weight: 700;">${rooms[count]["location_name"]}</p>
-            <p class="infowindow-item quicksand" style="font-weight: 700;">${rooms[count]["name"]}</p>
-            <p class="infowindow-item quicksand" style="font-weight: 700;">${PhP.format(rooms[count]["rent"])}</p>
-            <p class="infowindow-item quicksand" style="font-weight: 700;"><a href="/rooms/${rooms[count]["id"]}" target="_blank" style="color: #3c529c !important;">View Room</a></p>
-          </div>
-          `);
+            infowindow.setContent(this.content(locations[count]));
             infowindow.open(map, marker);
           };
         })(marker, count)
       );
     }
+  }
+
+  content(location) {
+    let PhP = Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "PHP",
+    });
+    let content = `<div class="infowindow">`;
+    content += `<p class="infowindow-item quicksand" style="font-weight: 700;">${location["name"]}</p>`;
+    for (const room of location["rooms"]) {
+      content += `<p class="infowindow-item quicksand" style="font-weight: 700;">${room["name"]}</p>
+      <p class="infowindow-item quicksand" style="font-weight: 700;">${PhP.format(room["rent"])}</p>
+      <p class="infowindow-item quicksand" style="font-weight: 700;"><a href="/rooms/${room["id"]}" target="_blank" style="color: #3c529c !important;">View Room</a></p>`;
+    }
+    content += `</div>`;
+    return content;
   }
 }

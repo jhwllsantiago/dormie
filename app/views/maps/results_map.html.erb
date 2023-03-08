@@ -1,7 +1,7 @@
 <div class="container-fluid h-custom mb-custom p-5 bg-repeat" style="width: 100%; max-width: 1600px;"
   data-controller="results"
   data-results-coordinates-value="<%= @center.to_json %>"
-  data-results-rooms-value="<%= @rooms.to_json %>"
+  data-results-locations-value="<%= @locations.to_json %>"
   >
   <%= form_with(url: results_map_url, method: :get, class:"results-map-form") do |f| %>
     <p class="monsterrat heading-color text-uppercase text-center" style="font-weight: 500;">Advanced search</p>

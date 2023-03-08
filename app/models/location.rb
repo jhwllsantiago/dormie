@@ -21,4 +21,10 @@ class Location < ApplicationRecord
     self.query = params.slice(:name, :city, :province).values.compact.join(" ")
     self.geocode if params[:latitude].blank? or params[:longitude].blank?
   end
+
+  def self.with_nearby_rooms place, distance
+    self.joins(:rooms).group("locations.id")
+        .tap { |locations| return locations if place.blank? }
+        .near(place, distance)
+  end
 end
