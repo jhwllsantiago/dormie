@@ -64,7 +64,6 @@ class RoomsController < ApplicationController
     @room.images.purge
     @room.destroy
 
-    # render partial: "pages/dashboard/rooms", locals: { rooms: current_owner.rooms.includes(:location) }
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.remove(@room) }
       format.html         { redirect_to dashboard_path }
@@ -126,7 +125,6 @@ class RoomsController < ApplicationController
 
   def set_search_params
     @place = search_params[:place]
-    @rooms = []
     @center = Location.geocode_place(@place)
     @distance = search_params[:distance]&.to_i || 20
     @rent = search_params[:rent]&.to_f || 20000
