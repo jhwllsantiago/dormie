@@ -4,7 +4,7 @@ RSpec.describe "Locations", type: :request do
   let(:owner) {create(:owner)}
   let(:location) {create(:location, owner: owner)}
   let(:params)  {{name: "location name", address_line: "address_line", city: "city",
-    province: "province", owner: owner}}
+    province: "province", latitude: 12.8797, longitude: 121.7740, owner: owner}}
   before {sign_in owner}
 
   describe "GET new_location" do

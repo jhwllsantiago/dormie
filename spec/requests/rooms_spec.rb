@@ -25,9 +25,10 @@ RSpec.describe "Rooms", type: :request do
     before {sign_in owner}
 
     describe "GET new_room" do
-      it "is successful" do
+      it "redirects to new_location if owner has zero locations" do
         get new_room_path
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(new_location_path)
       end
     end
 
