@@ -30,8 +30,10 @@ RSpec.describe "Locations", type: :request do
 
   describe "DELETE location" do
     it "is successful" do
-      delete location_path(location)
+      delete location_path(location), as: :turbo_stream
       expect(response).to have_http_status(200)
+      expect(response.media_type).to eq Mime[:turbo_stream]
+      expect(response.body).to include("<turbo-stream action=\"remove\" target=\"location_#{location.id}\">")
     end
   end
 end

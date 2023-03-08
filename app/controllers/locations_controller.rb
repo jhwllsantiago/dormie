@@ -22,7 +22,10 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     @location.destroy
 
-    render partial: "pages/dashboard/locations", locals: { locations: current_owner.locations }
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@location) }
+      format.html         { redirect_to dashboard_path }
+    end
   end
 
   private
