@@ -30,4 +30,21 @@ class Room < ApplicationRecord
       .where(location: location_ids, rent: ..rent)
       .order(sort_option)
   end
+
+  def self.rentable_ids locations, rent
+    locations.flat_map do |location|
+      location.rooms.flat_map do |room|
+        room.id if rent >= room.rent
+      end
+    end.compact
+  end
+
+  def self.sort_option param
+    a, b = param&.split("-")
+    if a.blank? or b.blank? or %w[ distance rent updated_at ].exclude?(a) or %w[ asc desc ].exclude?(b)
+      { updated_at: :desc }
+    else
+      Hash[a.to_sym, b.to_sym]
+    end
+  end
 end
