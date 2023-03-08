@@ -1,5 +1,7 @@
 class Location < ApplicationRecord
   validates :name, :address_line, :city, :province, :full_address, :query, presence: true
+  validates :latitude, numericality: { only_numeric: true, in: -90..90 }
+  validates :longitude, numericality: { only_numeric: true, in: -180..180 }
   geocoded_by :query
   belongs_to :owner
   has_many :rooms, dependent: :destroy
@@ -26,5 +28,14 @@ class Location < ApplicationRecord
     self.joins(:rooms).group("locations.id")
         .tap { |locations| return locations if place.blank? }
         .near(place, distance)
+  end
+
+  def self.coordinates params
+    lat = params[:latitude]
+    lng = params[:longitude]
+    return [nil, nil] if lat.blank? or lng.blank?
+    latitude = lat.to_f if lat.count("^0-9.").zero? and lat.to_f.between?(-90,90)
+    longitude = lng.to_f if lng.count("^0-9.").zero? and lng.to_f.between?(-180,180)
+    [latitude, longitude]
   end
 end
