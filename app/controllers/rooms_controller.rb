@@ -64,7 +64,11 @@ class RoomsController < ApplicationController
     @room.images.purge
     @room.destroy
 
-    render partial: "pages/dashboard/rooms", locals: { rooms: current_owner.rooms.includes(:location) }
+    # render partial: "pages/dashboard/rooms", locals: { rooms: current_owner.rooms.includes(:location) }
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@room) }
+      format.html         { redirect_to dashboard_path }
+    end
   end
 
   private

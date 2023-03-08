@@ -69,8 +69,10 @@ RSpec.describe "Rooms", type: :request do
 
     describe "DELETE room" do
       it "is successful" do
-        delete room_path(room)
+        delete room_path(room), as: :turbo_stream
         expect(response).to have_http_status(200)
+        expect(response.media_type).to eq Mime[:turbo_stream]
+        expect(response.body).to include("<turbo-stream action=\"remove\" target=\"room_#{room.id}\">")
       end
     end
   end
