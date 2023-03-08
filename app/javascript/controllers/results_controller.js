@@ -14,20 +14,22 @@ export default class extends Controller {
   };
 
   connect() {
-    const distance = this.distanceTarget;
-    const distanceSlider = this.distanceSliderTarget;
-    const rent = this.rentTarget;
-    const rentSlider = this.rentSliderTarget;
+    this.slider()
+    this.renderMap()
+  }
 
-    distance.textContent = distanceSlider.value;
-    rent.textContent = rentSlider.value;
-    distanceSlider.addEventListener("input", (e) => {
-      distance.textContent = e.target.value;
+  slider() {
+    this.distanceTarget.textContent = this.distanceSliderTarget.value;
+    this.rentTarget.textContent = this.rentSliderTarget.value;
+    this.distanceSliderTarget.addEventListener("input", (e) => {
+      this.distanceTarget.textContent = e.target.value;
     });
-    rentSlider.addEventListener("input", (e) => {
-      rent.textContent = e.target.value;
+    this.rentSliderTarget.addEventListener("input", (e) => {
+      this.rentTarget.textContent = e.target.value;
     });
+  }
 
+  renderMap() {
     const [lat, lng] = this.coordinatesValue;
     const map = new google.maps.Map(this.mapDivTarget, {
       zoom: 11,
@@ -69,18 +71,21 @@ export default class extends Controller {
   }
 
   content(location) {
-    let PhP = Intl.NumberFormat("en-US", {
+    let currency = Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "PHP",
     });
-    let content = `<div class="infowindow">`;
-    content += `<p class="infowindow-item quicksand" style="font-weight: 700;">${location["name"]}</p>`;
+    let content = `<div class="infowindow">
+      <p class="infowindow-item quicksand infowindow-title">${location["name"].toUpperCase()}</p>
+      <div class="infowindow-rooms-grid">`;
     for (const room of location["rooms"]) {
-      content += `<p class="infowindow-item quicksand" style="font-weight: 700;">${room["name"]}</p>
-      <p class="infowindow-item quicksand" style="font-weight: 700;">${PhP.format(room["rent"])}</p>
-      <p class="infowindow-item quicksand" style="font-weight: 700;"><a href="/rooms/${room["id"]}" target="_blank" style="color: #3c529c !important;">View Room</a></p>`;
+      content += `<div class="infowindow-room">
+        <p class="infowindow-item quicksand">${room["name"]}</p>
+        <p class="infowindow-item quicksand">${currency.format(room["rent"])}</p>
+        <p class="infowindow-item quicksand"><a href="/rooms/${room["id"]}" target="_blank" style="color: #3c529c !important;">View Room</a></p>
+      </div>`;
     }
-    content += `</div>`;
+    content += `</div></div>`;
     return content;
   }
 }
