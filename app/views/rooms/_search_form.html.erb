@@ -3,12 +3,16 @@
   <button data-action="click->search#show" class="adv-search rounded px-3 ms-2">Advanced Search</button>
   <div>
     <div>
-      <% if @place.present? %>
+      <% if @place.present? and @rooms.present? %>
         <span class="quicksand me-2">
-          Showing results for <span class="heading-color" style="font-weight: 700;"><%= @distance %>km</span> from <span class="heading-color" style="font-weight: 700;"><%= @place.titleize %></span> (max rent: <span class="heading-color" style="font-weight: 700;"><%= number_to_currency(@rent, unit: "₱") %></span>)
+          Found <%= pluralize(@rooms.size, "room") %> within <span class="heading-color" style="font-weight: 700;"><%= @distance %>km</span> of <span class="heading-color" style="font-weight: 700;"><%= @place.titleize %></span> (max rent: <span class="heading-color" style="font-weight: 700;"><%= number_to_currency(@rent, unit: "₱") %></span>)
         </span>
-        <%= link_to "View results on map", results_map_path(map_params), class: "view-results" %>
+      <% elsif @place.present? %>
+        <span class="quicksand me-2">
+          No rooms within <span class="heading-color" style="font-weight: 700;"><%= @distance %>km</span> of <span class="heading-color" style="font-weight: 700;"><%= @place.titleize %></span> (max rent: <span class="heading-color" style="font-weight: 700;"><%= number_to_currency(@rent, unit: "₱") %></span>)
+        </span>
       <% end %>
+      <%= link_to "Show rooms on map", results_map_path(map_params), class: "view-results" %>
     </div>
   </div>
   <%= form_with(url: rooms_url, method: :get, data: { search_target: "form", action: "submit->search#hide" },

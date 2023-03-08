@@ -6,5 +6,7 @@ FactoryBot.define do
     province { ('a'..'z').to_a.shuffle.join }
     full_address { ('a'..'z').to_a.shuffle.join }
     query { ('a'..'z').to_a.shuffle.join }
+    latitude { 12.8797 }
+    longitude { 121.7740 }
   end
 end

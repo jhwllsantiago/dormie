@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
   def index
     if @rooms.blank?
       @pagy, @pagy_rooms = pagy(Room.default_order)
-      flash.now.alert = "No match found. Displaying all rooms." if @place.present?
+      flash.now.alert = "No match found. Displaying all rooms." if @place.present? and notify?
     else
       @pagy, @pagy_rooms = pagy(@rooms)
       flash.now.notice = "#{view_context.pluralize(@rooms.size, "room")} found." if notify?
@@ -64,7 +64,10 @@ class RoomsController < ApplicationController
     @room.images.purge
     @room.destroy
 
-    render partial: "pages/dashboard/rooms", locals: { rooms: current_owner.rooms.includes(:location) }
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@room) }
+      format.html         { redirect_to dashboard_path }
+    end
   end
 
   private
@@ -88,7 +91,7 @@ class RoomsController < ApplicationController
     if @place.present?
       if @sort_option.has_key?(:distance)
         locations = Location.order_near(@place, @distance, @sort_option)
-        room_ids = rentable_room_ids(locations, @rent)
+        room_ids = Room.rentable_ids(locations, @rent)
         @rooms = Room.where_order_maintained(room_ids)
       else
         location_ids = Location.near_ids(@place, @distance)
@@ -122,10 +125,9 @@ class RoomsController < ApplicationController
 
   def set_search_params
     @place = search_params[:place]
-    @rooms = []
-    @center = MapsHelper.geocode_param(params[:place])
+    @center = Location.geocode_place(@place)
     @distance = search_params[:distance]&.to_i || 20
     @rent = search_params[:rent]&.to_f || 20000
-    @sort_option = extract_sort_option(search_params[:sort])
+    @sort_option = Room.sort_option(search_params[:sort])
   end
 end

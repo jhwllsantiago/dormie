@@ -11,6 +11,14 @@ export default class extends Controller {
     const map = new google.maps.Map(this.mapDivTarget, {
       zoom: 15,
       center: { lat, lng },
+      restriction: {
+        latLngBounds: {
+          north: 25,
+          south: 0,
+          east: 130,
+          west: 110,
+        },
+      },
     });
 
     let marker = new google.maps.Marker({ map });

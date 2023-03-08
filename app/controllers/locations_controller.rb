@@ -1,5 +1,4 @@
 class LocationsController < ApplicationController
-  include LocationsHelper
   before_action :authenticate_owner!
   before_action :set_coordinates, only: %i[ new ]
 
@@ -23,7 +22,10 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     @location.destroy
 
-    render partial: "pages/dashboard/locations", locals: { locations: current_owner.locations }
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@location) }
+      format.html         { redirect_to dashboard_path }
+    end
   end
 
   private
@@ -32,7 +34,6 @@ class LocationsController < ApplicationController
   end
 
   def set_coordinates
-    @latitude = param_to_latitude(location_params[:latitude])
-    @longitude = param_to_longitude(location_params[:longitude])
+    @latitude, @longitude = Location.coordinates(location_params)
   end
 end

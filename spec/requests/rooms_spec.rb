@@ -25,9 +25,10 @@ RSpec.describe "Rooms", type: :request do
     before {sign_in owner}
 
     describe "GET new_room" do
-      it "is successful" do
+      it "redirects to new_location if owner has zero locations" do
         get new_room_path
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(new_location_path)
       end
     end
 
@@ -68,8 +69,10 @@ RSpec.describe "Rooms", type: :request do
 
     describe "DELETE room" do
       it "is successful" do
-        delete room_path(room)
+        delete room_path(room), as: :turbo_stream
         expect(response).to have_http_status(200)
+        expect(response.media_type).to eq Mime[:turbo_stream]
+        expect(response.body).to include("<turbo-stream action=\"remove\" target=\"room_#{room.id}\">")
       end
     end
   end

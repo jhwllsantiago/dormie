@@ -11,18 +11,17 @@ export default class extends Controller {
   ];
 
   connect() {
-    const distance = this.distanceTarget;
-    const distanceSlider = this.distanceSliderTarget;
-    const rent = this.rentTarget;
-    const rentSlider = this.rentSliderTarget;
+    this.slider()
+  }
 
-    distance.textContent = distanceSlider.value;
-    rent.textContent = rentSlider.value;
-    distanceSlider.addEventListener("input", (e) => {
-      distance.textContent = e.target.value;
+  slider() {
+    this.distanceTarget.textContent = this.distanceSliderTarget.value;
+    this.rentTarget.textContent = this.rentSliderTarget.value;
+    this.distanceSliderTarget.addEventListener("input", (e) => {
+      this.distanceTarget.textContent = e.target.value;
     });
-    rentSlider.addEventListener("input", (e) => {
-      rent.textContent = e.target.value;
+    this.rentSliderTarget.addEventListener("input", (e) => {
+      this.rentTarget.textContent = e.target.value;
     });
   }
 
