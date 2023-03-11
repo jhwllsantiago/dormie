@@ -1,6 +1,6 @@
-<div data-controller="search" class="d-flex justify-content-between flex-grow-1">
-  <div data-search-target="backdrop" data-action="click->search#hide" class="search-form-backdrop d-none"></div>
-  <button data-action="click->search#show" class="adv-search rounded px-3 ms-2">Advanced Search</button>
+<div class="d-flex justify-content-between flex-grow-1">
+  <div data-room-target="formBackdrop" data-action="click->room#hideForm" class="backdrop d-none"></div>
+  <button data-action="click->room#showForm" class="adv-search rounded px-3 ms-2">Advanced Search</button>
   <div>
     <div>
       <% if @place.present? and @rooms.present? %>
@@ -15,7 +15,7 @@
       <%= link_to "Show rooms on map", results_map_path(map_params), class: "view-results" %>
     </div>
   </div>
-  <%= form_with(url: rooms_url, method: :get, data: { search_target: "form", action: "submit->search#hide" },
+  <%= form_with(url: rooms_url, method: :get, data: { room_target: "form", action: "submit->room#hideForm" },
     class:"d-none search-form") do |f| %>
     <div class="form-floating mb-3">
       <%= f.search_field :place, placeholder: "enter a place or landmark",
@@ -24,15 +24,15 @@
     </div>
 
     <div class="slidecontainer">
-      <p>Max Distance: <span data-search-target="distance"></span>km</p>
+      <p>Max Distance: <span data-room-target="distance"></span>km</p>
       <%= f.range_field :distance, in: 1..20, class: "slider", value: @distance,
-        data: { search_target: "distanceSlider" } %>
+        data: { room_target: "distanceSlider" } %>
     </div>
     
     <div class="slidecontainer">
-      <p>Max Rent: ₱<span data-search-target="rent"></span></p>
+      <p>Max Rent: ₱<span data-room-target="rent"></span></p>
       <%= f.range_field :rent, in: 1000..20000, step: 100, class: "slider", value: @rent,
-        data: { search_target: "rentSlider" } %>
+        data: { room_target: "rentSlider" } %>
     </div>
 
     <div class="select-dd mb-5">
