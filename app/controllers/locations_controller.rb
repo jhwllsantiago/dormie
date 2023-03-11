@@ -20,11 +20,12 @@ class LocationsController < ApplicationController
 
   def destroy
     @location = Location.find(params[:id])
+    @ids = @location.room_ids
     @location.destroy
 
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@location) }
-      format.html         { redirect_to dashboard_path }
+      format.turbo_stream
+      format.html { redirect_to dashboard_path }
     end
   end
 

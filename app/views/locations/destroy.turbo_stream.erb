@@ -1,0 +1,4 @@
+<turbo-stream action="remove" target="<%= dom_id(@location) %>"></turbo-stream>
+<% @ids.each do |id| %>
+<turbo-stream action="remove" target="room_<%= id %>"></turbo-stream>
+<% end %>
