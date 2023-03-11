@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Pages", type: :request do
   let(:owner) {create(:owner)}
+  let(:location) {create(:location, owner: owner)}
 
   describe "GET root" do
     it "is succesful" do
@@ -23,6 +24,15 @@ RSpec.describe "Pages", type: :request do
         sign_in owner
         get dashboard_path
         expect(response).to have_http_status(200)
+      end
+    end
+
+    context "owner signed in and have params" do
+      it "is succesful and responds with turbo frame" do
+        sign_in owner
+        get dashboard_path(location: location.id)
+        expect(response).to have_http_status(200)
+        expect(response.body).to include('<turbo-frame id="dashboard_rooms_frame">')
       end
     end
 

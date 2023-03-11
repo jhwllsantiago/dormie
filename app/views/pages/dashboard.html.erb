@@ -25,11 +25,7 @@
     <div class="w-45 mx-3 bg-transparent db-cont rounded shadow-lg">
       <p class="w-100 mb-3 bg-heading d-flex db-main-links align-items-center justify-content-center"><%= link_to "+ ADD ROOM", new_room_path %></p>
       <div class="scrollable overflow-auto px-4" style="height: calc(100% - 2rem - 40px);">
-        <% if @rooms.blank? %>
-          <p class="quicksand heading-color text-center nothing" style="font-weight: 700px;">No rooms to display.</p>
-        <% else %>
-          <%= render "pages/dashboard/rooms", rooms: @rooms, locations: @locations %>
-        <% end %> 
+        <%= render "pages/dashboard/rooms", rooms: @rooms, locations: @locations %>
       </div>
     </div>
   </div>
