@@ -84,7 +84,7 @@ class RoomsController < ApplicationController
   end
 
   def set_room
-    @room = Room.find(params[:id])
+    @room = Room.includes_attachments.find(params[:id])
   end
 
   def room_params
@@ -102,7 +102,7 @@ class RoomsController < ApplicationController
         @rooms = Room.rentables(location_ids, @rent, @sort_option)
       end
     else
-      @rooms = Room.order(@sort_option)
+      @rooms = Room.includes_all.order(@sort_option)
     end
   end
 

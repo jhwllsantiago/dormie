@@ -7,6 +7,11 @@ class Room < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many_attached :images, dependent: :destroy
 
+  scope :includes_attachments, -> { includes(images_attachments: :blob)
+    .includes(images_attachments: { blob: :variant_records }) }
+
+  scope :includes_all, -> { includes(:location).includes_attachments }
+
   def image_variant image, width=400, height=400
     # libvips is required for image variants
     # comment out the next line if production server supports installation of libvips
@@ -20,13 +25,13 @@ class Room < ApplicationRecord
   end
 
   def self.where_order_maintained room_ids
-    self.includes(:location)
+    self.includes_all
       .where(id: room_ids)
       .order(Arel.sql("position(id::text in '#{room_ids.join(',')}')"))
   end
   
   def self.rentables location_ids, rent, sort_option={}
-    self.includes(:location)
+    self.includes_all
       .where(location: location_ids, rent: ..rent)
       .order(sort_option)
   end
