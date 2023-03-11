@@ -7,7 +7,7 @@ class Room < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many_attached :images, dependent: :destroy
 
-  def image_as_thumbnail image, width=400, height=400
+  def image_variant image, width=400, height=400
     # libvips is required for image variants
     # comment out the next line if production server supports installation of libvips
     return image if Rails.env.production?

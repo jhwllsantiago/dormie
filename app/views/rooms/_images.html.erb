@@ -13,7 +13,7 @@
       <div class="carousel-inner" style="aspect-ratio: 16/9">
         <% @room.images.each.with_index do |image, index| %>
           <div class="carousel-item h-100 w-100 <%= 'active' if index.zero? %>">
-            <%= image_tag @room.image_as_thumbnail(image, 1600, 900), class: "d-block w-100 h-100 mx-auto" %>
+            <%= image_tag @room.image_variant(image, 1600, 900), class: "d-block w-100 h-100 mx-auto" %>
           </div>
         <% end %>
       </div>
