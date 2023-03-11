@@ -7,11 +7,24 @@
   padding: 50px;
   z-index: 999;
   background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 .5rem 1rem rgba(255,255,255,.15);
+  box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.15);
   border-radius: 10px;
 }
 
-.search-form-backdrop {
+.images-frame {
+  background-color: transparent !important;
+  width: 80vw;
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.backdrop {
   position: fixed;
   top: 0;
   left: 0;

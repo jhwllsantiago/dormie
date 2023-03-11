@@ -1,4 +1,4 @@
-<div class="container-fluid mh mb-custom py-3 bg-repeat">
+<div class="container-fluid mh mb-custom py-3 bg-repeat" data-controller="room">
   <h3 class="text-center monsterrat heading-color semiBold p-3" >Rooms for Rent</h3>
   <div class="d-flex align-items-center justify-content-start mb-4" style="padding: 0px 5.5rem 0px 5.5rem;">
     <div class="d-flex align-items-center">
@@ -16,4 +16,7 @@
   </div>
   <%# Note the double equals sign "==" which marks the output as trusted and html safe: %>
   <%== pagy_bootstrap_nav(@pagy) %>
+
+  <%= turbo_frame_tag "room_images_frame", class: "images-frame d-none", data: { room_target: "images" } %>
+  <div class="backdrop d-none" data-room-target="imagesBackdrop" data-action="click->room#hideImages"></div>
 </div>

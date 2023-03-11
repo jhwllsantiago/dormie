@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
   include RoomsHelper
   include Pagy::Backend
-  before_action :authenticate_owner!, except: %i[ index show ]
-  before_action :set_room, only: %i[ show edit update destroy ]
+  before_action :authenticate_owner!, except: %i[ index show images ]
+  before_action :set_room, only: %i[ show edit update destroy images ]
   before_action :room_ownership, only: %i[ edit update destroy ]
   before_action :set_locations, :locations_count, only: %i[ new edit ]
   before_action :validate_images, only: %i[ create ]
@@ -68,6 +68,10 @@ class RoomsController < ApplicationController
       format.turbo_stream { render turbo_stream: turbo_stream.remove(@room) }
       format.html         { redirect_to dashboard_path }
     end
+  end
+
+  def images
+    render partial: "images"
   end
 
   private
