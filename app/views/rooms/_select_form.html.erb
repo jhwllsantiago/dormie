@@ -1,8 +1,8 @@
-<form action="<%= rooms_url %>" method="get" id="sort-select-form">
+<form action="<%= rooms_url %>" method="get" data-room-target="selectForm">
   <input type="text" hidden value="<%= @place %>" name="place">
   <input type="text" hidden value="<%= @distance %>" name="distance">
   <input type="text" hidden value="<%= @rent %>" name="rent">
-  <select name="sort" id="sort" onchange="submitForm()" class="select-form-dd px-1 rounded quicksand grey bg-transparent shadow">
+  <select name="sort" id="sort" data-room-target="select" class="select-form-dd px-1 rounded quicksand grey bg-transparent shadow">
     <option value="">All rooms</option>
     <% if @place.present? %>
       <option value="distance-asc" <%= "selected" if params[:sort] == "distance-asc" %>>Distance - nearest to farthest</option>
@@ -14,6 +14,3 @@
     <option value="updated_at-asc" <%= "selected" if params[:sort] == "updated_at-asc" %>>Oldest</option>
   </select>
 </form>
-<script>
-  const submitForm = () => document.getElementById("sort-select-form").submit()
-</script>

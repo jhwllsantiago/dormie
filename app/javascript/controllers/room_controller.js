@@ -10,10 +10,15 @@ export default class extends Controller {
     "distanceSlider",
     "rent",
     "rentSlider",
+    "select",
+    "selectForm",
   ];
 
   connect() {
-    this.slider()
+    this.slider();
+    this.selectTarget.onchange = () => {
+      this.selectFormTarget.submit();
+    };
   }
 
   slider() {
