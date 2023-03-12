@@ -17,8 +17,8 @@ View the application here: **https://dormie.up.railway.app/**.
  1. clone the repository ``git clone https://github.com/jhwllsantiago/dormie.git``
  2. install dependencies ``bundle install``
  3. install libvips ``sudo apt install libvips``
- 3. create database ``rails db:create`` (make sure the ``tags table`` was seeded)
- 4. create a ``.env`` file and add the following
+ 4. setup database ``rails db:setup`` (make sure the ``tags table`` was seeded)
+ 5. create a ``.env`` file and add the following
  
 <pre>
  <b>GM_KEY</b>=yourgooglemapsapikey
