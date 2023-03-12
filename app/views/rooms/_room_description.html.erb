@@ -1,8 +1,8 @@
-<div style="width: 48%;">
+<div style="width: 40%;">
   <div class="d-flex flex-row justify-content-between">
     <div class="w-100 d-flex flex-column">
-      <h3 class="text-center monsterrat heading-color bold"><%= @room.name %></h3>
-      <div class="d-flex align-items-center justify-content-center">
+      <h3 class="monsterrat heading-color bold"><%= @room.name %></h3>
+      <div class="d-flex align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
           <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
         </svg>
@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div class="w-100 h-5 d-flex flex-wrap align-items-center justify-content-start mt-4">
+  <div class="w-100 h-5 d-flex flex-wrap align-items-center justify-content-start mt-3">
     <% @tags.each do |tag| %>
       <div class="tag-img d-flex align-items-center justify-content-start" style="width: 33%;">
         <%= image_tag(tag.icon) if tag.icon %>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div style="width: 48%;">
-  <h3 class="text-center monsterrat heading-color bold">Description</h3>
+<div style="width: 40%;">
+  <h3 class="monsterrat heading-color bold">Description</h3>
   <p class="quicksand grey" style="font-size: 15px;"><%= @room.description %></p>
 </div>
