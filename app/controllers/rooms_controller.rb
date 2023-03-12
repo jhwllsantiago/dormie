@@ -71,6 +71,11 @@ class RoomsController < ApplicationController
   end
 
   def images
+    if params[:active].present?
+      @active = @room.images.find(params[:active])&.id
+    else
+      @active = @room.images.first&.id
+    end
     render partial: "images"
   end
 
