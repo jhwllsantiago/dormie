@@ -30,9 +30,9 @@
     </div>
     <div class="w-50 mb-3" style="font-size: 15px;">
       <%= turbo_frame_tag "room_review_frame" do %>
-        <% if occupant_signed_in? and @review.nil? %>
+        <% if allowed_to_write_review? and @review.nil? %>
           <%= render "reviews/form", room: @room, review: Review.new, show_cancel_button: false %>
-        <% elsif occupant_signed_in? and @review.present? %>
+        <% elsif allowed_to_write_review? and @review.present? %>
           <%= render "reviews/editable_review", room: @room, review: @review %>
         <% end %>
       <% end %> 
