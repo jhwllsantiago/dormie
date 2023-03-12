@@ -58,7 +58,7 @@ $placeholder-color: #8e8e8e;
     height: 350px;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
 
   .options:hover {
@@ -79,7 +79,9 @@ $placeholder-color: #8e8e8e;
   }
 }
 
-.form, .form-lg, .form-md {
+.form,
+.form-lg,
+.form-md {
   width: 100%;
   max-width: 700px;
   border-radius: 5px;
@@ -96,7 +98,8 @@ $placeholder-color: #8e8e8e;
     text-transform: capitalize;
   }
 
-  .form-control:focus, .form-select:focus {
+  .form-control:focus,
+  .form-select:focus {
     border-color: $heading-color;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 82, 156, 0.25);
@@ -153,17 +156,35 @@ $placeholder-color: #8e8e8e;
   color: #d80000;
 }
 
-.field_with_errors { display: inline; }
+.field_with_errors {
+  display: inline;
+}
 
-#search-lp::-webkit-search-cancel-button, #place::-webkit-search-cancel-button {
+#search-lp::-webkit-search-cancel-button,
+#place::-webkit-search-cancel-button {
   -webkit-appearance: none;
   display: inline-block;
   width: 12px;
   height: 12px;
   margin-left: 10px;
-  background:
-    linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 43%,$heading-color 45%,$heading-color 55%,rgba(0,0,0,0) 57%,rgba(0,0,0,0) 100%),
-    linear-gradient(135deg, transparent 0%,transparent 43%,$heading-color 45%,$heading-color 55%,transparent 57%,transparent 100%);
+  background: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 43%,
+      $heading-color 45%,
+      $heading-color 55%,
+      rgba(0, 0, 0, 0) 57%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      $heading-color 45%,
+      $heading-color 55%,
+      transparent 57%,
+      transparent 100%
+    );
   cursor: pointer;
 }
 
@@ -179,7 +200,8 @@ $placeholder-color: #8e8e8e;
   height: 30px;
 }
 
-.select-form-dd:focus, .select-form-dd:active {
+.select-form-dd:focus,
+.select-form-dd:active {
   border: 2px solid $heading-color;
 }
 

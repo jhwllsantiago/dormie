@@ -64,7 +64,7 @@ $placeholder-color: #8e8e8e;
     color: $heading-color;
   }
   .nav-link:after {
-    content: '';
+    content: "";
     width: 0px;
     height: 2px;
     display: block;
@@ -74,7 +74,8 @@ $placeholder-color: #8e8e8e;
   .nav-link:hover:after {
     width: 100%;
   }
-  .nav-link:active, .nav-link:visited {
+  .nav-link:active,
+  .nav-link:visited {
     color: $heading-color !important;
   }
   .nav-link:active:after {
@@ -111,7 +112,8 @@ $placeholder-color: #8e8e8e;
   .nav-link:after {
     width: 0px;
   }
-  .nav-link:hover:after, .nav-link:active:after{
+  .nav-link:hover:after,
+  .nav-link:active:after {
     width: 0%;
   }
   .nav-button {
@@ -131,7 +133,8 @@ $placeholder-color: #8e8e8e;
   .nav-link:after {
     width: 0px;
   }
-  .nav-link:hover:after, .nav-link:active:after{
+  .nav-link:hover:after,
+  .nav-link:active:after {
     width: 0%;
   }
   .nav-button {
@@ -152,7 +155,8 @@ $placeholder-color: #8e8e8e;
   color: $grey !important;
 }
 
-.dropdown-item:hover, .dropdown-item:focus  {
+.dropdown-item:hover,
+.dropdown-item:focus {
   background-color: $light-violet !important;
 }
 
@@ -239,7 +243,7 @@ $placeholder-color: #8e8e8e;
   h5 {
     font-size: 1rem !important;
   }
-  
+
   .services {
     height: 330px;
     width: 330px;
@@ -284,7 +288,7 @@ $placeholder-color: #8e8e8e;
   h5 {
     font-size: 0.95rem !important;
   }
-  
+
   .services {
     height: 245px;
     width: 285px;
@@ -322,7 +326,7 @@ $placeholder-color: #8e8e8e;
   .mt-3 {
     margin-top: 0 !important;
   }
-  
+
   // .mb-custom {
   //   margin-bottom: 75px;
   // }
@@ -340,7 +344,7 @@ $placeholder-color: #8e8e8e;
   h5 {
     font-size: 0.9rem !important;
   }
-  
+
   .services {
     height: 235px;
     width: 330px;

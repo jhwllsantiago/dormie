@@ -181,7 +181,7 @@ $placeholder-color: #8e8e8e;
   font-family: $sec-font;
   font-weight: 600;
   text-decoration: none;
-  color: white; 
+  color: white;
   transition: 0.5s;
   cursor: pointer;
 }
@@ -213,14 +213,16 @@ $placeholder-color: #8e8e8e;
 .star {
   img {
     width: 16px;
-    height: 16px;  
+    height: 16px;
   }
   .active {
-    filter: invert(27%) sepia(10%) saturate(6919%) hue-rotate(201deg) brightness(99%) contrast(82%);
+    filter: invert(27%) sepia(10%) saturate(6919%) hue-rotate(201deg)
+      brightness(99%) contrast(82%);
   }
   .inactive {
     // filter: invert(47%) sepia(18%) saturate(456%) hue-rotate(181deg) brightness(50%) contrast(86%);
-    filter: invert(94%) sepia(53%) saturate(2730%) hue-rotate(178deg) brightness(104%) contrast(97%);
+    filter: invert(94%) sepia(53%) saturate(2730%) hue-rotate(178deg)
+      brightness(104%) contrast(97%);
   }
 }
 
@@ -229,7 +231,7 @@ $placeholder-color: #8e8e8e;
   width: 50%;
   object-fit: contain;
   position: relative;
-  
+
   a {
     text-align: center;
     margin: 0 auto;
@@ -246,7 +248,8 @@ $placeholder-color: #8e8e8e;
   }
 }
 
-.carousel-control-next, .carousel-control-prev {
+.carousel-control-next,
+.carousel-control-prev {
   width: auto !important;
 }
 
@@ -276,12 +279,12 @@ $placeholder-color: #8e8e8e;
   font-weight: 700;
   height: 40px;
   color: white;
-  
+
   a {
     text-decoration: none;
     color: white;
   }
-  
+
   a:hover {
     color: $light-violet;
   }
@@ -294,7 +297,9 @@ $placeholder-color: #8e8e8e;
   font-weight: 600;
 }
 
-.db-edit, .db-delete, .db-map {
+.db-edit,
+.db-delete,
+.db-map {
   outline: 0;
   border: none;
   background-color: transparent;
@@ -304,7 +309,9 @@ $placeholder-color: #8e8e8e;
   width: 30px;
 }
 
-.db-edit:hover, .db-delete:hover, .db-map:hover {
+.db-edit:hover,
+.db-delete:hover,
+.db-map:hover {
   background-color: $light-violet;
   border-radius: 5px;
 }
@@ -324,16 +331,18 @@ $placeholder-color: #8e8e8e;
   background-size: 85%;
 }
 
-.db-location, .db-room {
+.db-location,
+.db-room {
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,.4) !important;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.4) !important;
   transition: 0.3s;
 }
 
-.db-location:hover, .db-room:hover {
-  box-shadow: 0.5rem 0.5rem 1rem -0.5rem rgba(0,0,0,.4) inset !important;
+.db-location:hover,
+.db-room:hover {
+  box-shadow: 0.5rem 0.5rem 1rem -0.5rem rgba(0, 0, 0, 0.4) inset !important;
   transition: 0.3s;
 }
 
@@ -349,7 +358,7 @@ $placeholder-color: #8e8e8e;
   border-radius: 100vw;
   padding: 10px;
 }
- 
+
 .scrollable::-webkit-scrollbar-thumb {
   background: $light-violet;
   border: 5px solid white !important;
@@ -357,7 +366,7 @@ $placeholder-color: #8e8e8e;
 }
 
 .scrollable::-webkit-scrollbar-thumb:hover {
-  background: $heading-color; 
+  background: $heading-color;
 }
 
 .adv-search {
@@ -369,7 +378,7 @@ $placeholder-color: #8e8e8e;
   font-family: $sec-font;
   font-weight: 600;
   text-decoration: none;
-  color: white; 
+  color: white;
   transition: 0.3s;
   cursor: pointer;
 }
@@ -377,7 +386,7 @@ $placeholder-color: #8e8e8e;
 .adv-search:hover {
   background-color: $light-violet;
   color: $heading-color;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.3)!important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
 }
 
 .view-results {
@@ -390,12 +399,12 @@ $placeholder-color: #8e8e8e;
   padding-left: 1rem;
   color: $grey;
   font-family: $sec-font;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   background: transparent;
 }
 
 .view-results:hover {
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,0);;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0);
   font-weight: 700;
   color: #3c529c;
 }
