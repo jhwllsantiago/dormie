@@ -29,13 +29,11 @@
       </iframe>
     </div>
     <div class="w-50 mb-3" style="font-size: 15px;">
-      <%= turbo_frame_tag "room_review_frame" do %>
-        <% if allowed_to_write_review? and @review.nil? %>
-          <%= render "reviews/form", room: @room, review: Review.new, show_cancel_button: false %>
-        <% elsif allowed_to_write_review? and @review.present? %>
-          <%= render "reviews/editable_review", room: @room, review: @review %>
-        <% end %>
-      <% end %> 
+      <% if allowed_to_write_review? and @review.nil? %>
+        <%= render "reviews/form", room: @room, review: Review.new, show_cancel_button: false %>
+      <% elsif allowed_to_write_review? and @review.present? %>
+        <%= render "reviews/editable_review", room: @room, review: @review %>
+      <% end %>
     </div>
     <h3 class="text-center monsterrat heading-color bold mb-5">Room Reviews</h3>
     <div class="w-100 mb-3 <%= "review-grid" if @reviews.present? %>" style="font-size: 15px;">
