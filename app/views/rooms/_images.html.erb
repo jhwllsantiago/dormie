@@ -1,11 +1,12 @@
 <%= turbo_frame_tag "room_images_frame" do %>
   <% if @room.images.present? %>
-    <div id="carouselExampleIndicators" class="carousel slide mx-auto">
+    <div id="imagesPartial" class="carousel slide carousel-fade mx-auto">
       <div class="carousel-indicators">
         <% @room.images.each.with_index do |image, index| %>
-          <button type="button" data-bs-target="#carouselExampleIndicators"
+          <button type="button" data-bs-target="#imagesPartial"
             data-bs-slide-to="<%= index %>"
             class="<%= "active" if @active == image.id %>" 
+            style="height: 6px;"
             aria-current="true" aria-label="<%= image.filename %>">
           </button>
         <% end %>
@@ -13,16 +14,16 @@
       <div class="carousel-inner" style="aspect-ratio: 16/9">
         <% @room.images.each do |image| %>
           <div class="carousel-item h-100 w-100 <%= "active" if @active == image.id %>">
-            <%= image_tag @room.image_variant(image, 1200, 675), class: "d-block w-100 h-100 mx-auto" %>
+            <%= image_tag @room.image_variant(image, 1200, 675), class: "d-block w-100 h-100 mx-auto", style: "border-radius: 10px;" %>
           </div>
         <% end %>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <button class="carousel-control-prev px-5" type="button" data-bs-target="#imagesPartial" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="transform: scale(1.2);"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <button class="carousel-control-next px-5" type="button" data-bs-target="#imagesPartial" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="transform: scale(1.2);"></span>
         <span class="visually-hidden">Next</span>
       </button>
     </div>

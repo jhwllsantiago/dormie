@@ -12,16 +12,22 @@
 }
 
 .images-frame {
-  background-color: transparent !important;
-  width: 1200px;
+  background-color: transparent;
+  width: 80vw;
+  max-width: 1200px;
   position: fixed;
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);
   z-index: 999;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.15);
   border-radius: 10px;
+}
+
+.images-close-icon {
+  position: fixed;
+  cursor: pointer;
+  right: 40px;
+  top: 40px;
 }
 
 .backdrop {

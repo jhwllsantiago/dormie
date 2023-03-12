@@ -18,5 +18,7 @@
   <%== pagy_bootstrap_nav(@pagy) %>
 
   <%= turbo_frame_tag "room_images_frame", class: "images-frame d-none", data: { room_target: "images" } %>
-  <div class="backdrop d-none" data-room-target="imagesBackdrop" data-action="click->room#hideImages"></div>
+  <div class="backdrop d-none" data-room-target="imagesBackdrop" data-action="click->room#hideImages">
+    <%= image_tag "close.svg", class: "images-close-icon" %>
+  </div>
 </div>
