@@ -14,10 +14,12 @@ class Room < ApplicationRecord
 
   def image_variant image, width=400, height=400
     # libvips is required for image variants
-    # comment out the next line if production server supports installation of libvips
-    return image if Rails.env.production?
+    # uncomment the next line if production server does not support installation of libvips
+    # return image if Rails.env.production?
     return unless image.content_type.in?(%w[ image/jpeg image/png ])
     image.variant(resize_to_limit: [width, height]).processed
+  rescue
+    "image-load-failed.svg"
   end
 
   def self.default_order
