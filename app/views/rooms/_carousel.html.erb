@@ -4,7 +4,9 @@
       <% @room.images.each.with_index do |image, index| %>
         <% if image.content_type.in?(%w[ image/jpeg image/png ]) %>
           <div class="carousel-item <%= 'active' if index.zero? %>">
-            <%= link_to image_tag(@room.image_variant(image, 800, 450)), image, target: "_blank", class: "d-block w-100", style: "height: 100%" %>
+            <%= link_to image_tag(@room.image_variant(image, 800, 450)),
+              room_images_path(@room, active: image.id), class: "d-block w-100", style: "height: 100%",
+              data: { turbo_frame: "room_images_frame", action: "click->room#showImages" } %>
           </div>
         <% end %>
       <% end %>
