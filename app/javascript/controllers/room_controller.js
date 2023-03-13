@@ -15,10 +15,12 @@ export default class extends Controller {
   ];
 
   connect() {
-    this.slider();
-    this.selectTarget.onchange = () => {
-      this.selectFormTarget.submit();
-    };
+    if (window.location.pathname === "/rooms") {
+      this.slider();
+      this.selectTarget.onchange = () => {
+        this.selectFormTarget.submit();
+      };
+    }
   }
 
   slider() {
