@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
   include RoomsHelper
   include Pagy::Backend
-  before_action :authenticate_owner!, except: %i[ index show ]
-  before_action :set_room, only: %i[ show edit update destroy ]
+  before_action :authenticate_owner!, except: %i[ index show images ]
+  before_action :set_room, only: %i[ show edit update destroy images ]
   before_action :room_ownership, only: %i[ edit update destroy ]
   before_action :set_locations, :locations_count, only: %i[ new edit ]
   before_action :validate_images, only: %i[ create ]
@@ -70,6 +70,15 @@ class RoomsController < ApplicationController
     end
   end
 
+  def images
+    if params[:active].present?
+      @active = @room.images.find(params[:active])&.id
+    else
+      @active = @room.images.first&.id
+    end
+    render partial: "images"
+  end
+
   private
   def room_ownership
     redirect_to root_path unless current_owner&.rooms.include?(@room)
@@ -80,7 +89,7 @@ class RoomsController < ApplicationController
   end
 
   def set_room
-    @room = Room.find(params[:id])
+    @room = Room.includes_attachments.find(params[:id])
   end
 
   def room_params
@@ -98,7 +107,7 @@ class RoomsController < ApplicationController
         @rooms = Room.rentables(location_ids, @rent, @sort_option)
       end
     else
-      @rooms = Room.order(@sort_option)
+      @rooms = Room.includes_all.order(@sort_option)
     end
   end
 

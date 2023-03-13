@@ -7,11 +7,30 @@
   padding: 50px;
   z-index: 999;
   background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 .5rem 1rem rgba(255,255,255,.15);
+  box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.15);
   border-radius: 10px;
 }
 
-.search-form-backdrop {
+.images-frame {
+  background-color: transparent;
+  width: 80vw;
+  max-width: 1200px;
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border-radius: 10px;
+}
+
+.images-close-icon {
+  position: fixed;
+  cursor: pointer;
+  right: 40px;
+  top: 40px;
+}
+
+.backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -19,4 +38,32 @@
   height: 100vh;
   z-index: 998;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.multi-carousel {
+  position: relative;
+  height: 400px;
+}
+
+.multi-carousel .multi-carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.multi-carousel .multi-carousel-inner .multi-carousel-item {
+  display: inline-block;
+  width: 100%;
+  font-size: 16px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.multi-carousel .multi-carousel-inner .multi-carousel-item img {
+  width: 100%;
+  height: 400px;
+  -o-object-fit: cover;
+  object-fit: cover;
 }

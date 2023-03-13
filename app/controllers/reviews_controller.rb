@@ -1,7 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_occupant!
   before_action :set_room
-  before_action :set_review, only: %i[ edit update destroy ]
+  before_action :set_review, :review_authorship, only: %i[ edit update destroy ]
+  before_action :new_review_authorship, only: %i[ create ]
 
   def create
     @review = Review.new(review_params)
@@ -35,6 +36,14 @@ class ReviewsController < ApplicationController
   private
   def set_room
     @room = Room.find(params[:room_id])
+  end
+
+  def new_review_authorship
+    redirect_to root_path if @room.owner.email == current_occupant.email or Review.where(room: @room, occupant: current_occupant).present?
+  end
+
+  def review_authorship
+    redirect_to root_path if @review.occupant != current_occupant
   end
 
   def set_review

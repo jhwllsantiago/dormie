@@ -2,16 +2,25 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = [
+    "images",
+    "imagesBackdrop",
     "form",
-    "backdrop",
+    "formBackdrop",
     "distance",
     "distanceSlider",
     "rent",
     "rentSlider",
+    "select",
+    "selectForm",
   ];
 
   connect() {
-    this.slider()
+    if (window.location.pathname === "/rooms") {
+      this.slider();
+      this.selectTarget.onchange = () => {
+        this.selectFormTarget.submit();
+      };
+    }
   }
 
   slider() {
@@ -25,16 +34,23 @@ export default class extends Controller {
     });
   }
 
-  show(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
+  showForm() {
     this.formTarget.classList.remove("d-none");
-    this.backdropTarget.classList.remove("d-none");
+    this.formBackdropTarget.classList.remove("d-none");
   }
 
-  hide() {
+  hideForm() {
     this.formTarget.classList.add("d-none");
-    this.backdropTarget.classList.add("d-none");
+    this.formBackdropTarget.classList.add("d-none");
+  }
+
+  showImages() {
+    this.imagesTarget.classList.remove("d-none");
+    this.imagesBackdropTarget.classList.remove("d-none");
+  }
+
+  hideImages() {
+    this.imagesTarget.classList.add("d-none");
+    this.imagesBackdropTarget.classList.add("d-none");
   }
 }

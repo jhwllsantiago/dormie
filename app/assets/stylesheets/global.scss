@@ -6,7 +6,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   appearance: textfield;
 }
 
@@ -16,4 +16,8 @@ input[type=number] {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
+}
+
+.w-fit {
+  width: fit-content !important;
 }

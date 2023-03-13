@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   }
   
   resources :rooms
+  get "rooms/:id/images", to: "rooms#images", as: "room_images"
   
   get "locations/new", to: "locations#new", as: "new_location"
   post "locations", to: "locations#create"

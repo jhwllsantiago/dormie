@@ -21,6 +21,14 @@ RSpec.describe "Rooms", type: :request do
     end
   end
 
+  describe "GET room_images" do
+    it "is successful and responds with turbo frame" do
+      get room_images_path(room)
+      expect(response).to have_http_status(200)
+      expect(response.body).to include('<turbo-frame id="room_images_frame">')
+    end
+  end
+
   context "owner signed in" do
     before {sign_in owner}
 

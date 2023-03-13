@@ -1,6 +1,6 @@
 <% locations.each do |location| %>
   <div class="db-location d-flex align-items-center mb-3" id="<%= dom_id(location) %>">
-    <div class="w-80">
+    <%= link_to dashboard_path(location: location), style: "text-decoration: none;", data: { turbo_frame: "dashboard_rooms_frame" }, class: "w-80" do %>
       <h6 class="monsterrat heading-color semiBold m-0"><%= location.name %></h6>
       <div class="d-flex align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#59657c" aria-hidden="true" style="width: 15px; height: 15px;">
@@ -8,10 +8,10 @@
         </svg>
         <p class="db-subheading px-1 m-0"><%= "#{location.unit}, #{location.address_line}, #{location.city}" %></p>
       </div>
-    </div>
+    <% end %>
     <div class="w-20 d-flex align-items-center justify-content-around">
       <%= button_to " ", location_map_path(location), method: :get, data: { "turbo-frame": "location_map_frame" }, class: "db-map" %>
-      <%= button_to " ", location_path(location), method: :delete, class: "db-delete", data: { "turbo-confirm": "Are you sure you want to delete this location?" } %>
+      <%= button_to " ", location_path(location), method: :delete, class: "db-delete", data: { "turbo-confirm": "Deleting a location will also delete all rooms associated with it. Continue?" } %>
     </div>
   </div>
 <% end %>

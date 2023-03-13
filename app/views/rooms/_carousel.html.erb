@@ -1,25 +1,24 @@
-<div id="carouselExampleControls" class="carousel slide mb-5 w-70 mx-auto" style="background-color: transparent;">
-  <div class="carousel-inner">
-    <% if @room.images.present? %>
-      <% @room.images.each.with_index do |image, index| %>
-        <% if image.content_type.in?(%w[ image/jpeg image/png ]) %>
-          <div class="carousel-item <%= 'active' if index.zero? %>">
-            <%= link_to image_tag(@room.image_as_thumbnail(image, 800, 450)), image, target: "_blank", class: "d-block w-100", style: "height: 100%" %>
-          </div>
-        <% end %>
+<% if @room.images.present? and @room.images.count > 1 %>
+  <div class="multi-carousel mb-5" id="carousel" data-mdb-items="2">
+    <div class="multi-carousel-inner">
+      <% @room.images.each do |image| %>
+        <div class="multi-carousel-item" style="width: 50%; margin-left: 0px;">
+          <%= image_link_to_images(@room, image) %>
+        </div>
       <% end %>
-    <% else %>
-      <div class="carousel-item active">
-        <%= image_tag "nia.png", class: "d-block" %>
-      </div>
-    <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" tabindex="0" data-mdb-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" tabindex="0" data-mdb-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+  <%= javascript_include_tag "carousel.js" %>
+<% elsif @room.images.present? %>
+  <div class="mb-5 w-fit mx-auto">
+    <%= image_link_to_images(@room, @room.images.first) %>
+  </div>
+<% else %>
+  <%= image_tag "nia.png", class: "d-block mx-auto mb-5", style: "height: 400px;" %>
+<% end %>
