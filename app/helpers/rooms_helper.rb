@@ -8,4 +8,14 @@ module RoomsHelper
   def allowed_to_write_review?
     occupant_signed_in? and @room.owner.email != current_occupant&.email
   end
+
+  def image_link_to_images room, image
+    body = image_tag(room.image_variant(image, 800, 450))
+    url = room_images_path(room, active: image.id)
+    options = {
+      data: { turbo_frame: "room_images_frame", action: "click->room#showImages" }
+    }
+    
+    link_to(body, url, options)
+  end
 end
