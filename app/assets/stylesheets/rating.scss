@@ -125,6 +125,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: row;
+  gap: 15px;
 }
 
 .review {

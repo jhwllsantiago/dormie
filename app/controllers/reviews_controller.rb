@@ -39,7 +39,7 @@ class ReviewsController < ApplicationController
   end
 
   def new_review_authorship
-    redirect_to root_path if @room.owner.email == current_occupant.email
+    redirect_to root_path if @room.owner.email == current_occupant.email or Review.where(room: @room, occupant: current_occupant).present?
   end
 
   def review_authorship
