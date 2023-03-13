@@ -1,55 +1,47 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
-owner = Owner.create(
-  name: "John Doe",
-  contact: "09123123123",
-  email: "johndoe@example.com",
-  password: "password",
-  password_confirmation: "password",
-  confirmed_at: Time.now
-)
+owner = Owner.find_or_create_by(email: "johndoe@example.com") do |owner|
+  owner.name = "John Doe",
+  owner.contact = "09123123123",
+  owner.password = "password",
+  owner.password_confirmation = "password",
+  owner.confirmed_at = Time.now
+end
 
-occupant = Occupant.create(
-  name: "Jane Doe",
-  email: "janedoe@example.com",
-  password: "password",
-  password_confirmation: "password",
-  confirmed_at: Time.now
-)
+occupant = Occupant.find_or_create_by(email: "janedoe@example.com") do |occupant|
+  occupant.name = "Jane Doe",
+  occupant.password = "password",
+  occupant.password_confirmation = "password",
+  occupant.confirmed_at = Time.now
+end
 
-location = Location.create(
-  name: "DormTeL Recto",
-  unit: "4F",
-  address_line: "Cartimar Shopping Center, Recto Ave, Quiapo",
-  city: "Manila",
-  province: "Metro Manila",
-  query: "DormTeL Recto Manila Metro Manila",
-  full_address: "4F, Cartimar Shopping Center, Recto Ave, Quiapo, Manila, Metro Manila", 
-  owner: owner
-)
-location.geocode
-location.save
+location = Location.find_or_create_by(owner: owner, latitude: 14.6023913, longitude: 120.9858703) do |location|
+  location.name = "DormTeL Recto",
+  location.unit = "4F",
+  location.address_line = "Cartimar Shopping Center, Recto Ave, Quiapo",
+  location.city = "Manila",
+  location.province = "Metro Manila",
+  location.query = "DormTeL Recto Manila Metro Manila",
+  location.full_address = "4F, Cartimar Shopping Center, Recto Ave, Quiapo, Manila, Metro Manila"
+end
 
-room = Room.create(
-  name: "The Expanse",
-  description: "Suspendisse et vehicula urna. Nam sit amet orci hendrerit, fermentum dolor in, luctus mi. Cras porta dapibus libero, nec interdum tellus ornare nec. Nulla sollicitudin urna enim, id dapibus quam viverra in. Maecenas id eleifend enim, quis mollis magna. Aliquam erat volutpat. Mauris sit amet accumsan turpis. Aliquam risus massa, pellentesque sit amet lectus et, feugiat porttitor tellus. Nulla eu mattis lacus.",
-  rent: 10000.0,
-  capacity: 10,
-  vacancies: 5,
-  tags: ["1", "3", "4", "7", "8", "9"],
-  location: location
-)
+room = Room.find_or_create_by(location: location) do |room|
+  room.name = "Nulla sollicitudin urna enim",
+  room.description = "Suspendisse et vehicula urna. Nam sit amet orci hendrerit, fermentum dolor in, luctus mi. Cras porta dapibus libero, nec interdum tellus ornare nec. Nulla sollicitudin urna enim, id dapibus quam viverra in. Maecenas id eleifend enim, quis mollis magna. Aliquam erat volutpat. Mauris sit amet accumsan turpis. Aliquam risus massa, pellentesque sit amet lectus et, feugiat porttitor tellus. Nulla eu mattis lacus.",
+  room.rent = 6900.0,
+  room.capacity = 6,
+  room.vacancies = 5,
+  room.tags = %w[ 2 3 4 5 6 7 8 9 10 11 12 13 ]
+end
 
-Review.create(
-  rating: 4,
-  title: "So clean, So good.",
-  comment: "Vivamus diam justo, finibus at quam at, facilisis aliquet turpis. Vivamus mattis ut arcu convallis accumsan. Nullam volutpat nisl orci, non egestas ante condimentum vehicula. Pellentesque tristique consectetur turpis sit amet pellentesque.",
-  room: room,
-  occupant: occupant
-)
+review = Review.find_or_create_by(room: room, occupant: occupant) do |review|
+  review.rating = 4,
+  review.title = "Vivamus mattis ut arcu convallis accumsan",
+  review.comment = "Vivamus diam justo, finibus at quam at, facilisis aliquet turpis. Vivamus mattis ut arcu convallis accumsan. Nullam volutpat nisl orci, non egestas ante condimentum vehicula. Pellentesque tristique consectetur turpis sit amet pellentesque."
+end
 
-Tag.create([
+TAGS = [
   {name: "All Men's Dorm", icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:serif='http://www.serif.com/' xmlns:xlink='http://www.w3.org/1999/xlink' fill='%23727e95' viewBox='0 0 32 32' style='fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;' version='1.1' xml:space='preserve'%3E%3Cpath d='M24.565,6.012l-4.215,4.215c-1.726,-1.418 -3.934,-2.269 -6.339,-2.269c-5.52,0 -10,4.481 -10,10c-0,5.519 4.48,10 10,10c5.519,0 10,-4.481 10,-10c-0,-2.394 -0.844,-4.593 -2.249,-6.315l4.24,-4.24l-0.023,4.575c-0.002,0.552 0.443,1.003 0.995,1.005c0.552,0.003 1.003,-0.443 1.005,-0.995c0,0 0.021,-7.034 -0.003,-7.051c-0.017,-0.231 -0.113,-0.456 -0.29,-0.633c-0.181,-0.181 -0.414,-0.278 -0.651,-0.291c-0.007,-0.001 -0.014,-0.001 -0.021,-0.001l-7.002,-0c-0.552,-0 -1,0.448 -1,1c0,0.551 0.448,1 1,1l4.553,-0Zm-10.554,3.946c4.415,0 8,3.585 8,8c-0,4.415 -3.585,8 -8,8c-4.416,0 -8,-3.585 -8,-8c-0,-4.415 3.584,-8 8,-8Z'/%3E%3C/svg%3E"},
   {name: "All Women's Dorm", icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:serif='http://www.serif.com/' xmlns:xlink='http://www.w3.org/1999/xlink' fill='%23727e95' viewBox='0 0 32 32' style='fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;' version='1.1' xml:space='preserve'%3E%3Cpath d='M23.687,6.888l-2.595,-2.595c-0.39,-0.39 -1.023,-0.39 -1.414,-0c-0.39,0.39 -0.39,1.024 0,1.414l2.595,2.595l-1.922,1.922c-1.726,-1.416 -3.933,-2.266 -6.337,-2.266c-5.519,0 -10,4.481 -10,10c-0,5.519 4.481,10 10,10c5.519,0 10,-4.481 10,-10c-0,-2.395 -0.844,-4.595 -2.251,-6.318l1.924,-1.924l2.595,2.595c0.391,0.391 1.024,0.391 1.415,0c0.39,-0.39 0.39,-1.024 -0,-1.414l-2.595,-2.595l2.595,-2.595c0.39,-0.39 0.39,-1.024 -0,-1.414c-0.391,-0.39 -1.024,-0.39 -1.415,-0l-2.595,2.595Zm-9.673,3.07c4.415,0 8,3.585 8,8c-0,4.415 -3.585,8 -8,8c-4.415,0 -8,-3.585 -8,-8c-0,-4.415 3.585,-8 8,-8Z'/%3E%3C/svg%3E"},
   {name: "Reception", icon: "data:image/svg+xml,%3Csvg fill='%23727e95' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' class='w-4 h-4 m-1'%3E%3Cpath d='M271 401v-30h200v-15c0-57.429-22.364-111.42-62.972-152.028-37.052-37.051-85.247-58.904-137.028-62.45V111h30V81h-90v30h30v30.522c-51.781 3.545-99.976 25.398-137.028 62.45C63.364 244.58 41 298.571 41 356v15h200v30H0v30h512v-30H271zM71.602 341C79.263 245.979 159.04 171 256 171s176.737 74.979 184.398 170H71.602z'%3E%3C/path%3E%3C/svg%3E"},
@@ -71,4 +63,8 @@ Tag.create([
   {name: "Microwave", icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.866 14.866' class='w-4 h-4 m-1'%3E%3Cg fill='%23727e95'%3E%3Cpath d='M12.102 9a.812.812 0 00-.356.08h-.361v.328a.838.838 0 00.718 1.264A.836.836 0 1012.102 9zM12.032 5.656c-.163 0-.316.037-.456.103h-.463v.421a1.072 1.072 0 10.919-.524z'%3E%3C/path%3E%3Cpath d='M14.559 1.895H.307A.306.306 0 000 2.202v9.997c0 .169.137.307.307.307h.747v.466h2.549v-.466h7.533v.466h2.548v-.466h.875c.17 0 .307-.138.307-.307V2.2a.306.306 0 00-.307-.305zm-.307 9.997H.614V2.507h13.639l-.001 9.385z'%3E%3C/path%3E%3Cpath d='M9.336 3.745H1.896v6.91h7.44zM10.938 3.379h2.188V4.47h-2.188z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E"},
   {name: "Refrigerator", icon: "data:image/svg+xml,%3Csvg fill='%23727e95' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' class='w-4 h-4 m-1'%3E%3Cpath d='M409.887 60.484C409.887 27.133 382.753 0 349.402 0H162.463c-33.351 0-60.484 27.133-60.484 60.489l.134 391.027c0 33.351 27.133 60.484 60.484 60.484h186.94c33.351 0 60.484-27.133 60.484-60.489l-.134-391.027zm-277.912 0c-.001-16.811 13.676-30.488 30.488-30.488h186.94c16.811 0 30.488 13.677 30.488 30.493l.023 67.387H131.998l-.023-67.392zm217.561 421.52h-186.94c-16.811 0-30.488-13.677-30.488-30.493l-.1-293.638h247.916l.101 293.643c-.001 16.811-13.677 30.488-30.489 30.488z'%3E%3C/path%3E%3Cpath d='M329.522 194.133c-8.283 0-14.998 6.715-14.998 14.998v63.437c0 8.283 6.715 14.998 14.998 14.998s14.998-6.715 14.998-14.998v-63.437c0-8.283-6.715-14.998-14.998-14.998z'%3E%3C/path%3E%3C/svg%3E"},
   {name: "Laundromat", icon: "data:image/svg+xml,%3Csvg fill='%23727e95' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg' class='w-4 h-4 m-1'%3E%3Cpath d='M408 0H104C77.533 0 56 21.533 56 48v448c0 8.836 7.164 16 16 16h368c8.837 0 16-7.164 16-16V48c0-26.467-21.532-48-48-48zM104 32h304c8.822 0 16 7.178 16 16v48H88V48c0-8.822 7.178-16 16-16zM88 480V128h336v352z'%3E%3C/path%3E%3Cpath d='M376 80h8c8.837 0 16-7.164 16-16s-7.163-16-16-16h-8c-8.837 0-16 7.164-16 16s7.163 16 16 16zM312 80h8c8.837 0 16-7.164 16-16s-7.163-16-16-16h-8c-8.837 0-16 7.164-16 16s7.163 16 16 16zM383.997 303.796C383.886 233.31 326.511 176 256 176c-70.577 0-127.996 57.416-128 127.992C127.879 373.721 184.707 432 256 432c71.916 0 128.818-59.524 127.997-128.204zM256 208c49.349 0 90.114 37.431 95.411 85.392-42.72 15.758-64.354 6.511-89.108-4.098-24.974-10.702-52.8-22.622-99.301-9.152C173.637 238.711 211.299 208 256 208zm0 192c-49.349 0-90.114-37.431-95.411-85.391 72.61-26.782 87.018 19.26 149.168 19.258 11.524-.001 24.445-1.733 39.244-6.018C338.37 369.284 300.705 400 256 400z'%3E%3C/path%3E%3C/svg%3E"},
-])
+]
+if Tag.count != TAGS.count
+  Tag.destroy_all
+  Tag.create(TAGS)
+end
