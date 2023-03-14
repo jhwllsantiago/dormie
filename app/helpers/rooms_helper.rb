@@ -18,4 +18,12 @@ module RoomsHelper
     
     link_to(body, url, options)
   end
+
+  def options_for_location location
+    {
+      place: "#{location.latitude}, #{location.longitude}",
+      distance: 1,
+      sort: "distance-asc"
+    }
+  end
 end
