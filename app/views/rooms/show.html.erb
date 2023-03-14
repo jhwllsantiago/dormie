@@ -1,17 +1,11 @@
 <div class="container-fluid bg-repeat mb-custom py-4" data-controller="room">
   <div class="container-lg">
-    <div class="d-flex justify-content-end align-items-center mb-4">
+    <div style="min-height: calc(100vh - 87px)">
       <% if owner_signed_in? and current_owner&.rooms.include?(@room) %>
-        <%= button_to "Edit Room", edit_room_path(@room), class: "rs-button mx-2 py-1 px-3", method: :get %>
+        <%= button_to "Edit Room", edit_room_path(@room), class: "rs-button d-block ms-auto mb-3 py-1 px-3", method: :get %>
       <% end %>
-    </div>
-    <%= render "carousel" %>
-    <div class="d-flex align-items-start justify-content-evenly w-100 mb-sr">
+      <%= render "carousel" %>
       <%= render "room_description" %>
-    </div>
-    <div class="w-100 d-flex flex-row align-items-center justify-content-evenly mb-sr">
-      <div style="width: 40%;"><%= render "rooms/details" %></div>
-      <div style="width: 40%; align-self: start;"><%= render "rooms/contact" %></div>
     </div>
     <div class="w-100 mb-3">
       <h3 class="text-center monsterrat heading-color bold">Property Location</h3>
